@@ -1,3 +1,6 @@
+<!-- SPDX-FileCopyrightText: 2024 WithLithum <WithLithum@outlook.com> -->
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+
 # Definitions
 
 Unless context otherwise requires, all definitions in this document applies to

@@ -1,3 +1,6 @@
+<!-- SPDX-FileCopyrightText: 2024 WithLithum <WithLithum@outlook.com> -->
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+
 # Provision Specification
 
 A provision represents an entry in the provisions database that points to a

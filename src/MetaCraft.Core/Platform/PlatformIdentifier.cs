@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2024 WithLithum <WithLithum@outlook.com>
-// SPDX-LicenseIdentifier: GPL-3.0-or-later
+// SPDX-License-Identifier: GPL-3.0-or-later
 
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;

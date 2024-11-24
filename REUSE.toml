@@ -1,0 +1,60 @@
+# SPDX-FileCopyrightText: 2024 WithLithum <WithLithum@outlook.com>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+version = 1
+
+# resx & designer files
+
+[[annotations]]
+path = "src/**/*.resx"
+SPDX-FileCopyrightText = "2024 WithLithum <WithLithum@outlook.com>"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+[[annotations]]
+path = "src/**/*.Designer.cs"
+SPDX-FileCopyrightText = "2024 WithLithum <WithLithum@outlook.com>"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+# bin/obj files
+
+[[annotations]]
+path = "**/bin/**/*"
+SPDX-FileCopyrightText = "2024 WithLithum <WithLithum@outlook.com>"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+[[annotations]]
+path = "**/obj/**/*"
+SPDX-FileCopyrightText = "2024 WithLithum <WithLithum@outlook.com>"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+# Solution files
+
+[[annotations]]
+path = "**/*.sln"
+SPDX-FileCopyrightText = "2024 WithLithum <WithLithum@outlook.com>"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+[[annotations]]
+path = "**/*.csproj"
+SPDX-FileCopyrightText = "2024 WithLithum <WithLithum@outlook.com>"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+
+# .idea files
+
+[[annotations]]
+path = ".idea/**/*"
+SPDX-FileCopyrightText = "2024 WithLithum <WithLithum@outlook.com>"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+# DotSettings files
+
+[[annotations]]
+path = "src/MetaCraft.sln.DotSettings"
+SPDX-FileCopyrightText = "2024 WithLithum <WithLithum@outlook.com>"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+[[annotations]]
+path = "src/MetaCraft.sln.DotSettings.user"
+SPDX-FileCopyrightText = "2024 WithLithum <WithLithum@outlook.com>"
+SPDX-License-Identifier = "GPL-3.0-or-later"

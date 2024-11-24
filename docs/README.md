@@ -1,3 +1,6 @@
+<!-- SPDX-FileCopyrightText: 2024 WithLithum <WithLithum@outlook.com> -->
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+
 # MetaCraft Specifications
 
 The MetaCraft specifications is used to plan and specify how MetaCraft should

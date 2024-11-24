@@ -1,3 +1,6 @@
+<!-- SPDX-FileCopyrightText: 2024 WithLithum <WithLithum@outlook.com> -->
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+
 # MetaCraft Manifest Specification
 
 MetaCraft packages contains a `manifest.json` that is read by MetaCraft during

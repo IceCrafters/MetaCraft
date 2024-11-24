@@ -1,4 +1,7 @@
-﻿using System.CommandLine.Builder;
+﻿// SPDX-FileCopyrightText: 2024 WithLithum <WithLithum@outlook.com>
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+using System.CommandLine.Builder;
 using System.CommandLine.Parsing;
 using MetaCraft;
 using MetaCraft.Commands;

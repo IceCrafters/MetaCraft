@@ -1,4 +1,7 @@
-﻿using System.Text.Json.Serialization;
+﻿// SPDX-FileCopyrightText: 2024 WithLithum <WithLithum@outlook.com>
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+using System.Text.Json.Serialization;
 using MetaCraft.Core.Archive;
 using MetaCraft.Core.Manifest;
 using MetaCraft.Core.Platform;

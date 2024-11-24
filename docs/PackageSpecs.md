@@ -1,3 +1,6 @@
+<!-- SPDX-FileCopyrightText: 2024 WithLithum <WithLithum@outlook.com> -->
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+
 # MetaCraft Package Specification
 
 A MetaCraft package MUST be a `zip` formatted file, that contains a specific 
