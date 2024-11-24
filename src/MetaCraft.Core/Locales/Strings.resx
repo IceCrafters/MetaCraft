@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="PlatformParseInvalidSystem" xml:space="preserve">
+        <value>Invalid operating system identifier.</value>
+    </data>
+    <data name="PlatformParseInvalidArchitecture" xml:space="preserve">
+        <value>Invalid architecture identifier.</value>
+    </data>
+    <data name="PlatformParseInvalidFormat" xml:space="preserve">
+        <value>Invalid platform identifier format.</value>
+    </data>
+    <data name="PlaftormParseError" xml:space="preserve">
+        <value>An unexpected problem occurred when parsing the platform identifier.</value>
+    </data>
+    <data name="PackageArchiveMissingManifest" xml:space="preserve">
+        <value>The specified package archive does not have a manifest.</value>
+    </data>
+    <data name="ContainerInsertAlreadyExists" xml:space="preserve">
+        <value>Package '{0}' ({1}) already exists in the container.</value>
+    </data>
+    <data name="PackageUnitary" xml:space="preserve">
+        <value>Unitary</value>
+    </data>
+    <data name="PackageArchiveManifestNotFile" xml:space="preserve">
+        <value>The specified package contains a manifest entry but is not a file.</value>
+    </data>
+    <data name="PackageArchiveInvalidManifest" xml:space="preserve">
+        <value>The specified package contains an invalid manifest.</value>
+    </data>
+    <data name="PackageInstallExpand" xml:space="preserve">
+        <value>Expanding package {0} ({1})...</value>
+    </data>
+    <data name="PackageInstallConfigure" xml:space="preserve">
+        <value>Running configure script from {0} ({1})...</value>
+    </data>
+    <data name="ContainerTowDeleteFailed" xml:space="preserve">
+        <value>{0}: Failed to delete towed package</value>
+    </data>
+    <data name="ScopeLockIOError" xml:space="preserve">
+        <value>Unable to lock file: {0} (Is this scope occupied)?</value>
+    </data>
+    <data name="ScopeLockUnauthorizedAccess" xml:space="preserve">
+        <value>Unable to lock file: {0} (Is the scope occupied and does MetaCraft have permission?)</value>
+    </data>
+    <data name="PlatformShellExecuteFailed" xml:space="preserve">
+        <value>Unable to spawn shell process.</value>
+    </data>
+    <data name="PackageConfigureScriptFailed" xml:space="preserve">
+        <value>Configure script returned exit code {0}. Package may be left in partially configured state.</value>
+    </data>
+    <data name="ContainerUnitaryNoVersion" xml:space="preserve">
+        <value>Unitary package does not contain version informaion.</value>
+    </data>
+    <data name="PackageRemoveDeleting" xml:space="preserve">
+        <value>Removing package {0} ({1})...</value>
+    </data>
+    <data name="PackageRemoveNonExistent" xml:space="preserve">
+        <value>Skipped package {0} ({1}) because it does not exist</value>
+    </data>
+    <data name="PackageRemoveScriptFailNoError" xml:space="preserve">
+        <value>Ignoring pre-removal script exit code '{0}' due to "--force"</value>
+    </data>
+    <data name="PackageRemoveScriptError" xml:space="preserve">
+        <value>Package removal script returned exit code {0}</value>
+    </data>
+</root>

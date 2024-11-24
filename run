@@ -1,0 +1,21 @@
+#!/bin/sh
+
+SCRNAME=$(basename "$0")
+PROJNAME="MetaCraft"
+
+# Test for src folder (must run in repo root)
+if [ ! -d "src" ]; then
+    echo "$SCRNAME: probably not $PROJNAME dev directory ('src' doesn't exist)"
+    exit 1
+fi
+
+mkdir -p "$PWD/run.d/"
+mkdir -p "$PWD/run.d/scope"
+
+# Configure MetaCraft to isolate environment
+export METACRAFT_SCOPE="$PWD/run.d/scope"
+export METACRAFT_DRY_ENV=1
+export METACRAFT_CONFIG_HOME="$PWD/run.d/config"
+export METACRAFT_CACHE_HOME="$PWD/run.d/caches"
+
+dotnet run --project "$PWD/src/$PROJNAME/$PROJNAME.csproj" --no-self-contained -- $@

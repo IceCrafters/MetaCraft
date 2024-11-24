@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaCraft", "MetaCraft\MetaCraft.csproj", "{CBA99C9F-ED83-44A9-B324-3D282C802B63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaCraft.Core", "MetaCraft.Core\MetaCraft.Core.csproj", "{BF9BFE47-FB58-4587-B1EA-49589889F8EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaCraft.Tests", "MetaCraft.Tests\MetaCraft.Tests.csproj", "{4D2C7A74-B781-4CE2-9B7A-D1CAEA173184}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Specifications", "Specifications", "{39E1538D-F11A-41A4-99B6-1B38969E9C3D}"
+	ProjectSection(SolutionItems) = preProject
+		..\docs\ManifestSpecs.md = ..\docs\ManifestSpecs.md
+		..\docs\PackageSpecs.md = ..\docs\PackageSpecs.md
+		..\docs\DependencySpecs.md = ..\docs\DependencySpecs.md
+		..\docs\ProvisionSpecs.md = ..\docs\ProvisionSpecs.md
+		..\docs\ConfigSpecs.md = ..\docs\ConfigSpecs.md
+		..\docs\ScopeSpecs.md = ..\docs\ScopeSpecs.md
+		..\docs\WritingGuide.md = ..\docs\WritingGuide.md
+		..\docs\Definitions.md = ..\docs\Definitions.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CBA99C9F-ED83-44A9-B324-3D282C802B63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBA99C9F-ED83-44A9-B324-3D282C802B63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBA99C9F-ED83-44A9-B324-3D282C802B63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBA99C9F-ED83-44A9-B324-3D282C802B63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF9BFE47-FB58-4587-B1EA-49589889F8EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF9BFE47-FB58-4587-B1EA-49589889F8EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF9BFE47-FB58-4587-B1EA-49589889F8EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF9BFE47-FB58-4587-B1EA-49589889F8EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D2C7A74-B781-4CE2-9B7A-D1CAEA173184}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D2C7A74-B781-4CE2-9B7A-D1CAEA173184}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D2C7A74-B781-4CE2-9B7A-D1CAEA173184}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D2C7A74-B781-4CE2-9B7A-D1CAEA173184}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
