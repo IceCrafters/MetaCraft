@@ -47,6 +47,8 @@ public class PackageRemovalTransaction
         if (scriptFile != null && PlatformUtil.IsBatchSupported())
         {
             var location = _destination.GetInstalledPackageLocation(manifest)!;
+            
+            agent.PrintInfo(Strings.PackageRemoveConfigure, toRemove.Item1, toRemove.Item2);
             var exitCode = PlatformUtil.ExecuteBatch(scriptFile, location, manifest.Version.ToString());
             if (exitCode != 0)
             {

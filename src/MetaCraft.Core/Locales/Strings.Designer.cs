@@ -170,5 +170,11 @@ namespace MetaCraft.Core.Locales {
                 return ResourceManager.GetString("PackageRemoveScriptError", resourceCulture);
             }
         }
+        
+        internal static string PackageRemoveConfigure {
+            get {
+                return ResourceManager.GetString("PackageRemoveConfigure", resourceCulture);
+            }
+        }
     }
 }

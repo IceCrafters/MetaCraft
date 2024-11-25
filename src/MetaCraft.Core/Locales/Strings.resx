@@ -81,4 +81,7 @@
     <data name="PackageRemoveScriptError" xml:space="preserve">
         <value>Package removal script returned exit code {0}</value>
     </data>
+    <data name="PackageRemoveConfigure" xml:space="preserve">
+        <value>Running pre-removal script from {0} ({1})...</value>
+    </data>
 </root>

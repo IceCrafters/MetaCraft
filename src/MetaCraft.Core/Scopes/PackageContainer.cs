@@ -52,14 +52,15 @@ public class PackageContainer
 
     public string? GetPlatformFile(PackageManifest manifest, string subPath)
     {
+        Console.WriteLine(subPath);
         var location = GetPackageStoreLocation(manifest);
         if (!Directory.Exists(location))
         {
             return null;
         }
 
-        var exactPlatformFile = Path.Combine(subPath, PlatformIdentifier.Current.ToString());
-        var anyArchitectureFile = Path.Combine(subPath, new PlatformIdentifier(PlatformIdentifier.Current.System,
+        var exactPlatformFile = Path.Combine(location, subPath, PlatformIdentifier.Current.ToString());
+        var anyArchitectureFile = Path.Combine(location, subPath, new PlatformIdentifier(PlatformIdentifier.Current.System,
             PlatformArchitecture.Any).ToString());
 
         if (File.Exists(exactPlatformFile))
@@ -71,7 +72,7 @@ public class PackageContainer
         {
             return anyArchitectureFile;
         }
-
+        
         return null;
     }
 
