@@ -34,7 +34,7 @@ public class PackageInstallTransaction
         using var lck = _destination.Parent.Lock();
      
         // Expand the archive.
-        var location = _destination.InsertPackage(package.Manifest, _overwrite);
+        var location = _destination.InsertPackage(package.Manifest, _overwrite, true);
      
         agent.PrintInfo(Strings.PackageInstallExpand, package.Manifest.Id, package.Manifest.Version);
         package.ExpandArchive(location, _overwrite);

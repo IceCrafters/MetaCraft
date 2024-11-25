@@ -103,7 +103,7 @@ public class PackageContainer
         return Path.Combine(_root, manifest.Id, versionDir);
     }
 
-    public string InsertPackage(PackageManifest manifest, bool overwrite = false)
+    public string InsertPackage(PackageManifest manifest, bool overwrite = false, bool doNotCreateManifest = false)
     {
         var location = GetPackageStoreLocation(manifest);
         string? towedPackage = null;
@@ -127,8 +127,11 @@ public class PackageContainer
             Directory.CreateDirectory(Path.Combine(location, "contents"));
 
             // Place a manifest file
-            using var stream = File.Create(Path.Combine(location, "manifest.json"));
-            JsonSerializer.Serialize(stream, manifest, CoreJsonContext.Default.PackageManifest);
+            if (!doNotCreateManifest)
+            {   
+                using var stream = File.Create(Path.Combine(location, "manifest.json"));
+                JsonSerializer.Serialize(stream, manifest, CoreJsonContext.Default.PackageManifest);
+            }
 
             // Place version number file in case of need
             File.WriteAllText(Path.Combine(location, VersionFileName),
