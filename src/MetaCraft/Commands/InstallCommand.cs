@@ -33,7 +33,7 @@ internal class InstallCommand
 
     private void Execute(FileInfo[] file, bool force)
     {
-        var list = new List<PackageArchive>(file.Length);
+        var list = new List<PackageInstallTransaction>(file.Length);
 
         foreach (var f in file)
         {
@@ -47,10 +47,16 @@ internal class InstallCommand
                     archive.Manifest.Platform));
             }
             
-            list.Add(archive);
+            // Add new transaction to the list
+            list.Add(new PackageInstallTransaction(_container, new PackageInstallTransaction.Parameters()
+            {
+                Package = archive,
+                Overwrite = force
+            }));
         }
         
-        var transaction = new PackageInstallTransaction(list, _container, force);
-        transaction.Execute(new ConsoleAgent());
+        // Perform all transactions
+        var aggregate = new AggregateTransaction(_container, list);
+        aggregate.Commit(new ConsoleAgent());
     }
 }

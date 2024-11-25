@@ -64,9 +64,13 @@ public class RemoveCommand
                   package,
                   version ?? "latest"));
 
-        var transaction = new PackageRemovalTransaction([(package, semVer)],
-            _scope.Container,
-            force);
-        transaction.Execute(new ConsoleAgent());
+        var transaction = new PackageRemovalTransaction(_scope.Container,
+            new PackageRemovalTransaction.Parameters
+            {
+                Id = package,
+                Version = semVer,
+                Force = force
+            });
+        transaction.Commit(new ConsoleAgent());
     }
 }

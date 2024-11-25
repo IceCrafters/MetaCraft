@@ -8,36 +8,31 @@ using MetaCraft.Core.Scopes;
 
 namespace MetaCraft.Core.Transactions;
 
-public class PackageInstallTransaction
+/// <summary>
+/// Performs the installation of a single package.
+/// </summary>
+public sealed class PackageInstallTransaction : Transaction<PackageInstallTransaction.Parameters>
 {
-    private readonly IEnumerable<PackageArchive> _packages;
-    private readonly PackageContainer _destination;
-    private readonly bool _overwrite;
+    public readonly record struct Parameters(PackageArchive Package, bool Overwrite);
 
-    public PackageInstallTransaction(IEnumerable<PackageArchive> packages, PackageContainer destination, bool overwrite)
+    public PackageInstallTransaction(PackageContainer target, Parameters argument) : base(target, argument)
     {
-        _packages = packages;
-        _destination = destination;
-        _overwrite = overwrite;
     }
 
-    public void Execute(ITransactionAgent agent)
+    public override void Commit(ITransactionAgent agent)
     {
-        foreach (var package in _packages)
-        {
-            ExecuteInternal(package, agent);
-        }
+        ExecuteInternal(Argument.Package, agent);
     }
 
     private void ExecuteInternal(PackageArchive package, ITransactionAgent agent)
     {
-        using var lck = _destination.Parent.Lock();
+        using var lck = Target.Parent.Lock();
      
         // Expand the archive.
-        var location = _destination.InsertPackage(package.Manifest, _overwrite, true);
+        var location = Target.InsertPackage(package.Manifest, Argument.Overwrite, true);
      
         agent.PrintInfo(Strings.PackageInstallExpand, package.Manifest.Id, package.Manifest.Version);
-        package.ExpandArchive(location, _overwrite);
+        package.ExpandArchive(location, Argument.Overwrite);
         
         // Find and execute configure scripts
         var configurePath = Path.Combine(location, "config", "scripts", "install");
