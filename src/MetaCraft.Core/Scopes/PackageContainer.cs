@@ -25,6 +25,12 @@ public class PackageContainer
     public IEnumerable<SemVersion> EnumerateVersions(string packageId)
     {
         var packageDir = Path.Combine(_root, packageId);
+        if (!Directory.Exists(packageDir))
+        {
+            // No versions
+            return [];
+        }
+        
         var unitaryDir = Path.Combine(packageDir, "u");
 
         // If not unitary
