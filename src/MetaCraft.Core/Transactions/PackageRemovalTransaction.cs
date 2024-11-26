@@ -9,7 +9,7 @@ using Semver;
 
 namespace MetaCraft.Core.Transactions;
 
-public class PackageRemovalTransaction : Transaction<PackageRemovalTransaction.Parameters>
+public class PackageRemovalTransaction : ArgumentedTransaction<PackageRemovalTransaction.Parameters>
 {
     public readonly record struct Parameters(string Id, SemVersion Version, bool Force);
 
@@ -33,7 +33,7 @@ public class PackageRemovalTransaction : Transaction<PackageRemovalTransaction.P
         // Only execute if ExecuteBatch is supported, and scriptFile is not null
         if (scriptFile != null && PlatformUtil.IsBatchSupported())
         {
-            var location = Target.GetInstalledPackageLocation(manifest)!;
+            var location = Target.GetInstalledPackageLocationOrDefault(manifest)!;
             
             agent.PrintInfo(Strings.PackageRemoveConfigure, Argument.Id, Argument.Version);
             var exitCode = PlatformUtil.ExecuteBatch(scriptFile, location, manifest.Version.ToString());

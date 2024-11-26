@@ -5,14 +5,19 @@ using MetaCraft.Core.Scopes;
 
 namespace MetaCraft.Core.Transactions;
 
-public abstract class Transaction : ITransaction
+/// <summary>
+/// Represents an operation on the package container.
+/// </summary>
+public abstract class ArgumentedTransaction<TArg> : ITransaction
 {
-    protected Transaction(PackageContainer target)
+    protected ArgumentedTransaction(PackageContainer target, TArg argument)
     {
+        Argument = argument;
         Target = target;
     }
 
     public PackageContainer Target { get; }
+    public TArg Argument { get; }
 
     /// <summary>
     /// If implemented, executes this transaction.

@@ -5,7 +5,7 @@ using MetaCraft.Core.Scopes;
 
 namespace MetaCraft.Core.Transactions;
 
-public class AggregateTransaction : Transaction<IEnumerable<ITransaction>>
+public class AggregateTransaction : ArgumentedTransaction<IEnumerable<ITransaction>>
 {
     public AggregateTransaction(PackageContainer target, IEnumerable<ITransaction> argument) : base(target, argument)
     {

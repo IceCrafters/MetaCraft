@@ -15,7 +15,12 @@ of the provision, and MUST contain the following data in UTF-8:
 ```json
 {
   "name": "<package id>",
-  "version": "<package version>"
+  "versions": {
+    "<provision version>": {
+      "name": "<package name>",
+      "version": "<package version>"
+    }
+  }
 }
 ```
 
@@ -36,6 +41,26 @@ provision MUST be regarded as incompatible.
 
 ## Maintenance
 
-If the database in the package scope root violates this specification, then the
-database files MUST be marked invalid and regenerated from the local package
-scope.
+### Up-to-date
+
+On each transaction that modifies the database, the program MUST generate a
+time-based value, and store it in the package container root, as file `serial`.
+And, on each provision database regeneration, the program MUST copy the
+`serial` file into the provisions directory.
+
+Whenever the two `serial` file mismatches, the database must be regarded as
+having mismatched with the package database and be regenerated.
+
+The time-based value can be any value but MUST be eight-bytes long, and MUST be
+time-based or otherwise unique. The file itself doesn't have necessarily be
+exactly eight bytes long, however, just the first 8 bytes must be unique.
+
+### Regeneration
+
+If the database in the package scope root—
+
+- violates this specification; or,
+- mismatches with the package database,
+
+then the database files MUST be marked invalid and regenerated from the local
+package scope.

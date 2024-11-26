@@ -16,5 +16,6 @@ namespace MetaCraft.Core;
 [JsonSerializable(typeof(PackageReferenceDictionary))]
 [JsonSerializable(typeof(ProvisionReferenceDictionary))]
 [JsonSerializable(typeof(PackageManifest))]
+[JsonSerializable(typeof(Dictionary<string, PackageReference>), TypeInfoPropertyName = "ProvisionMap")]
 [JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
 public partial class CoreJsonContext : JsonSerializerContext;
