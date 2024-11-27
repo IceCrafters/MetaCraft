@@ -10,7 +10,7 @@ namespace MetaCraft.Core.Scopes;
 /// Provides a shared implementation on the "serial file" concept that indicates whether a pair
 /// of data is up-to-date to each other.
 /// </summary>
-public class SerialFile
+public class SerialFile : ISerialed
 {
     public const string CommonFileName = "serial.dat";
 
@@ -42,10 +42,13 @@ public class SerialFile
 
             Span<byte> buffer = stackalloc byte[sizeof(long)];
             BinaryPrimitives.WriteInt64LittleEndian(buffer, value);
+            stream.Write(buffer);
+
+            stream.Flush();
         }
         catch (Exception ex)
         {
-            Console.WriteLine(Strings.ResourceManager.GetString("ContainerSerialUpdateFailed"));
+            Console.WriteLine(Lc.L("Failed to update serial"));
 #if DEBUG
             Console.WriteLine(ex);
 #endif
@@ -81,5 +84,15 @@ public class SerialFile
     {
         var epoch = (long)Math.Floor((DateTime.UtcNow - DateTime.UnixEpoch).TotalSeconds);
         WriteSerial(epoch);
+    }
+
+    public void CopySerial(ISerialed from)
+    {
+        WriteSerial(from.GetSerial());
+    }
+
+    public long GetSerial()
+    {
+        return ReadSerial();
     }
 }
