@@ -2,9 +2,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 using System.ComponentModel;
+using System.Globalization;
 using System.Reflection;
+using GetText;
 using MetaCraft.Core.Scopes;
-using MetaCraft.Locales;
 
 namespace MetaCraft;
 
@@ -15,8 +16,13 @@ internal static class Application
     private static readonly string DefaultScopeLocation = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
         "MetaCraft");
-    
-    private static readonly string BaseName = Path.GetFileName(Environment.ProcessPath)
+
+    private static readonly string LocaleDirectory = Path.Combine(Path.GetDirectoryName(Environment.ProcessPath)!,
+        "locale");
+
+    internal static readonly ICatalog Catalog = new Catalog("frontend", LocaleDirectory, CultureInfo.CurrentUICulture);
+
+    internal static readonly string BaseName = Path.GetFileName(Environment.ProcessPath)
                                                ?? Assembly.GetExecutingAssembly().GetName().Name
                                                ?? AppName;
     
@@ -28,10 +34,10 @@ internal static class Application
     public static void PrintError(Exception ex)
     {
 #if DEBUG
-        Console.Error.WriteLine(AppMessages.ErrorExceptionOccurred, BaseName);
+        Console.Error.WriteLine(Lc.L("{0}: exception occurred", BaseName));
         Console.Error.WriteLine(ex.ToString());
 #else
-        Console.Error.WriteLine(AppMessages.ErrorExceptionOccurredWithMessage, BaseName, ex.Message);
+        Console.Error.WriteLine(Lc.L("{0}: exception occurred: {1}", BaseName, ex.Message));
 #endif
     }
 

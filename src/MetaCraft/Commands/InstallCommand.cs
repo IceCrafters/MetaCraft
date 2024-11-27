@@ -6,14 +6,13 @@ using MetaCraft.Core.Archive;
 using MetaCraft.Core.Platform;
 using MetaCraft.Core.Scopes;
 using MetaCraft.Core.Transactions;
-using MetaCraft.Locales;
 
 namespace MetaCraft.Commands;
 
 internal class InstallCommand
 {
-    private static readonly Argument<FileInfo[]> ArgFile = new("files", AppMessages.InstallCommandArgumentFile);
-    private static readonly Option<bool> OptionOverwrite = new(["-f", "--force"], AppMessages.InstallCommandOptionForce);
+    private static readonly Argument<FileInfo[]> ArgFile = new(@"files", Lc.L("The package archives to install"));
+    private static readonly Option<bool> OptionOverwrite = new([@"-f", @"--force"], Lc.L("If specified, remove already existing packages of same ID and version"));
     private readonly PackageContainer _container;
 
     public InstallCommand(PackageContainer container)
@@ -23,7 +22,7 @@ internal class InstallCommand
 
     internal Command Create()
     {
-        var command = new Command("install", AppMessages.InstallCommandDescription);
+        var command = new Command(@"install", Lc.L("Installs one or more package archives"));
         command.AddArgument(ArgFile);
         command.AddOption(OptionOverwrite);
         command.SetHandler(Execute, ArgFile, OptionOverwrite);
@@ -40,11 +39,8 @@ internal class InstallCommand
             var archive = PackageArchive.Open(f.FullName);
             if (!archive.Manifest.Platform.Covers(PlatformIdentifier.Current))
             {
-                throw new InvalidOperationException(string.Format(AppMessages.InstallCommandPlatformNotSupported,
-                    archive.Manifest.Id,
-                    archive.Manifest.Version,
-                    PlatformIdentifier.Current,
-                    archive.Manifest.Platform));
+                throw new InteractiveException(
+                    Lc.L($"platform '{archive.Manifest.Id}' ({archive.Manifest.Version}) requires platform {archive.Manifest.Platform} but current is {PlatformIdentifier.Current}"));
             }
             
             // Add new transaction to the list
