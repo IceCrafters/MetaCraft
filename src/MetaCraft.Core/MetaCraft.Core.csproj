@@ -11,6 +11,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="GetText.NET" Version="1.9.14" />
       <PackageReference Include="Semver" Version="3.0.0" />
     </ItemGroup>
 
@@ -27,6 +28,9 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>Strings.resx</DependentUpon>
       </Compile>
+      <None Include="../../i10n/zh-CN/core.mo" Link="locale/zh-CN/core.mo">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>
