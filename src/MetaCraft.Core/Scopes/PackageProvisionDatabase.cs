@@ -7,7 +7,7 @@ using Semver;
 
 namespace MetaCraft.Core.Scopes;
 
-public class PackageProvisionDatabase
+public class PackageProvisionDatabase : ISerialed
 {
     private const string ProvisionFolder = "provision";
 
@@ -22,6 +22,27 @@ public class PackageProvisionDatabase
         Directory.CreateDirectory(_root);
 
         _serial = new SerialFile(Path.Combine(_root, "serial"));
+    }
+
+    public void Clear()
+    {
+        if (!Directory.Exists(_root))
+        {
+            return;
+        }
+
+        Directory.Delete(_root, true);
+        Directory.CreateDirectory(_root);
+    }
+
+    public bool CompareSerialWith(SerialFile serial)
+    {
+        return serial.CompareSerialWith(_serial);
+    }
+
+    public void CopySerial(SerialFile from)
+    {
+        _serial.WriteSerial(from.ReadSerial());
     }
 
     public PackageReference? GetProvisionOrDefault(ProvisionReference reference)

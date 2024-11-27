@@ -234,4 +234,9 @@ public class PackageContainer : ISerialed
     {
         return _serialFile.CompareSerialWith(serial);
     }
+
+    public void CopySerial(SerialFile from)
+    {
+        _serialFile.WriteSerial(from.ReadSerial());
+    }
 }

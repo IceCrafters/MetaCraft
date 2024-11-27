@@ -13,5 +13,5 @@ public interface ISerialed
     /// <returns><see langword="true"/> if the serial data equals; otherwise, <see langword="false"/>.</returns>
     bool CompareSerialWith(SerialFile serial);
 
-    void CopySerial();
+    void CopySerial(SerialFile from);
 }
