@@ -21,4 +21,9 @@ public readonly record struct PackageReference
     
     [JsonConverter(typeof(SemVersionConverter))]
     public required SemVersion Version { get; init; }
+
+    public static PackageReference Of(PackageManifest manifest)
+    {
+        return new PackageReference(manifest.Id, manifest.Version);
+    }
 }

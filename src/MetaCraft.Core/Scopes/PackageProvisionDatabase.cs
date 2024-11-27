@@ -13,41 +13,47 @@ public class PackageProvisionDatabase : ISerialed
 
     private readonly PackageScope _scope;
     private readonly SerialFile _serial;
-    private readonly string _root;
 
     public PackageProvisionDatabase(PackageScope scope)
     {
         _scope = scope;
-        _root = Path.Combine(_scope.Root, ProvisionFolder);
-        Directory.CreateDirectory(_root);
+        Root = Path.Combine(_scope.Root, ProvisionFolder);
+        Directory.CreateDirectory(Root);
 
-        _serial = new SerialFile(Path.Combine(_root, "serial"));
+        _serial = new SerialFile(Path.Combine(Root, "serial"));
     }
+
+    public string Root { get; }
 
     public void Clear()
     {
-        if (!Directory.Exists(_root))
+        if (!Directory.Exists(Root))
         {
             return;
         }
 
-        Directory.Delete(_root, true);
-        Directory.CreateDirectory(_root);
+        Directory.Delete(Root, true);
+        Directory.CreateDirectory(Root);
     }
 
     public bool CompareSerialWith(SerialFile serial)
     {
-        return serial.CompareSerialWith(_serial);
+        return ((ISerialed)_serial).CompareSerialWith(serial);
     }
 
     public void CopySerial(SerialFile from)
     {
-        _serial.WriteSerial(from.ReadSerial());
+        ((ISerialed)_serial).CopySerial(from);
+    }
+
+    public void CopySerial(ISerialed from)
+    {
+        ((ISerialed)_serial).CopySerial(from);
     }
 
     public PackageReference? GetProvisionOrDefault(ProvisionReference reference)
     {
-        var provisionPath = Path.Combine(_root,
+        var provisionPath = Path.Combine(Root,
             $"{reference.Id}.json");
 
         if (!File.Exists(provisionPath))
@@ -78,5 +84,10 @@ public class PackageProvisionDatabase : ISerialed
         }
 
         return versions[realKey.ToString()];
+    }
+
+    public long GetSerial()
+    {
+        return ((ISerialed)_serial).GetSerial();
     }
 }

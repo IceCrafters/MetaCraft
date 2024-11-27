@@ -12,12 +12,15 @@ public class PackageScope
     public PackageScope(string root)
     {
         Root = root;
-        Container = new PackageContainer(Path.Combine(root, "packages"), this);
-
         Directory.CreateDirectory(Root);
+
+        Container = new PackageContainer(Path.Combine(root, "packages"), this);
+        Provisions = new PackageProvisionDatabase(this);
     }
     
     public PackageContainer Container { get; }
+
+    public PackageProvisionDatabase Provisions { get; }
     
     public string Root { get; }
 

@@ -27,6 +27,14 @@ public class PackageContainer : ISerialed
 
     public PackageScope Parent { get; }
 
+    public IEnumerable<string> EnumeratePackages()
+    {
+        foreach (var dir in Directory.EnumerateDirectories(_root))
+        {
+            yield return dir;
+        }
+    }
+
     public IEnumerable<SemVersion> EnumerateVersions(string packageId)
     {
         var packageDir = Path.Combine(_root, packageId);
@@ -232,11 +240,21 @@ public class PackageContainer : ISerialed
 
     public bool CompareSerialWith(SerialFile serial)
     {
-        return _serialFile.CompareSerialWith(serial);
+        return ((ISerialed)_serialFile).CompareSerialWith(serial);
     }
 
     public void CopySerial(SerialFile from)
     {
-        _serialFile.WriteSerial(from.ReadSerial());
+        ((ISerialed)_serialFile).CopySerial(from);
+    }
+
+    public long GetSerial()
+    {
+        return ((ISerialed)_serialFile).GetSerial();
+    }
+
+    public void CopySerial(ISerialed from)
+    {
+        ((ISerialed)_serialFile).CopySerial(from);
     }
 }
