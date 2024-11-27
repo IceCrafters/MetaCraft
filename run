@@ -12,6 +12,11 @@ if [ ! -d "src" ]; then
     exit 1
 fi
 
+# Build translation files as necessary
+cd i10n
+make
+cd ../
+
 mkdir -p "$PWD/run.d/"
 mkdir -p "$PWD/run.d/scope"
 

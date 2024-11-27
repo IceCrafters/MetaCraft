@@ -1,0 +1,126 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: MetaCraft\n"
+"POT-Creation-Date: 2024-11-26 18:27:50+0800\n"
+"PO-Revision-Date: 2024-11-26 18:27:51+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: GetText.NET Extractor\n"
+
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:46
+msgid "Version"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:45
+msgid "Package Time"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InstallCommand.cs:14
+msgid "The package archives to install"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:50
+msgid "Dependencies"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InstallCommand.cs:43
+#, csharp-format
+msgid "platform '{0}' ({1}) requires platform {2} but current is {3}"
+msgstr ""
+
+#: ../../../src/MetaCraft/Program.cs:35
+msgid "MetaCraft local package manager"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:59
+msgid "Maintainers"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:34
+#, csharp-format
+msgid "not a package: {0}"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:56
+msgid "Description"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InstallCommand.cs:25
+msgid "Installs one or more package archives"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/RemoveCommand.cs:32
+msgid "Uninstalls a package from the current scope"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/RemoveCommand.cs:53
+#, csharp-format
+msgid "version not found: {0}"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:51
+msgid "Conflicts with"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/RemoveCommand.cs:26
+msgid "The version to remove"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:118
+#, csharp-format
+msgid "file not found: {1}"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:48
+msgid "File Size"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:21
+msgid "Reads a package and shows its information"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:52
+msgid "Provides"
+msgstr ""
+
+#: ../../../src/MetaCraft/Application.cs:40
+#, csharp-format
+msgid "{0}: exception occurred: {1}"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/RemoveCommand.cs:29
+msgid "If specified, ignore pre-removal script failures"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/RemoveCommand.cs:24
+msgid "The package to remove"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:57
+msgid "Licence"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:58
+msgid "Authors"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/RemoveCommand.cs:62
+#, csharp-format
+msgid "no such package: '{0}' ({1})"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InstallCommand.cs:15
+msgid "If specified, remove already existing packages of same ID and version"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:44
+msgid "Package ID"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:47
+msgid "Platform"
+msgstr ""
+

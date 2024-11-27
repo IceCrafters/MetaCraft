@@ -12,27 +12,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="GetText.NET" Version="1.9.14" />
     <PackageReference Include="Spectre.Console" Version="0.49.1" />
     <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Locales\AppMessages.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppMessages.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Locales\AppMessages.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>AppMessages.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MetaCraft.Core\MetaCraft.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="../../i10n/zh-CN/frontend.mo" Link="locale/zh-CN/frontend.mo">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
