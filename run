@@ -12,6 +12,9 @@ if [ ! -d "src" ]; then
     exit 1
 fi
 
+# Build translation files as necessary
+pwsh ./configure.ps1
+
 mkdir -p "$PWD/run.d/"
 mkdir -p "$PWD/run.d/scope"
 
@@ -21,4 +24,4 @@ export METACRAFT_DRY_ENV=1
 export METACRAFT_CONFIG_HOME="$PWD/run.d/config"
 export METACRAFT_CACHE_HOME="$PWD/run.d/caches"
 
-dotnet run --project "$PWD/src/$PROJNAME/$PROJNAME.csproj" --no-self-contained -- $@
+dotnet run --project "$PWD/src/$PROJNAME/$PROJNAME.csproj" --no-self-contained -- "$@"

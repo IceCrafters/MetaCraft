@@ -5,7 +5,6 @@ using System.CommandLine;
 using System.CommandLine.Parsing;
 using MetaCraft.Core.Scopes;
 using MetaCraft.Core.Transactions;
-using MetaCraft.Locales;
 using Semver;
 
 namespace MetaCraft.Commands;
@@ -22,15 +21,15 @@ public class RemoveCommand
     public Command Create()
     {
         // -- ARGUMENTS --
-        var argPackage = new Argument<string>("packages", AppMessages.RemoveCommandArgumentPackage);
+        var argPackage = new Argument<string>(@"package", Lc.L("The package to remove"));
         
-        var argVersion = new Argument<string?>("version", () => null, AppMessages.RemoveCommandArgumentVersion);
+        var argVersion = new Argument<string?>(@"version", () => null, Lc.L("The version to remove"));
         argVersion.AddValidator(ValidateVersion);
         
-        var optForce = new Option<bool>("--force", AppMessages.RemoveCommandOptionForce);
+        var optForce = new Option<bool>(@"--force", Lc.L("If specified, ignore pre-removal script failures"));
         
         // -- COMMAND --
-        var command = new Command("remove", AppMessages.RemoveCommandDescription)
+        var command = new Command(@"remove", Lc.L("Uninstalls a package from the current scope"))
         {
             argPackage,
             argVersion,
@@ -51,7 +50,7 @@ public class RemoveCommand
 
         if (!SemVersion.TryParse(value, SemVersionStyles.Any, out _))
         {
-            symbol.ErrorMessage = AppMessages.RemoveCommandInvalidVersion;
+            symbol.ErrorMessage = Lc.L("version not found: {0}", value);
         }
     }
 
@@ -60,9 +59,7 @@ public class RemoveCommand
         var semVer = (version != null
             ? SemVersion.Parse(version, SemVersionStyles.Any)
             : _scope.Container.GetLatestVersion(package))
-              ?? throw new InteractiveException(string.Format(AppMessages.RemoveCommandNonExistent,
-                  package,
-                  version ?? "latest"));
+              ?? throw new InteractiveException(Lc.L($"no such package: '{package}' ({version ?? @"latest"})"));
 
         var transaction = new PackageRemovalTransaction(_scope.Container,
             new PackageRemovalTransaction.Parameters

@@ -3,6 +3,18 @@
 
 version = 1
 
+# .vscode files
+[[annotations]]
+path = ".vscode/**/*"
+SPDX-FileCopyrightText = "2024 WithLithum <WithLithum@outlook.com>"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+# i10n files
+[[annotations]]
+path = "i10n/**/*"
+SPDX-FileCopyrightText = "2024 WithLithum <WithLithum@outlook.com>"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
 # bin/obj files
 
 [[annotations]]

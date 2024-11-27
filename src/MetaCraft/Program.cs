@@ -3,8 +3,11 @@
 
 using System.CommandLine.Builder;
 using System.CommandLine.Parsing;
+using System.Globalization;
 using MetaCraft;
 using MetaCraft.Commands;
+
+System.Console.WriteLine(CultureInfo.CurrentUICulture);
 
 var builder = new CommandLineBuilder()
     .EnablePosixBundling()
@@ -29,7 +32,7 @@ var builder = new CommandLineBuilder()
 
 var scope = Application.InitializeScope();
 
-builder.Command.Description = "MetaCraft local package manager";
+builder.Command.Description = Lc.L("MetaCraft local package manager");
 builder.Command.AddCommand(InspectCommand.Create());
 builder.Command.AddCommand(new InstallCommand(scope.Container).Create());
 builder.Command.AddCommand(new RemoveCommand(scope).Create());
