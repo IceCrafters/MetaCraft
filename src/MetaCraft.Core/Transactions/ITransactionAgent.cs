@@ -7,4 +7,6 @@ public interface ITransactionAgent
 {
     void PrintInfo(string message);
     void PrintInfo(string message, params object[] args);
+    void PrintWarning(string message);
+    void PrintWarning(string message, params object[] args);
 }
