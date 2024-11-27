@@ -19,16 +19,18 @@ foreach ($langId in $ProjectLanguages) {
 
     # For each module, check language file is alright
     foreach ($moduleId in $ProjectModules) {
-        $langFile = Get-Item "${langBase}${pss}${moduleId}.mo"
+        $langPath = "${langBase}${pss}${moduleId}.mo"
+        $langFile = Get-Item $langPath
         $poFile = Get-Item "${langBase}${pss}${moduleId}.po"
 
         if (!($poFile.Exists)) {
             continue
         }
 
-        if (!($langFile.Exists) || $langFile.LastWriteTime -lt $poFile.LastWriteTime) {
+        if (!($langFile.Exists) -or ($langFile.LastWriteTime -lt $poFile.LastWriteTime)) {
             # Rebuild the language file
-            msgfmt $poFile.FullName  -o $langFile.FullName
+            Write-Output "Recompiling language file $(($poFile.Name))"
+            msgfmt $poFile.FullName  -o $langPath
         }
     }
 }
