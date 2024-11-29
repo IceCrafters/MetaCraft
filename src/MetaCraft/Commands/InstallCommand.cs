@@ -50,9 +50,12 @@ internal class InstallCommand
                 Overwrite = force
             }));
         }
-        
+
         // Perform all transactions
-        var aggregate = new AggregateTransaction(_container, list);
+        var arguments = new FinalActionAggregateTransaction.Parameter(list, 
+            new RefreshProvisionsTransaction(_container, new RefreshProvisionsTransaction.Parameters(false)));
+
+        var aggregate = new FinalActionAggregateTransaction(_container, arguments);
         aggregate.Commit(new ConsoleAgent());
     }
 }
