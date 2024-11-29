@@ -7,12 +7,12 @@ namespace MetaCraft.Core.Transactions;
 
 public abstract class Transaction : ITransaction
 {
-    protected Transaction(PackageContainer target)
+    protected Transaction(IPackageContainer target)
     {
         Target = target;
     }
 
-    public PackageContainer Target { get; }
+    public IPackageContainer Target { get; }
 
     /// <summary>
     /// If implemented, executes this transaction.

@@ -10,7 +10,7 @@ using Semver;
 
 namespace MetaCraft.Core.Scopes;
 
-public class PackageContainer : ISerialed
+public class PackageContainer : IPackageContainer
 {
     private const string VersionFileName = "VERSION";
     private readonly string _root;
