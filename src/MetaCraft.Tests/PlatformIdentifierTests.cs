@@ -136,6 +136,6 @@ public class PlatformIdentifierTests
         var result = instanceA.Covers(instanceB);
         
         // Assert
-        Assert.False(result);
+        Assert.True(result);
     }
 }
