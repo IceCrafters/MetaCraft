@@ -51,7 +51,7 @@ public class PackageProvisionDatabase : ISerialed
         ((ISerialed)_serial).CopySerial(from);
     }
 
-    public PackageReference? GetProvisionOrDefault(ProvisionReference reference)
+    public PackageReference? GetProvisionOrDefault(RangedPackageReference reference)
     {
         var provisionPath = Path.Combine(Root,
             $"{reference.Id}.json");

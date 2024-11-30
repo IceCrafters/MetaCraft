@@ -6,10 +6,10 @@ using Semver;
 
 namespace MetaCraft.Core.Archive;
 
-public sealed class ProvisionReference
+public sealed class RangedPackageReference
 {
     [SetsRequiredMembers]
-    public ProvisionReference(string id, SemVersionRange version)
+    public RangedPackageReference(string id, SemVersionRange version)
     {
         Id = id;
         Version = version;

@@ -8,11 +8,11 @@ using Semver;
 
 namespace MetaCraft.Core.Serialization;
 
-public class ProvisionReferenceDictionaryConverter : JsonConverter<ProvisionReferenceDictionary>
+public class RangedReferenceDictionaryConverter : JsonConverter<RangedPackageReferenceDictionary>
 {
     private static readonly SemVersionRangeConverter VersionRangeConverter = new();
     
-    public override ProvisionReferenceDictionary? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override RangedPackageReferenceDictionary? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         if (reader.TokenType == JsonTokenType.Null)
         {
@@ -24,7 +24,7 @@ public class ProvisionReferenceDictionaryConverter : JsonConverter<ProvisionRefe
             throw new JsonException("Expected start of object.");
         }
 
-        var dictionary = new ProvisionReferenceDictionary();
+        var dictionary = new RangedPackageReferenceDictionary();
         while (true)
         {
             reader.Read();
@@ -65,7 +65,7 @@ public class ProvisionReferenceDictionaryConverter : JsonConverter<ProvisionRefe
         return dictionary;
     }
 
-    public override void Write(Utf8JsonWriter writer, ProvisionReferenceDictionary value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, RangedPackageReferenceDictionary value, JsonSerializerOptions options)
     {
         writer.WriteStartObject();
 
