@@ -5,6 +5,16 @@ using MetaCraft.Core.Archive;
 
 namespace MetaCraft.Core.Scopes.Referral;
 
+/// <summary>
+/// Represents a collection of referrer identifiers and package references.
+/// </summary>
+/// <remarks>
+/// <para>
+/// There can exist more than one package referrers under one package version, and each referrer is
+/// uniquely identified by a referrer ID. This referrer ID can be any arbitrary string that fits
+/// into the JSON.
+/// </para>
+/// </remarks>
 public sealed class PackageReferrerDictionary : Dictionary<string, PackageReference>
 {
     public PackageReferrerDictionary()

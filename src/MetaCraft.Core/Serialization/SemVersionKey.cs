@@ -10,7 +10,7 @@ namespace MetaCraft.Core.Serialization;
 /// Represents <see cref="SemVersion"/> as a key in a dictionary.
 /// </summary>
 [JsonConverter(typeof(SemVersionKeyConverter))]
-public sealed class SemVersionKey
+public sealed class SemVersionKey : IEquatable<SemVersionKey>
 {
     public SemVersionKey(SemVersion value)
     {
@@ -18,4 +18,19 @@ public sealed class SemVersionKey
     }
 
     public SemVersion Value { get; }
+
+    public bool Equals(SemVersionKey? other)
+    {
+        return other != null && Value.Equals(other.Value);
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is SemVersionKey key && Equals(key);
+    }
+
+    public override int GetHashCode()
+    {
+        return Value.GetHashCode();
+    }
 }
