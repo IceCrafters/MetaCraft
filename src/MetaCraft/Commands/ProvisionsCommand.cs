@@ -18,7 +18,7 @@ public class ProvisionsCommand
 
     public Command Create()
     {
-        var command = new Command("provisions", Lc.L("Query and update provisions"));
+        var command = new Command("referral", Lc.L("Query and update referral database"));
 
         command.AddCommand(CreateUpdate());
 
@@ -27,9 +27,9 @@ public class ProvisionsCommand
 
     private Command CreateUpdate()
     {
-        var optForce = new Option<bool>(["-F", "--force"], Lc.L("Regenerates even if the provisions database is up-to-date"));
+        var optForce = new Option<bool>(["-F", "--force"], Lc.L("Regenerates even if the referral database is up-to-date"));
 
-        var command = new Command("update", Lc.L("Regenerates provision file"))
+        var command = new Command("update", Lc.L("Regenerate referral database entries"))
         {
             optForce
         };
@@ -41,8 +41,8 @@ public class ProvisionsCommand
 
     private void ExecuteUpdate(bool force)
     {
-        var args = new RefreshProvisionsTransaction.Parameters(force);
-        var transaction = new RefreshProvisionsTransaction(_scope.Container, args);
+        var args = new UpdateReferrersTransaction.Parameters(force);
+        var transaction = new UpdateReferrersTransaction(_scope.Container, args);
 
         transaction.Commit(new ConsoleAgent());
     }

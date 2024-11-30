@@ -15,7 +15,7 @@ public static class DictionaryExtensions
     /// <param name="key">The key.</param>
     /// <param name="valueProvider">The value provider function.</param>
     /// <returns>The value associated with the specified key.</returns>
-    public static TValue GetOrAdd<TKey, TValue>(this Dictionary<TKey, TValue> dictionary,
+    public static TValue GetOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dictionary,
         TKey key,
         Func<TValue> valueProvider)
         where TKey : notnull

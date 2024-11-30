@@ -24,5 +24,5 @@ public sealed class PackageReferralIndex
 
     public required PackageReferrerDictionary Referrers { get; init; }
 
-    public required string Current { get; init; }
+    public required string Current { get; set; }
 }

@@ -10,9 +10,11 @@ public class JsonFileReferralDatabaseStore : IReferralDatabaseStore
     public JsonFileReferralDatabaseStore(string root)
     {
         Root = root;
+
+        Directory.CreateDirectory(Root);
     }
 
-    public string Root { get; }
+    private string Root { get; }
 
     public void Clear()
     {
@@ -27,7 +29,7 @@ public class JsonFileReferralDatabaseStore : IReferralDatabaseStore
 
     public SerialFile GetSerialFile()
     {
-        return new SerialFile(Path.Combine(Root, "serial.dat"));
+        return new SerialFile(Path.Combine(Root, SerialFile.CommonFileName));
     }
 
     public ReferralIndexDictionary? ReadFile(string packageName)
@@ -38,19 +40,9 @@ public class JsonFileReferralDatabaseStore : IReferralDatabaseStore
         {
             return null;
         }
-
-        ReferralIndexDictionary? data;
-        using (var stream = File.OpenRead(filePath))
-        {
-            data = JsonSerializer.Deserialize(stream, CoreJsonContext.Default.ReferralIndexDictionary);
-        }
         
-        if (data == null)
-        {
-            return null;
-        }
-
-        return data;
+        using var stream = File.OpenRead(filePath);
+        return JsonSerializer.Deserialize(stream, CoreJsonContext.Default.ReferralIndexDictionary);
     }
 
     public void WriteFile(string packageName, ReferralIndexDictionary data)

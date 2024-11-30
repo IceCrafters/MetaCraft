@@ -9,20 +9,21 @@ namespace MetaCraft.Core.Scopes.Referral;
 public class PackageReferralDatabase : ISerialed
 {
     private readonly SerialFile _serialFile;
-    private readonly IReferralDatabaseStore _store;
 
     public PackageReferralDatabase(IReferralDatabaseStore store)
     {
-        _store = store;
+        Store = store;
 
-        _serialFile = _store.GetSerialFile();
+        _serialFile = Store.GetSerialFile();
     }
+    
+    internal IReferralDatabaseStore Store { get; }
 
     public PackageReference? Locate(RangedPackageReference reference)
     {
         // Get index dictionary data
 
-        var data = _store.ReadFile(reference.Id);
+        var data = Store.ReadFile(reference.Id);
         if (data == null)
         {
             return null;
@@ -62,7 +63,7 @@ public class PackageReferralDatabase : ISerialed
 
     public void Clear()
     {
-        _store.Clear();
+        Store.Clear();
     }
 
     public bool CompareSerialWith(SerialFile serial)
