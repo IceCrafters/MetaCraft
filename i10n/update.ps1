@@ -18,10 +18,15 @@ foreach ($moduleId in $ProjectModules) {
 
     foreach ($langId in $ProjectLanguages) {
         $langBase = "${i10nDir}${pss}${langId}"
-        $poFile = Get-Item "${langBase}${pss}${moduleId}.po"
+        $poPath = "${langBase}${pss}${moduleId}.po"
 
-        # Invoke msgmerge!
-        msgmerge -U $poFile.FullName $templateFile.FullName
+        if (!(Test-Path $poPath -PathType Leaf)) {
+            # Copy the old file. No merge necessary
+            Copy-Item -Path $templateFile -Destination $poPath
+        } else {
+            # Invoke msgmerge!
+            msgmerge -U $poPath $templateFile.FullName
+        }
     }
 }
 

@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 $ProjectLanguages = @('zh-CN')
-$ProjectModules = @('frontend')
+$ProjectModules = @('frontend','core')
 
 function Test-CommandExists {
     param (

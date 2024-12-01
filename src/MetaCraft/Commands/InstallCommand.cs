@@ -5,6 +5,7 @@ using System.CommandLine;
 using MetaCraft.Core.Archive;
 using MetaCraft.Core.Platform;
 using MetaCraft.Core.Scopes;
+using MetaCraft.Core.Scopes.Referral;
 using MetaCraft.Core.Transactions;
 
 namespace MetaCraft.Commands;
@@ -50,9 +51,13 @@ internal class InstallCommand
                 Overwrite = force
             }));
         }
-        
+
         // Perform all transactions
-        var aggregate = new AggregateTransaction(_container, list);
+        var arguments = new FinalActionAggregateTransaction.Parameter(list, 
+            new UpdateReferrersTransaction(_container, new UpdateReferrersTransaction.Parameters(false,
+                new NullReferralPreferenceProvider())));
+
+        var aggregate = new FinalActionAggregateTransaction(_container, arguments);
         aggregate.Commit(new ConsoleAgent());
     }
 }

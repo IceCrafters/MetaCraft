@@ -11,7 +11,7 @@ namespace MetaCraft.Core.Transactions;
 /// <summary>
 /// Performs the installation of a single package.
 /// </summary>
-public sealed class PackageInstallTransaction : Transaction<PackageInstallTransaction.Parameters>
+public sealed class PackageInstallTransaction : ArgumentedTransaction<PackageInstallTransaction.Parameters>
 {
     public readonly record struct Parameters(PackageArchive Package, bool Overwrite);
 

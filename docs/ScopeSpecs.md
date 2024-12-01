@@ -8,6 +8,8 @@
 A package container is a directory storing all of its packages, and it MUST
 be `<scope-root>/packages`. The container directory is then the container root.
 
+The package container MUST not contain any directories other than packages.
+
 ### Locking
 
 Before doing any write operation, the program MUST _create_ a file and lock the

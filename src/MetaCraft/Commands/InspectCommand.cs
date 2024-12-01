@@ -72,7 +72,7 @@ internal static class InspectCommand
         return new Rows(collection.Select(address => new Text(address.ToString())));
     }
     
-    private static IRenderable RenderRefList(ProvisionReferenceDictionary? collection)
+    private static IRenderable RenderRefList(RangedPackageReferenceDictionary? collection)
     {
         if (collection == null)
         {

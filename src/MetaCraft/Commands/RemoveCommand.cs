@@ -4,6 +4,7 @@
 using System.CommandLine;
 using System.CommandLine.Parsing;
 using MetaCraft.Core.Scopes;
+using MetaCraft.Core.Scopes.Referral;
 using MetaCraft.Core.Transactions;
 using Semver;
 
@@ -61,13 +62,17 @@ public class RemoveCommand
             : _scope.Container.GetLatestVersion(package))
               ?? throw new InteractiveException(Lc.L($"no such package: '{package}' ({version ?? @"latest"})"));
 
-        var transaction = new PackageRemovalTransaction(_scope.Container,
+        var child = new PackageRemovalTransaction(_scope.Container,
             new PackageRemovalTransaction.Parameters
             {
                 Id = package,
                 Version = semVer,
                 Force = force
             });
+        var updateTask = new UpdateReferrersTransaction(_scope.Container, new UpdateReferrersTransaction.Parameters(false,
+            new NullReferralPreferenceProvider()));
+
+        var transaction = new FinalActionTransaction(_scope.Container, child, updateTask);
         transaction.Commit(new ConsoleAgent());
     }
 }

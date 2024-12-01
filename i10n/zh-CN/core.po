@@ -1,0 +1,139 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: MetaCraft.Core\n"
+"POT-Creation-Date: 2024-11-27 19:40:51+0800\n"
+"PO-Revision-Date: 2024-11-27 19:40:51+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: GetText.NET Extractor\n"
+
+#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:104
+#, csharp-format
+msgid "PackageInstallExpand"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:50
+#, csharp-format
+msgid "PlatformParseInvalidSystem"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:116
+#, csharp-format
+msgid "ContainerTowDeleteFailed"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:152
+#, csharp-format
+msgid "PackageRemoveDeleting"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Transactions/RefreshProvisionsTransaction.cs:44
+msgid "The package directory contains an invalid package"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:74
+#, csharp-format
+msgid "PackageArchiveMissingManifest"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:62
+#, csharp-format
+msgid "PlatformParseInvalidFormat"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:122
+#, csharp-format
+msgid "ScopeLockIOError"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:134
+#, csharp-format
+msgid "PlatformShellExecuteFailed"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:176
+#, csharp-format
+msgid "PackageRemoveConfigure"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:146
+#, csharp-format
+msgid "ContainerUnitaryNoVersion"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:86
+#, csharp-format
+msgid "PackageUnitary"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Scopes/SerialFile.cs:48
+msgid "ContainerSerialUpdateFailed"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:92
+#, csharp-format
+msgid "PackageArchiveManifestNotFile"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:68
+#, csharp-format
+msgid "PlaftormParseError"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:56
+#, csharp-format
+msgid "PlatformParseInvalidArchitecture"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:80
+#, csharp-format
+msgid "ContainerInsertAlreadyExists"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:182
+#, csharp-format
+msgid "UpdateProvisionMessage"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:158
+#, csharp-format
+msgid "PackageRemoveNonExistent"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:170
+#, csharp-format
+msgid "PackageRemoveScriptError"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:98
+#, csharp-format
+msgid "PackageArchiveInvalidManifest"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:128
+#, csharp-format
+msgid "ScopeLockUnauthorizedAccess"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Transactions/RefreshProvisionsTransaction.cs:27
+msgid "Updating provisions database..."
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:140
+#, csharp-format
+msgid "PackageConfigureScriptFailed"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:164
+#, csharp-format
+msgid "PackageRemoveScriptFailNoError"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:110
+#, csharp-format
+msgid "PackageInstallConfigure"
+msgstr ""

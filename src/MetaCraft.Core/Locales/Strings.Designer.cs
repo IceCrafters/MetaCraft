@@ -176,5 +176,11 @@ namespace MetaCraft.Core.Locales {
                 return ResourceManager.GetString("PackageRemoveConfigure", resourceCulture);
             }
         }
+
+        internal static string UpdateProvisionMessage {
+            get {
+                return ResourceManager.GetString("UpdateProvisionMessage", resourceCulture);
+            }
+        }
     }
 }

@@ -27,9 +27,9 @@ public sealed class PackageManifest
     
     public bool Unitary { get; init; }
     
-    public ProvisionReferenceDictionary? Dependencies { get; init; }
+    public RangedPackageReferenceDictionary? Dependencies { get; init; }
     
-    public ProvisionReferenceDictionary? ConflictsWith { get; init; }
+    public RangedPackageReferenceDictionary? ConflictsWith { get; init; }
     
     public PackageReferenceDictionary? Provides { get; init; }
 }

@@ -36,6 +36,7 @@ builder.Command.Description = Lc.L("MetaCraft local package manager");
 builder.Command.AddCommand(InspectCommand.Create());
 builder.Command.AddCommand(new InstallCommand(scope.Container).Create());
 builder.Command.AddCommand(new RemoveCommand(scope).Create());
+builder.Command.AddCommand(new ProvisionsCommand(scope).Create());
 
 var cli = builder.Build();
 return cli.Invoke(args);

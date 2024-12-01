@@ -1,26 +1,39 @@
 // SPDX-FileCopyrightText: 2024 WithLithum <WithLithum@outlook.com>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+using System.Buffers.Binary;
 using System.Text.Json;
+using MetaCraft.Core.Archive;
 using MetaCraft.Core.Locales;
 using MetaCraft.Core.Platform;
 using Semver;
 
 namespace MetaCraft.Core.Scopes;
 
-public class PackageContainer
+public class PackageContainer : IPackageContainer
 {
     private const string VersionFileName = "VERSION";
     private readonly string _root;
+    private readonly SerialFile _serialFile;
 
     internal PackageContainer(string root, PackageScope parent)
     {
         _root = root;
         Directory.CreateDirectory(_root);
         Parent = parent;
+
+        _serialFile = new SerialFile(Path.Combine(_root, "serial"));
     }
 
     public PackageScope Parent { get; }
+
+    public IEnumerable<string> EnumeratePackages()
+    {
+        foreach (var dir in Directory.EnumerateDirectories(_root))
+        {
+            yield return dir;
+        }
+    }
 
     public IEnumerable<SemVersion> EnumerateVersions(string packageId)
     {
@@ -82,13 +95,37 @@ public class PackageContainer
         return null;
     }
 
-    public string? GetInstalledPackageLocation(PackageManifest manifest)
+    /// <summary>
+    /// Returns the storage location of the specified package if it exists in the current
+    /// container.
+    /// </summary>
+    /// <param name="reference">The reference to acquire package.</param>
+    /// <returns>The storage location if package exists; otherwise, <see langword="null"/>.</returns>
+    public string? GetInstalledPackageLocationOrDefault(PackageReference reference)
+    {
+        return GetInstalledPackageLocationOrDefault(reference.Name, reference.Version);
+    }
+
+    /// <summary>
+    /// Returns the storage location of the specified package if it exists in the current
+    /// container.
+    /// </summary>
+    /// <param name="manifest">The manifest of the package.</param>
+    /// <returns>The storage location if package exists; otherwise, <see langword="null"/>.</returns>
+    public string? GetInstalledPackageLocationOrDefault(PackageManifest manifest)
     {
         var location = GetPackageStoreLocation(manifest);
         return !Directory.Exists(location) ? null : location;
     }
     
-    public string? GetInstalledPackageLocation(string packageId, SemVersion version)
+    /// <summary>
+    /// Returns the storage location of the specified package if it exists in the current
+    /// container.
+    /// </summary>
+    /// <param name="packageId">The package identifier. Case sensitive.</param>
+    /// <param name="version">The package version.</param>
+    /// <returns>The storage location if package exists; otherwise, <see langword="null"/>.</returns>
+    public string? GetInstalledPackageLocationOrDefault(string packageId, SemVersion version)
     {
         var unitaryDir = Path.Combine(_root, packageId, "u");
         if (Directory.Exists(unitaryDir))
@@ -135,7 +172,7 @@ public class PackageContainer
 
             // Place a manifest file
             if (!doNotCreateManifest)
-            {   
+            { _serialFile.Refresh();  
                 using var stream = File.Create(Path.Combine(location, "manifest.json"));
                 JsonSerializer.Serialize(stream, manifest, CoreJsonContext.Default.PackageManifest);
             }
@@ -144,7 +181,7 @@ public class PackageContainer
             File.WriteAllText(Path.Combine(location, VersionFileName),
                 manifest.Version.ToString());
         }
-        catch (Exception ex)
+        catch
         {
             if (towedPackage != null)
             {
@@ -169,6 +206,7 @@ public class PackageContainer
             Console.WriteLine(e);
         }
 
+        _serialFile.Refresh();
         return location;
     }
 
@@ -183,7 +221,7 @@ public class PackageContainer
 
     public PackageManifest? InspectLocal(string packageId, SemVersion version)
     {
-        var location = GetInstalledPackageLocation(packageId, version);
+        var location = GetInstalledPackageLocationOrDefault(packageId, version);
         if (location == null)
         {
             return null;
@@ -197,5 +235,26 @@ public class PackageContainer
     {
         var location = GetPackageStoreLocation(manifest);
         Directory.Delete(location, true);
+        _serialFile.Refresh();
+    }
+
+    public bool CompareSerialWith(SerialFile serial)
+    {
+        return ((ISerialed)_serialFile).CompareSerialWith(serial);
+    }
+
+    public void CopySerial(SerialFile from)
+    {
+        ((ISerialed)_serialFile).CopySerial(from);
+    }
+
+    public long GetSerial()
+    {
+        return ((ISerialed)_serialFile).GetSerial();
+    }
+
+    public void CopySerial(ISerialed from)
+    {
+        ((ISerialed)_serialFile).CopySerial(from);
     }
 }
