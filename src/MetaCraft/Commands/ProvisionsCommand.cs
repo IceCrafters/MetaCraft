@@ -3,6 +3,7 @@
 
 using System.CommandLine;
 using MetaCraft.Core.Scopes;
+using MetaCraft.Core.Scopes.Referral;
 using MetaCraft.Core.Transactions;
 
 namespace MetaCraft.Commands;
@@ -41,7 +42,7 @@ public class ProvisionsCommand
 
     private void ExecuteUpdate(bool force)
     {
-        var args = new UpdateReferrersTransaction.Parameters(force);
+        var args = new UpdateReferrersTransaction.Parameters(force, new NullReferralPreferenceProvider());
         var transaction = new UpdateReferrersTransaction(_scope.Container, args);
 
         transaction.Commit(new ConsoleAgent());

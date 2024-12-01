@@ -4,6 +4,7 @@
 using System.CommandLine;
 using System.CommandLine.Parsing;
 using MetaCraft.Core.Scopes;
+using MetaCraft.Core.Scopes.Referral;
 using MetaCraft.Core.Transactions;
 using Semver;
 
@@ -68,7 +69,8 @@ public class RemoveCommand
                 Version = semVer,
                 Force = force
             });
-        var updateTask = new UpdateReferrersTransaction(_scope.Container, new UpdateReferrersTransaction.Parameters(false));
+        var updateTask = new UpdateReferrersTransaction(_scope.Container, new UpdateReferrersTransaction.Parameters(false,
+            new NullReferralPreferenceProvider()));
 
         var transaction = new FinalActionTransaction(_scope.Container, child, updateTask);
         transaction.Commit(new ConsoleAgent());

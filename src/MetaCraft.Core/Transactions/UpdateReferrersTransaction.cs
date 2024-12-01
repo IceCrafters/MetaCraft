@@ -58,12 +58,16 @@ public class UpdateReferrersTransaction : ArgumentedTransaction<UpdateReferrersT
         {
             foreach (var (version, index) in data)
             {
-                // Use the current value if none available though.
-                var selected = index.Referrers.Keys.Order(StringComparer.Ordinal)
-                    .FirstOrDefault();
-                
-                // TODO preferences system
+                var selected = Argument.PreferenceProvider.GetPreferredId();
 
+                // If null or not valid, order alphabetically
+                if (selected == null || !index.Referrers.ContainsKey(selected))
+                {
+                    selected = index.Referrers.Keys.Order(StringComparer.Ordinal)
+                        .FirstOrDefault();   
+                }
+
+                // If still null, use current value.
                 if (selected == null)
                 {
                     agent.PrintWarning(Lc.L("Referrer index for '{0}' ({1}) contains no valid packages",
@@ -121,5 +125,5 @@ public class UpdateReferrersTransaction : ArgumentedTransaction<UpdateReferrersT
         }
     }
 
-    public readonly record struct Parameters(bool IgnoreSerial);
+    public readonly record struct Parameters(bool IgnoreSerial, IReferralPreferenceProvider PreferenceProvider);
 }
