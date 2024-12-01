@@ -46,6 +46,7 @@ public class UpdateReferrersTransaction : ArgumentedTransaction<UpdateReferrersT
             catch (Exception ex)
             {
                 agent.PrintWarning(Lc.L("Failed to save referrals of '{0}'", id));
+                agent.PrintDebug(ex, Lc.L("Exception details:"));
             }
         }
     }

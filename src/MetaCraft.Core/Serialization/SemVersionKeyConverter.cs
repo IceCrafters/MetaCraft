@@ -33,4 +33,11 @@ public sealed class SemVersionKeyConverter : JsonConverter<SemVersionKey>
 
         return new SemVersionKey(value);
     }
+
+    public override void WriteAsPropertyName(Utf8JsonWriter writer, 
+        SemVersionKey value, 
+        JsonSerializerOptions options)
+    {
+        writer.WritePropertyName(value.Value.ToString());
+    }
 }
