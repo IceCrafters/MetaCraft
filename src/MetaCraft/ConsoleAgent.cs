@@ -25,6 +25,12 @@ public class ConsoleAgent : ITransactionAgent
         AnsiConsole.MarkupLineInterpolated($"[yellow]{Application.BaseName}:[/] {message}");
     }
 
+    public void PrintWarning(Exception exception, string message)
+    {
+        PrintWarning(message);
+        AnsiConsole.WriteException(exception);
+    }
+
     public void PrintWarning(string message, params object[] args)
     {
         AnsiConsole.MarkupInterpolated($"[yellow]{Application.BaseName}: [/]");

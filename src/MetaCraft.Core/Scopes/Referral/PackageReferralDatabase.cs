@@ -10,14 +10,18 @@ public class PackageReferralDatabase : ISerialed
 {
     private readonly SerialFile _serialFile;
 
-    public PackageReferralDatabase(IReferralDatabaseStore store)
+    public PackageReferralDatabase(IReferralDatabaseStore store,
+        IReferralPreferenceProvider preferenceProvider)
     {
         Store = store;
+        PreferenceProvider = preferenceProvider;
 
         _serialFile = Store.GetSerialFile();
     }
     
     internal IReferralDatabaseStore Store { get; }
+    
+    internal IReferralPreferenceProvider PreferenceProvider { get; }
 
     public PackageReference? Locate(RangedPackageReference reference)
     {

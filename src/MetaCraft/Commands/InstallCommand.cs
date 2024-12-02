@@ -54,8 +54,7 @@ internal class InstallCommand
 
         // Perform all transactions
         var arguments = new FinalActionAggregateTransaction.Parameter(list, 
-            new UpdateReferrersTransaction(_container, new UpdateReferrersTransaction.Parameters(false,
-                new NullReferralPreferenceProvider())));
+            new UpdateReferrersTransaction(_container, new UpdateReferrersTransaction.Parameters(false)));
 
         var aggregate = new FinalActionAggregateTransaction(_container, arguments);
         aggregate.Commit(new ConsoleAgent());

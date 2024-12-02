@@ -69,8 +69,7 @@ public class RemoveCommand
                 Version = semVer,
                 Force = force
             });
-        var updateTask = new UpdateReferrersTransaction(_scope.Container, new UpdateReferrersTransaction.Parameters(false,
-            new NullReferralPreferenceProvider()));
+        var updateTask = new UpdateReferrersTransaction(_scope.Container, new UpdateReferrersTransaction.Parameters(false));
 
         var transaction = new FinalActionTransaction(_scope.Container, child, updateTask);
         transaction.Commit(new ConsoleAgent());

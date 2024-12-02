@@ -34,7 +34,7 @@ public class ReferralTests
         storageMock.Setup(x => x.ReadFile("example"))
             .Returns(testData);
 
-        var database = new PackageReferralDatabase(storageMock.Object);
+        var database = new PackageReferralDatabase(storageMock.Object, new NullReferralPreferenceProvider());
 
         // Act
         var result = database.Locate(new RangedPackageReference(
@@ -77,7 +77,7 @@ public class ReferralTests
         storageMock.Setup(x => x.ReadFile("example"))
             .Returns(testData);
 
-        var database = new PackageReferralDatabase(storageMock.Object);
+        var database = new PackageReferralDatabase(storageMock.Object, new NullReferralPreferenceProvider());
 
         // Act
         var result = database.Locate(new RangedPackageReference("example", SemVersionRange.GreaterThan(new SemVersion(1, 0, 0))));

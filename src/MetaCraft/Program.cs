@@ -6,6 +6,7 @@ using System.CommandLine.Parsing;
 using System.Globalization;
 using MetaCraft;
 using MetaCraft.Commands;
+using MetaCraft.Core.Platform;
 
 System.Console.WriteLine(CultureInfo.CurrentUICulture);
 
@@ -31,6 +32,7 @@ var builder = new CommandLineBuilder()
     .UseParseErrorReporting(2);
 
 var scope = Application.InitializeScope();
+GlobalOutput.AddAgent(new ConsoleAgent());
 
 builder.Command.Description = Lc.L("MetaCraft local package manager");
 builder.Command.AddCommand(InspectCommand.Create());

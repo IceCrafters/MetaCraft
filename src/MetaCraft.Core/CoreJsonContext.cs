@@ -23,5 +23,9 @@ namespace MetaCraft.Core;
 [JsonSerializable(typeof(PackageReferralIndex))]
 [JsonSerializable(typeof(PackageReferrerDictionary))]
 [JsonSerializable(typeof(ReferralIndexDictionary))]
+[JsonSerializable(typeof(Dictionary<SemVersionKey, string>),
+    TypeInfoPropertyName = "ReferralPreferenceNode")]
+[JsonSerializable(typeof(Dictionary<string, Dictionary<SemVersionKey, string>>), 
+    TypeInfoPropertyName = "ReferralPreferenceTree")]
 [JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
 public partial class CoreJsonContext : JsonSerializerContext;

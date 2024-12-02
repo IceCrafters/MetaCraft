@@ -17,7 +17,8 @@ public class PackageScope
         Directory.CreateDirectory(Root);
 
         Container = new PackageContainer(Path.Combine(root, "packages"), this);
-        Referrals = new PackageReferralDatabase(new JsonFileReferralDatabaseStore(Path.Combine(root, "referrals")));
+        Referrals = new PackageReferralDatabase(new JsonFileReferralDatabaseStore(Path.Combine(root, "referrals")),
+            new JsonFileReferralPreferenceProvider(Path.Combine(Root, "ref_preferences.json")));
     }
     
     public PackageContainer Container { get; }

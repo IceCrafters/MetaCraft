@@ -42,7 +42,7 @@ public class ProvisionsCommand
 
     private void ExecuteUpdate(bool force)
     {
-        var args = new UpdateReferrersTransaction.Parameters(force, new NullReferralPreferenceProvider());
+        var args = new UpdateReferrersTransaction.Parameters(force);
         var transaction = new UpdateReferrersTransaction(_scope.Container, args);
 
         transaction.Commit(new ConsoleAgent());

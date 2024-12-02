@@ -59,8 +59,8 @@ public class UpdateReferrersTransaction : ArgumentedTransaction<UpdateReferrersT
         {
             foreach (var (version, index) in data)
             {
-                var selected = Argument.PreferenceProvider.GetPreferredId();
-
+                var selected = Target.Parent.Referrals.PreferenceProvider.GetPreferredId(id, version.Value);
+                
                 // If null or not valid, order alphabetically
                 if (selected == null || !index.Referrers.ContainsKey(selected))
                 {
@@ -126,5 +126,5 @@ public class UpdateReferrersTransaction : ArgumentedTransaction<UpdateReferrersT
         }
     }
 
-    public readonly record struct Parameters(bool IgnoreSerial, IReferralPreferenceProvider PreferenceProvider);
+    public readonly record struct Parameters(bool IgnoreSerial);
 }
