@@ -60,6 +60,25 @@ public class PackageReferralDatabase : ISerialed
         
         return clause.Referrers.ContainsKey(referrerId);
     }
+
+    public IEnumerable<KeyValuePair<string, PackageReference>> EnumerateReferrers(string clauseId, SemVersion version)
+    {
+        var file = Store.ReadFile(clauseId);
+        if (file == null)
+        {
+            yield break;
+        }
+
+        if (!file.TryGetValue(new SemVersionKey(version), out var referrers))
+        {
+            yield break;
+        }
+
+        foreach (var referrer in referrers.Referrers)
+        {
+            yield return referrer;
+        }
+    }
     
     public PackageReference? Locate(RangedPackageReference reference)
     {

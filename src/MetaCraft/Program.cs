@@ -8,8 +8,6 @@ using MetaCraft;
 using MetaCraft.Commands;
 using MetaCraft.Core.Platform;
 
-System.Console.WriteLine(CultureInfo.CurrentUICulture);
-
 var builder = new CommandLineBuilder()
     .EnablePosixBundling()
     .UseExceptionHandler((ex, context) =>

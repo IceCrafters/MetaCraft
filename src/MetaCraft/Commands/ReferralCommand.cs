@@ -6,6 +6,7 @@ using System.CommandLine.Parsing;
 using MetaCraft.Core.Scopes;
 using MetaCraft.Core.Transactions;
 using Semver;
+using Spectre.Console;
 
 namespace MetaCraft.Commands;
 
@@ -24,17 +25,97 @@ public class ReferralCommand
 
         command.AddCommand(CreateUpdate());
         command.AddCommand(CreateSelect());
+        command.AddCommand(CreateList());
+
+        return command;
+    }
+    
+    #region 'list'
+
+    private Command CreateList()
+    {
+        var argClauseName = new Argument<string>("name", Lc.L("The name for the clause"));
+        var optClauseVersion = new Option<string>(["--cV", "--clause-version"],
+            Lc.L("The clause version to list referrers for"));
+        optClauseVersion.AddValidator(ValidateVersion);
+        var optIgnoreNonexistent = new Option<bool>(["-N", "--ignore-non-existent"],
+            Lc.L("Treat non-existent clauses as empty clauses"));
+        
+        var command = new Command("list", Lc.L("List available referrers for a given clause"))
+        {
+            argClauseName,
+            optClauseVersion,
+            optIgnoreNonexistent
+        };
+        
+        command.SetHandler(ExecuteList, argClauseName, optClauseVersion, optIgnoreNonexistent);
 
         return command;
     }
 
+    private void ExecuteList(string clauseName, string? clauseVersionToken, bool ignoreNonExistent)
+    {
+        var clauseVersion =  clauseVersionToken != null
+            ? SemVersion.Parse(clauseVersionToken, SemVersionStyles.Any)
+            : null;
+
+        if (!_scope.Referrals.ContainsClause(clauseName, clauseVersion))
+        {
+            if (ignoreNonExistent)
+            {
+                // Pretend nothing happened
+                return;
+            }
+
+            throw InteractiveException.CreateNoSuchClause(clauseName, clauseVersion);
+        }
+
+        if (clauseVersion == null)
+        {
+            var latest = _scope.Referrals.GetLatestClauseVersion(clauseName);
+            if (latest == null)
+            {
+                if (ignoreNonExistent)
+                {
+                    // Pretend nothing happened.
+                    return;
+                }
+                
+                throw InteractiveException.CreateNoValidVersionFound(clauseName);
+            }
+
+            clauseVersion = latest;
+        }
+
+        // Assemble some display stuff.
+        var grid = new Grid();
+        grid.AddColumn(new GridColumn()
+            .Padding(0, 0, 1, 0));
+        grid.AddColumn(new GridColumn()
+            .Padding(0, 0));
+        grid.AddColumn(new GridColumn()
+            .Padding(1, 0, 0, 0));
+        
+        // Do the printing matter.
+        foreach (var pair in _scope.Referrals.EnumerateReferrers(clauseName, clauseVersion))
+        {
+            grid.AddRow(pair.Key, ":", $"'{pair.Value.Name}' ({pair.Value.Version})");
+        }
+        
+        AnsiConsole.Write(grid);
+    }
+    
+    #endregion
+
+    #region 'select'
+    
     private Command CreateSelect()
     {
         var argClauseName = new Argument<string>("referrerName", Lc.L("Name of the referrer"));
         var argReferrerName = new Argument<string>("packageName", Lc.L("Name of the package"));
 
-        var optClauseVersion = new Option<string>(["--rV", "--referrer-version"],
-            Lc.L("Version of the referrer to select a package for"));
+        var optClauseVersion = new Option<string>(["--cV", "--clause-version"],
+            Lc.L("Version of the clause to select a package for"));
         
         optClauseVersion.AddValidator(ValidateVersion);
 
@@ -80,15 +161,9 @@ public class ReferralCommand
         
         ExecuteUpdate(true);
     }
-
-    private void ValidateVersion(OptionResult symbol)
-    {
-        if (!SemVersion.TryParse(symbol.Tokens.Single().Value, SemVersionStyles.Any, out _))
-        {
-            symbol.ErrorMessage = Lc.L("Invalid version number");
-        }
-    }
-
+    
+    #endregion
+    
     #region 'update'
     
     private Command CreateUpdate()
@@ -115,4 +190,15 @@ public class ReferralCommand
     
     #endregion
     
+    #region Validation
+    
+    private void ValidateVersion(OptionResult symbol)
+    {
+        if (!SemVersion.TryParse(symbol.Tokens.Single().Value, SemVersionStyles.Any, out _))
+        {
+            symbol.ErrorMessage = Lc.L("Invalid version number");
+        }
+    }
+    
+    #endregion
 }
