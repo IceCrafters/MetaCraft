@@ -15,7 +15,8 @@ public class TestTask : FrostingTask<BuildContext>
     {
         context.DotNetTest(MConstants.SolutionPath, new DotNetTestSettings
         {
-            NoBuild = true
+            NoBuild = true,
+            Configuration = context.BuildConfiguration
         });
     }
 }
