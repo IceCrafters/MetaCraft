@@ -31,7 +31,7 @@ public sealed class PackageInstallTransaction : ArgumentedTransaction<PackageIns
         // Expand the archive.
         var location = Target.InsertPackage(package.Manifest, Argument.Overwrite, true);
      
-        agent.PrintInfo(Strings.PackageInstallExpand, package.Manifest.Id, package.Manifest.Version);
+        agent.PrintInfo(Lc.L("Expanding package '{0}' ({1})...", package.Manifest.Id, package.Manifest.Version));
         package.ExpandArchive(location, Argument.Overwrite);
         
         // Find and execute configure scripts
@@ -58,13 +58,13 @@ public sealed class PackageInstallTransaction : ArgumentedTransaction<PackageIns
         }
 
         // Execute the file.
-        agent.PrintInfo(Strings.PackageInstallConfigure, package.Manifest.Id, package.Manifest.Version);
+        agent.PrintInfo(Lc.L("Running configure script for '{0}' ({1})...", package.Manifest.Id, package.Manifest.Version));
         var exitCode = PlatformUtil.ExecuteBatch(fileToExecute);
                 
         // On nonzero exit code
         if (exitCode != 0)
         {
-            throw new TransactionException(string.Format(Strings.PackageConfigureScriptFailed,
+            throw new TransactionException(Lc.L("Configure script exited with exit code {0}.",
                 exitCode));
         }
         

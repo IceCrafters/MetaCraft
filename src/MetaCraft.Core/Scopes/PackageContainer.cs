@@ -1,7 +1,6 @@
 // SPDX-FileCopyrightText: 2024 WithLithum <WithLithum@outlook.com>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-using System.Buffers.Binary;
 using System.Text.Json;
 using MetaCraft.Core.Archive;
 using MetaCraft.Core.Locales;
@@ -56,7 +55,7 @@ public class PackageContainer : IPackageContainer
         var versionFile = Path.Combine(unitaryDir, VersionFileName);
         if (!File.Exists(versionFile))
         {
-            throw new FileNotFoundException(Strings.ContainerUnitaryNoVersion);
+            throw new FileNotFoundException(Lc.L("Version information does not present for the given unitary package."));
         }
 
         return [SemVersion.Parse(File.ReadAllText(versionFile))];
@@ -156,8 +155,9 @@ public class PackageContainer : IPackageContainer
         {
             if (!overwrite)
             {
-                throw new InvalidOperationException(string.Format(Strings.ContainerInsertAlreadyExists,
-                    manifest.Unitary ? Strings.PackageUnitary : manifest.Version.ToString()));
+                throw new InvalidOperationException(Lc.L("Package '{0}' ({1}) is already inside the container.",
+                    $"'{manifest.Id}'",
+                    manifest.Unitary ? "unitary" : manifest.Version.ToString()));
             }
 
             towedPackage = TowPackage(manifest);
@@ -202,7 +202,7 @@ public class PackageContainer : IPackageContainer
         }
         catch (Exception e)
         {
-            Console.WriteLine(Strings.ContainerTowDeleteFailed, @"MetaCraft.Core");
+            Console.WriteLine(Lc.L("{0}: failed to delete towed package:", @"MetaCraft.Core"));
             Console.WriteLine(e);
         }
 

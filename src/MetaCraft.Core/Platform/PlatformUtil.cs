@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using MetaCraft.Core.Locales;
 using InvalidOperationException = System.InvalidOperationException;
@@ -71,7 +70,7 @@ public static class PlatformUtil
         using var process = Process.Start(startInfo);
         if (process == null)
         {
-            throw new InvalidOperationException(Strings.PlatformShellExecuteFailed);
+            throw new InvalidOperationException(Lc.L("Unable to spawn shell process."));
         }
         
         process.WaitForExit();
@@ -94,7 +93,7 @@ public static class PlatformUtil
         
         if (process == null)
         {
-            throw new InvalidOperationException(Strings.PlatformShellExecuteFailed);
+            throw new InvalidOperationException(Lc.L("Failed to start shell interpreter process.."));
         }
         
         process.WaitForExit();

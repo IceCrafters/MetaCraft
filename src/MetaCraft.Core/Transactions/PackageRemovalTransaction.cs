@@ -22,7 +22,7 @@ public class PackageRemovalTransaction : ArgumentedTransaction<PackageRemovalTra
         var manifest = Target.InspectLocal(Argument.Id, Argument.Version);
         if (manifest == null)
         {
-            agent.PrintInfo(Strings.PackageRemoveNonExistent, Argument.Id, Argument.Version);
+            agent.PrintWarning(Lc.L("skipped nonexistent package '{0}' ({1})", Argument.Id, Argument.Version));
             return;
         }
         
@@ -35,23 +35,23 @@ public class PackageRemovalTransaction : ArgumentedTransaction<PackageRemovalTra
         {
             var location = Target.GetInstalledPackageLocationOrDefault(manifest)!;
             
-            agent.PrintInfo(Strings.PackageRemoveConfigure, Argument.Id, Argument.Version);
+            agent.PrintInfo(Lc.L("Executing pre-removal script from '{0}' ({1})...", Argument.Id, Argument.Version));
             var exitCode = PlatformUtil.ExecuteBatch(scriptFile, location, manifest.Version.ToString());
             if (exitCode != 0)
             {
                 // If --force is specified, do not fail when script fails to execute
                 if (Argument.Force)
                 {
-                    agent.PrintInfo(Strings.PackageRemoveScriptFailNoError, exitCode);   
+                    agent.PrintInfo(Lc.L("ignoring failure exit code {0} for pre-removal script, proceeding removal", exitCode));   
                 }
                 else
                 {
-                    throw new TransactionException(string.Format(Strings.PackageRemoveScriptError, exitCode));
+                    throw new TransactionException(Lc.L("Pre-removal script returned failure exit code {0}", exitCode));
                 }
             }
         }
         
-        agent.PrintInfo(Strings.PackageRemoveDeleting, manifest.Id, manifest.Version);
+        agent.PrintInfo(Lc.L("Removing package '{0}' ({1})...", manifest.Id, manifest.Version));
         Target.DeletePackage(manifest);
     }
 

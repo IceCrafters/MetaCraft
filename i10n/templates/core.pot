@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MetaCraft.Core\n"
-"POT-Creation-Date: 2024-11-27 19:40:51+0800\n"
-"PO-Revision-Date: 2024-11-27 19:40:51+0800\n"
+"POT-Creation-Date: 2024-12-03 17:22:37+0800\n"
+"PO-Revision-Date: 2024-12-03 17:22:38+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -10,130 +10,156 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: GetText.NET Extractor\n"
 
-#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:104
-#, csharp-format
-msgid "PackageInstallExpand"
+#: ../../../src/MetaCraft.Core/Scopes/SerialFile.cs:51
+msgid "Failed to update serial"
 msgstr ""
 
-#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:50
-#, csharp-format
-msgid "PlatformParseInvalidSystem"
+#: ../../../src/MetaCraft.Core/Transactions/TransactionException.cs:24
+msgid "Transaction failed."
 msgstr ""
 
-#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:116
+#: ../../../src/MetaCraft.Core/Transactions/PackageRemovalTransaction.cs:25
 #, csharp-format
-msgid "ContainerTowDeleteFailed"
+msgid "skipped nonexistent package '{0}' ({1})"
 msgstr ""
 
-#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:152
+#: ../../../src/MetaCraft.Core/Scopes/ScopeLockException.cs:16
 #, csharp-format
-msgid "PackageRemoveDeleting"
+msgid "Failed to lock the lock file: {0}"
 msgstr ""
 
-#: ../../../src/MetaCraft.Core/Transactions/RefreshProvisionsTransaction.cs:44
+#: ../../../src/MetaCraft.Core/Platform/PlatformUtil.cs:96
+msgid "Failed to start shell interpreter process.."
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Platform/PlatformUtil.cs:73
+msgid "Unable to spawn shell process."
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Transactions/UpdateReferrersTransaction.cs:74
+#, csharp-format
+msgid "Referrer index for '{0}' ({1}) contains no valid packages"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Transactions/UpdateReferrersTransaction.cs:39
+msgid "Saving referrals database..."
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Transactions/PackageRemovalTransaction.cs:45
+#, csharp-format
+msgid ""
+"ignoring failure exit code {0} for pre-removal script, proceeding removal"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Scopes/PackageContainer.cs:158
+#, csharp-format
+msgid "Package '{0}' ({1}) is already inside the container."
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Transactions/PackageRemovalTransaction.cs:49
+#, csharp-format
+msgid "Pre-removal script returned failure exit code {0}"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Archive/InvalidPackageException.cs:24
+msgid "The specified package does not have a manifest."
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Platform/PlatformIdentifier.cs:155
+#, csharp-format
+msgid "Unexpected error occurred when parsing the platform identifier: '{0}'"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Transactions/PackageInstallTransaction.cs:34
+#, csharp-format
+msgid "Expanding package '{0}' ({1})..."
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Transactions/UpdateReferrersTransaction.cs:49
+msgid "Exception details:"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Transactions/PackageInstallTransaction.cs:61
+#, csharp-format
+msgid "Running configure script for '{0}' ({1})..."
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Transactions/UpdateReferrersTransaction.cs:56
+msgid "Applying preferences..."
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Scopes/Referral/JsonFileReferralPreferenceProvider.cs:69
+msgid "Failed to save data"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Platform/PlatformIdentifier.cs:152
+msgid "Invalid platform identifier format."
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Platform/PlatformIdentifier.cs:153
+msgid "Invalid system identifier."
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Scopes/PackageContainer.cs:58
+msgid "Version information does not present for the given unitary package."
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Scopes/PackageContainer.cs:205
+#, csharp-format
+msgid "{0}: failed to delete towed package:"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Transactions/UpdateReferrersTransaction.cs:30
+msgid "Updating referrals database..."
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Transactions/UpdateReferrersTransaction.cs:94
 msgid "The package directory contains an invalid package"
 msgstr ""
 
-#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:74
+#: ../../../src/MetaCraft.Core/Scopes/ScopeLockException.cs:21
 #, csharp-format
-msgid "PackageArchiveMissingManifest"
+msgid "Unable to gain access for lock file: {0}"
 msgstr ""
 
-#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:62
+#: ../../../src/MetaCraft.Core/Archive/InvalidPackageException.cs:34
+msgid ""
+"The entry with the manifest filename in the specified package is not a file."
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Archive/InvalidPackageException.cs:29
+msgid "The manifest file for the specified package is invalid."
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Transactions/PackageRemovalTransaction.cs:54
 #, csharp-format
-msgid "PlatformParseInvalidFormat"
+msgid "Removing package '{0}' ({1})..."
 msgstr ""
 
-#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:122
+#: ../../../src/MetaCraft.Core/Transactions/PackageRemovalTransaction.cs:38
 #, csharp-format
-msgid "ScopeLockIOError"
+msgid "Executing pre-removal script from '{0}' ({1})..."
 msgstr ""
 
-#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:134
+#: ../../../src/MetaCraft.Core/Serialization/SemVersionConverter.cs:23
+msgid "The provided string is not a valid Semantic Version number."
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Platform/PlatformIdentifier.cs:154
+msgid "Invalid architecture identifier."
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Transactions/PackageInstallTransaction.cs:67
 #, csharp-format
-msgid "PlatformShellExecuteFailed"
+msgid "Configure script exited with exit code {0}."
 msgstr ""
 
-#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:176
+#: ../../../src/MetaCraft.Core/Serialization/SemVersionKeyConverter.cs:32
+msgid "Version values cannot be null when used as a property name."
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Transactions/UpdateReferrersTransaction.cs:48
 #, csharp-format
-msgid "PackageRemoveConfigure"
-msgstr ""
-
-#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:146
-#, csharp-format
-msgid "ContainerUnitaryNoVersion"
-msgstr ""
-
-#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:86
-#, csharp-format
-msgid "PackageUnitary"
-msgstr ""
-
-#: ../../../src/MetaCraft.Core/Scopes/SerialFile.cs:48
-msgid "ContainerSerialUpdateFailed"
-msgstr ""
-
-#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:92
-#, csharp-format
-msgid "PackageArchiveManifestNotFile"
-msgstr ""
-
-#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:68
-#, csharp-format
-msgid "PlaftormParseError"
-msgstr ""
-
-#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:56
-#, csharp-format
-msgid "PlatformParseInvalidArchitecture"
-msgstr ""
-
-#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:80
-#, csharp-format
-msgid "ContainerInsertAlreadyExists"
-msgstr ""
-
-#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:182
-#, csharp-format
-msgid "UpdateProvisionMessage"
-msgstr ""
-
-#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:158
-#, csharp-format
-msgid "PackageRemoveNonExistent"
-msgstr ""
-
-#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:170
-#, csharp-format
-msgid "PackageRemoveScriptError"
-msgstr ""
-
-#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:98
-#, csharp-format
-msgid "PackageArchiveInvalidManifest"
-msgstr ""
-
-#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:128
-#, csharp-format
-msgid "ScopeLockUnauthorizedAccess"
-msgstr ""
-
-#: ../../../src/MetaCraft.Core/Transactions/RefreshProvisionsTransaction.cs:27
-msgid "Updating provisions database..."
-msgstr ""
-
-#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:140
-#, csharp-format
-msgid "PackageConfigureScriptFailed"
-msgstr ""
-
-#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:164
-#, csharp-format
-msgid "PackageRemoveScriptFailNoError"
-msgstr ""
-
-#: ../../../src/MetaCraft.Core/Locales/Strings.Designer.cs:110
-#, csharp-format
-msgid "PackageInstallConfigure"
+msgid "Failed to save referrals of '{0}'"
 msgstr ""
 

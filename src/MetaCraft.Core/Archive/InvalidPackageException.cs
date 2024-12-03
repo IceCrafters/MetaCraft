@@ -21,16 +21,16 @@ public class InvalidPackageException : Exception
 
     public static InvalidPackageException CreateNoManifest()
     {
-        return new InvalidPackageException(Strings.PackageArchiveMissingManifest);
+        return new InvalidPackageException(Lc.L("The specified package does not have a manifest."));
     }
 
     public static InvalidPackageException CreateInvalidManifest()
     {
-        return new InvalidPackageException(Strings.PackageArchiveInvalidManifest);
+        return new InvalidPackageException(Lc.L("The manifest file for the specified package is invalid."));
     }
 
     public static InvalidPackageException CreateManifestNotFile()
     {
-        return new InvalidPackageException(Strings.PackageArchiveManifestNotFile);
+        return new InvalidPackageException(Lc.L("The entry with the manifest filename in the specified package is not a file."));
     }
 }

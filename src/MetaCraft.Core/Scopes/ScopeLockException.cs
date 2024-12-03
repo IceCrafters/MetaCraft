@@ -13,11 +13,11 @@ public class ScopeLockException : Exception
     
     public static ScopeLockException CreateIoError(Exception cause)
     {
-        return new ScopeLockException(string.Format(Strings.ScopeLockIOError, cause.Message), cause);
+        return new ScopeLockException(Lc.L("Failed to lock the lock file: {0}", cause.Message), cause);
     }
 
     public static ScopeLockException CreateUnauthorizedAccess(Exception cause)
     {
-        return new ScopeLockException(string.Format(Strings.ScopeLockUnauthorizedAccess, cause.Message), cause);
+        return new ScopeLockException(Lc.L("Unable to gain access for lock file: {0}", cause.Message), cause);
     }
 }
