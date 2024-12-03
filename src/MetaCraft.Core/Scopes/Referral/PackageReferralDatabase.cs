@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 using MetaCraft.Core.Archive;
+using MetaCraft.Core.Serialization;
 using Semver;
 
 namespace MetaCraft.Core.Scopes.Referral;
@@ -23,6 +24,43 @@ public class PackageReferralDatabase : ISerialed
     
     internal IReferralPreferenceProvider PreferenceProvider { get; }
 
+    public SemVersion? GetLatestClauseVersion(string clauseId)
+    {
+        var file = Store.ReadFile(clauseId);
+
+        return file?.Keys.OrderByDescending(x => x.Value, SemVersion.SortOrderComparer)
+            .Select(x => x.Value)
+            .FirstOrDefault();
+    }
+    
+    public bool ContainsClause(string clauseId, SemVersion? version)
+    {
+        var file = Store.ReadFile(clauseId);
+
+        if (version == null)
+        {
+            return file is { Count: > 0 };
+        }
+        
+        return file?.ContainsKey(new SemVersionKey(version)) ?? false;
+    }
+
+    public bool ContainsReferrer(string clauseId, SemVersion version, string referrerId)
+    {
+        var file = Store.ReadFile(clauseId);
+        if (file == null)
+        {
+            return false;
+        }
+
+        if (!file.TryGetValue(new SemVersionKey(version), out var clause))
+        {
+            return false;
+        }
+        
+        return clause.Referrers.ContainsKey(referrerId);
+    }
+    
     public PackageReference? Locate(RangedPackageReference reference)
     {
         // Get index dictionary data
