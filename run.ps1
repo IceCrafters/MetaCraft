@@ -5,7 +5,7 @@
 
 param (
     # The arguments to pass to the program
-    [Parameter(Mandatory = $true)]
+    [Parameter(Mandatory = $false)]
     [array]
     $Arguments
 )

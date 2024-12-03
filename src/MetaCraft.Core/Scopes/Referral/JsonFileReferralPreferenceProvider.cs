@@ -69,10 +69,17 @@ public class JsonFileReferralPreferenceProvider : IReferralPreferenceProvider
             GlobalOutput.Warning(e, Lc.L("Failed to save data"));
         }
     }
-    
+
     public string? GetPreferredId(string name, SemVersion version)
     {
         return _data.GetValueOrDefault(name)
             ?.GetValueOrDefault(new SemVersionKey(version));
+    }
+
+    public void SetPreferredId(string clauseId, SemVersion clauseVersion, string preferred)
+    {
+        var clause = _data.GetOrAdd(clauseId, () => []);
+        clause[new SemVersionKey(clauseVersion)] = preferred;
+        SaveData(_data);
     }
 }

@@ -27,4 +27,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Commands\ArgumentTypes.cs" />
+  </ItemGroup>
+
 </Project>

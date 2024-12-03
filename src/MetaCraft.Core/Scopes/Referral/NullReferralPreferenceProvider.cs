@@ -11,4 +11,9 @@ public sealed class NullReferralPreferenceProvider : IReferralPreferenceProvider
     {
         return null;
     }
+
+    public void SetPreferredId(string clauseId, SemVersion clauseVersion, string preferred)
+    {
+        // Do nothing
+    }
 }

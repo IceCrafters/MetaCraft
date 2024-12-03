@@ -122,4 +122,9 @@ public class PackageReferralDatabase : ISerialed
     {
         return ((ISerialed)_serialFile).GetSerial();
     }
+
+    public void SetPreferred(string clauseName, SemVersion? clauseVersion, string referrerName)
+    {
+        PreferenceProvider.SetPreferredId(clauseName, clauseVersion, referrerName);
+    }
 }

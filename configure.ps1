@@ -26,7 +26,14 @@ foreach ($langId in $ProjectLanguages) {
             continue
         }
 
-        if (!(Test-Path $langPath -PathType Leaf) -or ($langFile.LastWriteTime -lt $poFile.LastWriteTime)) {
+        if (!(Test-Path $langPath -PathType Leaf)) {
+            $moUpdateNeeded = true
+        } else {
+            $langFile = Get-Item $langPath
+        }
+
+        $moUpdateNeeded = ($langFile.LastWriteTime -lt $poFile.LastWriteTime)
+        if ($moUpdateNeeded -eq $true) {
             # Rebuild the language file
             Write-Output "Recompiling language file $(($poFile.Name))"
             msgfmt $poFile.FullName  -o $langPath

@@ -8,4 +8,6 @@ namespace MetaCraft.Core.Scopes.Referral;
 public interface IReferralPreferenceProvider
 {
     string? GetPreferredId(string name, SemVersion version);
+    
+    void SetPreferredId(string clauseId, SemVersion clauseVersion, string preferred);
 }
