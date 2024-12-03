@@ -3,16 +3,16 @@
 # SPDX-FileCopyrightText: 2024 WithLithum <WithLithum@outlook.com>
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-param (
-    # The arguments to pass to the program
-    [Parameter(Mandatory = $false)]
-    [array]
-    $Arguments
-)
-
 # Build stuff as necessary
-$configureScript = Join-Path $PSScriptRoot 'configure.ps1'
-& $configureScript
+$buildScript = Join-Path $PSScriptRoot 'build.ps1'
+& $buildScript -t RegenerateLanguage -v Quiet > $null
+$buildExitCode = $LASTEXITCODE
+if (0 -ne $buildExitCode) {
+    Write-Error 'Failed to regenerate language files; run'
+    Write-Output '   ./build.ps1 -t RegenerateLanguage -v Quiet'
+    Write-Error 'to see details.'
+    exit 1
+}
 
 # Create directories
 $runBase = Join-Path $PSScriptRoot "run.d"
@@ -31,4 +31,4 @@ $env:METACRAFT_CACHE_HOME = Join-Path $runBase "caches"
 $PROJNAME = 'MetaCraft'
 $projLocation = Join-Path $PSScriptRoot "src" $PROJNAME "$PROJNAME.csproj"
 
-dotnet run --project $projLocation --no-self-contained -- @Arguments
+dotnet run --project $projLocation --no-self-contained -- $args

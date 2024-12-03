@@ -13,7 +13,13 @@ if [ ! -d "src" ]; then
 fi
 
 # Build translation files as necessary
-pwsh ./configure.ps1
+./build.sh -t RegenerateLanguage -v Quiet > /dev/null
+buildExitCode=$?
+if [ $buildExitCode -ne 0 ]; then
+	echo "$SCRNAME: failed to regenerate language"
+	echo "$SCRNAME: run './build.sh -t RegenerateLanguage' to see problems"
+	exit 1
+fi
 
 mkdir -p "$PWD/run.d/"
 mkdir -p "$PWD/run.d/scope"
