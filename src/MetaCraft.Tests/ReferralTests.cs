@@ -12,6 +12,89 @@ namespace MetaCraft.Tests;
 public class ReferralTests
 {
     [Fact]
+    public void ContainsClause_MatchingVersion_ReturnsTrue()
+    {
+        // Arrange
+        var store = new Mock<IReferralDatabaseStore>();
+        store.Setup(x => x.ReadFile("example"))
+            .Returns(new ReferralIndexDictionary
+            {
+                { 
+                    /*  key  */ new SemVersionKey(new SemVersion(1, 0, 0)), 
+                    /* value */ new PackageReferralIndex(
+                        new PackageReferrerDictionary(), current: "does not matter here") 
+                }
+            });
+
+        var database = new PackageReferralDatabase(store.Object,
+            Mock.Of<IReferralPreferenceProvider>());
+        
+        // Act
+        var result = database.ContainsClause("example", new SemVersion(1, 0, 0));
+        
+        // Assert
+        Assert.True(result);
+    }
+    
+    [Fact]
+    public void ContainsClause_VersionArgumentWithNoMatchingVersion_ReturnsFalse()
+    {
+        // Arrange
+        var store = new Mock<IReferralDatabaseStore>();
+        store.Setup(x => x.ReadFile("example"))
+            .Returns(new ReferralIndexDictionary());
+
+        var database = new PackageReferralDatabase(store.Object,
+            Mock.Of<IReferralPreferenceProvider>());
+        
+        // Act
+        var result = database.ContainsClause("example", new SemVersion(1, 0, 0));
+        
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void ContainsClause_NoMatchingFile_ReturnsFalse()
+    {
+        // Arrange
+        var store = new Mock<IReferralDatabaseStore>();
+        store.Setup(x => x.ReadFile("example"))
+            .Returns(() => null);
+        
+        var database = new PackageReferralDatabase(store.Object,
+            Mock.Of<IReferralPreferenceProvider>());
+        
+        // Act
+        var result = database.ContainsClause("example", new SemVersion(1, 0, 0));
+        
+        // Assert
+        Assert.False(result);
+    }
+    
+    [Fact]
+    public void ContainsClause_VersionIsNullAndClauseTreeExists_ReturnsTrue()
+    {
+        // Arrange
+        var store = new Mock<IReferralDatabaseStore>();
+        store.Setup(x => x.ReadFile("example"))
+            .Returns(new ReferralIndexDictionary
+            {
+                { new SemVersionKey(new SemVersion(1, 0, 0)), new PackageReferralIndex([],
+                    "which is current does not matter here") }
+            });
+
+        var database = new PackageReferralDatabase(store.Object,
+            Mock.Of<IReferralPreferenceProvider>());
+        
+        // Act
+        var result = database.ContainsClause("example", null);
+        
+        // Assert
+        Assert.True(result);
+    }
+    
+    [Fact]
     public void ReferralDatabase_MultipleReferrer_SelectCurrent()
     {
         // Arrange

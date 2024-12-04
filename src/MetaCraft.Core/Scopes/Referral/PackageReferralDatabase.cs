@@ -33,6 +33,15 @@ public class PackageReferralDatabase : ISerialed
             .FirstOrDefault();
     }
     
+    /// <summary>
+    /// Determines whether the specified clause (or clause index) exists.
+    /// </summary>
+    /// <param name="clauseId">The identifier of the clause.</param>
+    /// <param name="version">
+    /// The version to locate. If <see langword="null"/>, returns true if the clause index exists 
+    /// and is not empty.
+    /// </param>
+    /// <returns><see langword="true"/> if clause exists; otherwise, <see langword="false"/>.</returns>
     public bool ContainsClause(string clauseId, SemVersion? version)
     {
         var file = Store.ReadFile(clauseId);
@@ -142,7 +151,7 @@ public class PackageReferralDatabase : ISerialed
         return ((ISerialed)_serialFile).GetSerial();
     }
 
-    public void SetPreferred(string clauseName, SemVersion? clauseVersion, string referrerName)
+    public void SetPreferred(string clauseName, SemVersion clauseVersion, string referrerName)
     {
         PreferenceProvider.SetPreferredId(clauseName, clauseVersion, referrerName);
     }

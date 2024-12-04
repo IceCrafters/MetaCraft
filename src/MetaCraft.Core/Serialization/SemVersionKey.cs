@@ -33,4 +33,14 @@ public sealed class SemVersionKey : IEquatable<SemVersionKey>
     {
         return Value.GetHashCode();
     }
+
+    public static bool operator ==(SemVersionKey? left, SemVersionKey? right)
+    {
+        return Equals(left, right);
+    }
+
+    public static bool operator !=(SemVersionKey? left, SemVersionKey? right)
+    {
+        return !Equals(left, right);
+    }
 }
