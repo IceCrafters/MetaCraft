@@ -15,7 +15,7 @@ public sealed class PackageInstallTransaction : ArgumentedTransaction<PackageIns
 {
     public readonly record struct Parameters(PackageArchive Package, bool Overwrite);
 
-    public PackageInstallTransaction(PackageContainer target, Parameters argument) : base(target, argument)
+    public PackageInstallTransaction(IPackageContainer target, Parameters argument) : base(target, argument)
     {
     }
 

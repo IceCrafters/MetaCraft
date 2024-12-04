@@ -8,7 +8,7 @@ namespace MetaCraft.Core.Scopes;
 
 public interface IPackageContainer : ISerialed
 {   
-    PackageScope Parent { get; }
+    IPackageScope Parent { get; }
 
     public IEnumerable<string> EnumeratePackages();
     IEnumerable<SemVersion> EnumerateVersions(string packageId);
@@ -21,4 +21,6 @@ public interface IPackageContainer : ISerialed
 
     string InsertPackage(PackageManifest manifest, bool overwrite = false, bool doNotCreateManifest = false);
     PackageManifest? InspectLocal(string packageId, SemVersion version);
+
+    void DeletePackage(PackageManifest manifest);
 }

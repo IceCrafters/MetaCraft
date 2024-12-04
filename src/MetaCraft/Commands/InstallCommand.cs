@@ -14,9 +14,9 @@ internal class InstallCommand
 {
     private static readonly Argument<FileInfo[]> ArgFile = new(@"files", Lc.L("The package archives to install"));
     private static readonly Option<bool> OptionOverwrite = new([@"-f", @"--force"], Lc.L("If specified, remove already existing packages of same ID and version"));
-    private readonly PackageContainer _container;
+    private readonly IPackageContainer _container;
 
-    public InstallCommand(PackageContainer container)
+    public InstallCommand(IPackageContainer container)
     {
         _container = container;
     }

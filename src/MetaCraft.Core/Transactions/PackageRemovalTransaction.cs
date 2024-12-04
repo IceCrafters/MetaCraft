@@ -13,7 +13,7 @@ public class PackageRemovalTransaction : ArgumentedTransaction<PackageRemovalTra
 {
     public readonly record struct Parameters(string Id, SemVersion Version, bool Force);
 
-    public PackageRemovalTransaction(PackageContainer target, Parameters argument) : base(target, argument)
+    public PackageRemovalTransaction(IPackageContainer target, Parameters argument) : base(target, argument)
     {
     }
 

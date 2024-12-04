@@ -12,9 +12,9 @@ namespace MetaCraft.Commands;
 
 public class RemoveCommand
 {
-    private readonly PackageScope _scope;
+    private readonly IPackageScope _scope;
 
-    public RemoveCommand(PackageScope scope)
+    public RemoveCommand(IPackageScope scope)
     {
         _scope = scope;
     }

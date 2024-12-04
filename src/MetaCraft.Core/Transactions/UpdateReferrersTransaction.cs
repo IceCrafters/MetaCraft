@@ -12,7 +12,7 @@ namespace MetaCraft.Core.Transactions;
 
 public class UpdateReferrersTransaction : ArgumentedTransaction<UpdateReferrersTransaction.Parameters>
 {
-    public UpdateReferrersTransaction(PackageContainer target, Parameters argument) : base(target, argument)
+    public UpdateReferrersTransaction(IPackageContainer target, Parameters argument) : base(target, argument)
     {
     }
 

@@ -10,13 +10,13 @@ namespace MetaCraft.Core.Transactions;
 /// </summary>
 public abstract class ArgumentedTransaction<TArg> : ITransaction
 {
-    protected ArgumentedTransaction(PackageContainer target, TArg argument)
+    protected ArgumentedTransaction(IPackageContainer target, TArg argument)
     {
         Argument = argument;
         Target = target;
     }
 
-    public PackageContainer Target { get; }
+    public IPackageContainer Target { get; }
     public TArg Argument { get; }
 
     /// <summary>

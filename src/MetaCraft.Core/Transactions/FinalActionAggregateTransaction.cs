@@ -12,7 +12,7 @@ namespace MetaCraft.Core.Transactions;
 /// </summary>
 public sealed class FinalActionAggregateTransaction : BaseFinalActionTransaction
 {
-    public FinalActionAggregateTransaction(PackageContainer target, Parameter argument) : base(target,
+    public FinalActionAggregateTransaction(IPackageContainer target, Parameter argument) : base(target,
         argument.Finally)
     {
         Argument = argument;

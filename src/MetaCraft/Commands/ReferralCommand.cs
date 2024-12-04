@@ -12,9 +12,9 @@ namespace MetaCraft.Commands;
 
 public class ReferralCommand
 {
-    private readonly PackageScope _scope;
+    private readonly IPackageScope _scope;
 
-    public ReferralCommand(PackageScope scope)
+    public ReferralCommand(IPackageScope scope)
     {
         _scope = scope;
     }

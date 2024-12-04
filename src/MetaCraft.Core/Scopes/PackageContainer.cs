@@ -24,7 +24,7 @@ public class PackageContainer : IPackageContainer
         _serialFile = new SerialFile(Path.Combine(_root, "serial"));
     }
 
-    public PackageScope Parent { get; }
+    public IPackageScope Parent { get; }
 
     public IEnumerable<string> EnumeratePackages()
     {

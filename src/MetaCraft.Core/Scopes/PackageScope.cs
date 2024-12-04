@@ -9,7 +9,7 @@ namespace MetaCraft.Core.Scopes;
 /// Manages a set of installed packages and their associated environment and application
 /// configuration.
 /// </summary>
-public class PackageScope
+public class PackageScope : IPackageScope
 {
     public PackageScope(string root)
     {
@@ -21,7 +21,7 @@ public class PackageScope
             new JsonFileReferralPreferenceProvider(Path.Combine(Root, "ref_preferences.json")));
     }
     
-    public PackageContainer Container { get; }
+    public IPackageContainer Container { get; }
 
     public PackageReferralDatabase Referrals { get; }
     
