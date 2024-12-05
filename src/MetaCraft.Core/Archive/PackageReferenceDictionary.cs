@@ -25,4 +25,17 @@ public sealed class PackageReferenceDictionary : Dictionary<string, SemVersion>
     public PackageReferenceDictionary(int capacity) : base(capacity)
     {
     }
+
+    public void Add(PackageReference reference)
+    {
+        Add(reference.Name, reference.Version);
+    }
+
+    public void AddRange(IEnumerable<PackageReference> references)
+    {
+        foreach (var reference in references)
+        {
+            Add(reference.Name, reference.Version);
+        }
+    }
 }
