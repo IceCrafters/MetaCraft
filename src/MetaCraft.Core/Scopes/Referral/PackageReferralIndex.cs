@@ -25,4 +25,13 @@ public sealed class PackageReferralIndex
     public required PackageReferrerDictionary Referrers { get; init; }
 
     public required string Current { get; set; }
+
+#if DEBUG
+
+    public override string ToString()
+    {
+        return $"PackageReferralIndex {{{Referrers.Count} referrers, current = {Current}}}";
+    }
+
+#endif
 }

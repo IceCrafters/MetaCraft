@@ -22,4 +22,13 @@ public class ReferralIndexDictionary : Dictionary<SemVersionKey, PackageReferral
     public ReferralIndexDictionary(int capacity) : base(capacity)
     {
     }
+
+#if DEBUG
+
+    public override string ToString()
+    {
+        return $"ReferralIndexDictionary[{Count}]";
+    }
+
+#endif
 }
