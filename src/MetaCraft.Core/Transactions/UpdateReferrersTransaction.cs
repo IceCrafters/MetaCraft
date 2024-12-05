@@ -115,13 +115,15 @@ public class UpdateReferrersTransaction : ArgumentedTransaction<UpdateReferrersT
         
         void InsertReferrer(string id, SemVersion version, PackageReference to)
         {
-            var idToAdd = $"{id}-{version}";
+            // The ID used by MetaCraft is the referenced ID and version combined.
+            var idToAdd = $"{to.Name}-{to.Version}";
 
             var data = tree.GetOrAdd(id,
-                () => new ReferralIndexDictionary());
+                () => []);
 
             var referrers = data.GetOrAdd(new SemVersionKey(version),
-                () => new PackageReferralIndex([], idToAdd));
+                () => new PackageReferralIndex([], idToAdd));     
+
             referrers.Referrers.Add(idToAdd, to);
         }
     }
