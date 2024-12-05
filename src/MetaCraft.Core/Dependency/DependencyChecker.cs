@@ -10,7 +10,7 @@ namespace MetaCraft.Core.Dependency;
 
 public static class DependencyChecker
 {
-    public static bool DoesDependencySatisfy(ISet<PackageManifest> toInstall, IPackageScope scope, ITransactionAgent agent)
+    public static bool DoesDependencySatisfy(IEnumerable<PackageManifest> toInstall, IPackageScope scope, ITransactionAgent agent)
     {
         if (scope.Referrals.GetSerial() != scope.Container.GetSerial())
         {
@@ -21,7 +21,7 @@ public static class DependencyChecker
             && CheckConflict(toInstall, scope, agent);
     }
 
-    private static bool CheckConflict(ISet<PackageManifest> toInstall, IPackageScope scope, ITransactionAgent agent)
+    private static bool CheckConflict(IEnumerable<PackageManifest> toInstall, IPackageScope scope, ITransactionAgent agent)
     {
         bool DoesConflict(RangedPackageReference reference, PackageManifest from)
         {
@@ -33,7 +33,11 @@ public static class DependencyChecker
                 && scope.Referrals.Locate(reference) == null;
             if (!retVal)
             {
-                agent.PrintError(Lc.L("Conflicting clause: '{0}' ({1})", reference.Id, reference.Version));
+                agent.PrintError(Lc.L("from '{0}' ({1}): conflicting clause: '{2}' ({3})", 
+                    from.Id, 
+                    from.Version, 
+                    reference.Id, 
+                    reference.Version));
             }
 
             return retVal;
@@ -52,14 +56,18 @@ public static class DependencyChecker
         return true;
     }
 
-    private static bool CheckDependency(ISet<PackageManifest> toInstall, IPackageScope scope, ITransactionAgent agent)
+    private static bool CheckDependency(IEnumerable<PackageManifest> toInstall, IPackageScope scope, ITransactionAgent agent)
     {
-        bool DoesIncludeDep(RangedPackageReference reference)
+        bool DoesIncludeDep(RangedPackageReference reference, PackageManifest from)
         {
             var retVal = toInstall.Any(reference.Contains) || scope.Referrals.Locate(reference) != null;
             if (!retVal)
             {
-                agent.PrintError(Lc.L("Unsatisified dependency: '{0}' ({1})", reference.Id, reference.Version));
+                agent.PrintError(Lc.L("from '{0}' ({1}): missing dependency: '{2}' ({3})", 
+                    from.Id, 
+                    from.Version, 
+                    reference.Id, 
+                    reference.Version));
             }
 
             return retVal;
@@ -69,7 +77,7 @@ public static class DependencyChecker
         {
             if (package.Dependencies != null &&
                 !package.Dependencies.Select(x => new RangedPackageReference(x.Key, x.Value))
-                .All(DoesIncludeDep))
+                .All(x => DoesIncludeDep(x, package)))
             {
                 return false;
             }
