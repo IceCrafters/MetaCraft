@@ -24,7 +24,14 @@ public class DependencyTests
         _agent = new TestTransactionAgent(outputHelper);
     }
 
-    private static RangedPackageReferenceDictionary OfSingle(string id, SemVersionRange? range = null)
+    private static PackageReferenceDictionary OfSingleExact(string id, SemVersion? version = null)
+    {
+        var dict = new PackageReferenceDictionary();
+        dict.Add(id, version ?? Ver100);
+        return dict;
+    }
+
+    private static RangedPackageReferenceDictionary OfSingleRanged(string id, SemVersionRange? range = null)
     {
         var dict = new RangedPackageReferenceDictionary();
         dict.Add(id, range ?? SemVersionRange.All);
@@ -49,7 +56,7 @@ public class DependencyTests
                 PackageTime = DateTime.MinValue,
                 Version = Ver100,
                 Platform = PlatformIdentifier.Current,
-                ConflictsWith = OfSingle("conflicting")
+                ConflictsWith = OfSingleRanged("conflicting")
             },
             new() {
                 Id = "conflicting",
@@ -86,7 +93,7 @@ public class DependencyTests
                 PackageTime = DateTime.MinValue,
                 Version = Ver100,
                 Platform = PlatformIdentifier.Current,
-                ConflictsWith = OfSingle("conflicting-clause")
+                ConflictsWith = OfSingleRanged("conflicting-clause")
             }
         };
 
@@ -117,7 +124,7 @@ public class DependencyTests
                 PackageTime = DateTime.MinValue,
                 Version = Ver100,
                 Platform = PlatformIdentifier.Current,
-                ConflictsWith = OfSingle("conflicting")
+                ConflictsWith = OfSingleRanged("conflicting")
             }
         };
 
@@ -148,7 +155,7 @@ public class DependencyTests
                 PackageTime = DateTime.MinValue,
                 Version = Ver100,
                 Platform = PlatformIdentifier.Current,
-                Dependencies = OfSingle("referenced")
+                Dependencies = OfSingleRanged("referenced")
             }
         };
 
@@ -178,7 +185,7 @@ public class DependencyTests
                 PackageTime = DateTime.MinValue,
                 Version = Ver100,
                 Platform = PlatformIdentifier.Current,
-                Dependencies = OfSingle("required")
+                Dependencies = OfSingleRanged("required")
             }
         };
 
@@ -208,13 +215,43 @@ public class DependencyTests
                 PackageTime = DateTime.MinValue,
                 Version = Ver100,
                 Platform = PlatformIdentifier.Current,
-                Dependencies = OfSingle("required")
+                Dependencies = OfSingleRanged("required")
             },
             new() {
                 Id = "required",
                 PackageTime = DateTime.MinValue,
                 Version = Ver100,
                 Platform = PlatformIdentifier.Current
+            }
+        };
+
+        // Act
+        var result = DependencyChecker.DoesDependencySatisfy(set, scope.Object, _agent);
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void DoesDependencySatisfy_SelfProvideConflictingClause_ReturnsTrue()
+    {
+        // Arrange
+        var scope = new Mock<IPackageScope>();
+        var container = new MockPackageContainer(scope.Object, 1122L);
+
+        scope.SetupGet(x => x.Container).Returns(container);
+        scope.SetupGet(x => x.Referrals).Returns(new PackageReferralDatabase(new NoOpReferralStore(), 
+            new NullReferralPreferenceProvider()));
+
+        var set = new HashSet<PackageManifest>()
+        {
+            new() {
+                Id = "example",
+                PackageTime = DateTime.MinValue,
+                Version = Ver100,
+                Platform = PlatformIdentifier.Current,
+                ConflictsWith = OfSingleRanged("conflicted"),
+                Provides = OfSingleExact("conflicted")
             }
         };
 

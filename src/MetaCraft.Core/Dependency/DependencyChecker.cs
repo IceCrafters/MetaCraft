@@ -23,9 +23,11 @@ public static class DependencyChecker
 
     private static bool CheckConflict(ISet<PackageManifest> toInstall, IPackageScope scope, ITransactionAgent agent)
     {
-        bool DoesConflict(RangedPackageReference reference)
+        bool DoesConflict(RangedPackageReference reference, PackageManifest from)
         {
-            var retVal = !toInstall.Any(x
+            var retVal = !toInstall
+            .Where(x => !ReferenceEquals(x, from))
+            .Any(x
                 => reference.Contains(x)
                     || x.Provides?.Any(x => reference.Contains(x)) != true) 
                 && scope.Referrals.Locate(reference) == null;
@@ -41,7 +43,7 @@ public static class DependencyChecker
         {
             if (package.ConflictsWith != null &&
                 !package.ConflictsWith.Select(x => new RangedPackageReference(x.Key, x.Value))
-                .All(DoesConflict))
+                .All(x => DoesConflict(x, package)))
             {
                 return false;
             }
