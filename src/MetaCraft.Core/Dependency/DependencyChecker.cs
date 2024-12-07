@@ -17,20 +17,58 @@ public static class DependencyChecker
             new UpdateReferrersTransaction(scope.Container, new UpdateReferrersTransaction.Parameters()).Commit(agent);
         }
 
-        return CheckDependency(toInstall, scope, agent)
-            && CheckConflict(toInstall, scope, agent);
+        var packageManifests = toInstall as PackageManifest[] ?? toInstall.ToArray();
+        return CheckDependency(packageManifests, scope, agent)
+               && CheckConflict(packageManifests, scope, agent);
     }
 
-    private static bool CheckConflict(IEnumerable<PackageManifest> toInstall, IPackageScope scope, ITransactionAgent agent)
+    private static bool CheckConflict(PackageManifest[] toInstall, IPackageScope scope, ITransactionAgent agent)
     {
         bool DoesConflict(RangedPackageReference reference, PackageManifest from)
         {
-            var retVal = !toInstall
-            .Where(x => !ReferenceEquals(x, from))
-            .Any(x
-                => reference.Contains(x)
-                    || x.Provides?.Any(x => reference.Contains(x)) != true) 
-                && scope.Referrals.Locate(reference) == null;
+            var retVal = true;
+            // TODO replace with an optimised search table
+            // Search for toInstall
+            foreach (var entry in toInstall)
+            {
+                if (ReferenceEquals(from, entry))
+                {
+                    continue;
+                }
+                
+                if (reference.Contains(entry))
+                {
+                    retVal = false;
+                    break;
+                }
+
+                if (entry.Provides?.Any(reference.Contains) == true)
+                {
+                    retVal = false;
+                    break;
+                }
+            }
+
+            // Search for local
+            foreach (var package in scope.Container.EnumeratePackages())
+            {
+                foreach (var version in scope.Container.EnumerateVersions(package))
+                {
+                    if (reference.Contains(package, version))
+                    {
+                        retVal = false;
+                        break;
+                    }
+                    
+                    var manifest = scope.Container.InspectLocal(package, version);
+                    if (manifest.Provides?.Any(reference.Contains) == true)
+                    {
+                        retVal = false;
+                        break;
+                    }
+                }
+            }
+            
             if (!retVal)
             {
                 agent.PrintError(Lc.L("from '{0}' ({1}): conflicting clause: '{2}' ({3})", 
@@ -56,7 +94,7 @@ public static class DependencyChecker
         return true;
     }
 
-    private static bool CheckDependency(IEnumerable<PackageManifest> toInstall, IPackageScope scope, ITransactionAgent agent)
+    private static bool CheckDependency(PackageManifest[] toInstall, IPackageScope scope, ITransactionAgent agent)
     {
         bool DoesIncludeDep(RangedPackageReference reference, PackageManifest from)
         {

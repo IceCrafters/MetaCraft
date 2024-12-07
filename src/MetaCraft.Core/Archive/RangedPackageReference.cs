@@ -18,9 +18,14 @@ public sealed class RangedPackageReference
     public required string Id { get; init; }
     public required SemVersionRange Version { get; init; }
 
+    public bool Contains(string id, SemVersion version)
+    {
+        return id == Id && Version.Contains(version);
+    }
+    
     public bool Contains(KeyValuePair<string, SemVersion> reference)
     {
-        return reference.Key == this.Id && Version.Contains(reference.Value);
+        return Contains(reference.Key, reference.Value);
     }
 
     public bool Contains(PackageReference reference)

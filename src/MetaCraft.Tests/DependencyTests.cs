@@ -114,7 +114,7 @@ public class DependencyTests
             .WithPackage("conflicting", Ver100, DateTime.MinValue);
 
         scope.SetupGet(x => x.Container).Returns(container);
-        scope.SetupGet(x => x.Referrals).Returns(new PackageReferralDatabase(new NoOpReferralStore(), 
+        scope.SetupGet(x => x.Referrals).Returns(new PackageReferralDatabase(new MockReferralStore(), 
             new NullReferralPreferenceProvider()));
 
         var set = new HashSet<PackageManifest>()
