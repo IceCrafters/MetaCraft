@@ -10,6 +10,54 @@ namespace MetaCraft.Core.Dependency;
 
 public static class DependencyChecker
 {
+    private static bool SearchFor(RangedPackageReference reference,
+        PackageManifest from,
+        PackageManifest[] toInstall, 
+        IPackageScope scope)
+    {
+        // TODO replace with better searching logic
+        
+        // Search for toInstall
+        foreach (var entry in toInstall)
+        {
+            if (ReferenceEquals(from, entry))
+            {
+                continue;
+            }
+                
+            if (reference.Contains(entry)
+                || entry.Provides?.Any(reference.Contains) == true)
+            {
+                return false;
+            }
+
+            if (entry.Provides?.Any(reference.Contains) == true)
+            {
+                return false;
+            }
+        }
+
+        // Search for local
+        foreach (var package in scope.Container.EnumeratePackages())
+        {
+            foreach (var version in scope.Container.EnumerateVersions(package))
+            {
+                if (reference.Contains(package, version))
+                {
+                    return false;
+                }
+                    
+                var manifest = scope.Container.InspectLocal(package, version);
+                if (manifest?.Provides?.Any(reference.Contains) == true)
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+    
     public static bool DoesDependencySatisfy(IEnumerable<PackageManifest> toInstall, IPackageScope scope, ITransactionAgent agent)
     {
         if (scope.Referrals.GetSerial() != scope.Container.GetSerial())
@@ -24,50 +72,21 @@ public static class DependencyChecker
 
     private static bool CheckConflict(PackageManifest[] toInstall, IPackageScope scope, ITransactionAgent agent)
     {
+        foreach (var package in toInstall)
+        {
+            if (package.ConflictsWith != null &&
+                !package.ConflictsWith.Select(x => new RangedPackageReference(x.Key, x.Value))
+                .All(x => DoesConflict(x, package)))
+            {
+                return false;
+            }
+        }
+
+        return true;
+
         bool DoesConflict(RangedPackageReference reference, PackageManifest from)
         {
-            var retVal = true;
-            // TODO replace with an optimised search table
-            // Search for toInstall
-            foreach (var entry in toInstall)
-            {
-                if (ReferenceEquals(from, entry))
-                {
-                    continue;
-                }
-                
-                if (reference.Contains(entry))
-                {
-                    retVal = false;
-                    break;
-                }
-
-                if (entry.Provides?.Any(reference.Contains) == true)
-                {
-                    retVal = false;
-                    break;
-                }
-            }
-
-            // Search for local
-            foreach (var package in scope.Container.EnumeratePackages())
-            {
-                foreach (var version in scope.Container.EnumerateVersions(package))
-                {
-                    if (reference.Contains(package, version))
-                    {
-                        retVal = false;
-                        break;
-                    }
-                    
-                    var manifest = scope.Container.InspectLocal(package, version);
-                    if (manifest.Provides?.Any(reference.Contains) == true)
-                    {
-                        retVal = false;
-                        break;
-                    }
-                }
-            }
+            var retVal = SearchFor(reference, from, toInstall, scope);
             
             if (!retVal)
             {
@@ -80,18 +99,6 @@ public static class DependencyChecker
 
             return retVal;
         }
-
-        foreach (var package in toInstall)
-        {
-            if (package.ConflictsWith != null &&
-                !package.ConflictsWith.Select(x => new RangedPackageReference(x.Key, x.Value))
-                .All(x => DoesConflict(x, package)))
-            {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     private static bool CheckDependency(PackageManifest[] toInstall, IPackageScope scope, ITransactionAgent agent)

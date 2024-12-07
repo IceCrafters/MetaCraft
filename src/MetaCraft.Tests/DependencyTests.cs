@@ -136,7 +136,7 @@ public class DependencyTests
     }
 
     [Fact]
-    public void DoesDependencySatisfy_SatisifiedClauseInLocal_ReturnsTrue()
+    public void DoesDependencySatisfy_SatisfiedClauseInLocal_ReturnsTrue()
     {
         // Arrange
         var scope = new Mock<IPackageScope>();
@@ -167,7 +167,7 @@ public class DependencyTests
     }
 
     [Fact]
-    public void DoesDependencySatisfy_SatisifiedInLocal_ReturnsTrue()
+    public void DoesDependencySatisfy_SatisfiedInLocal_ReturnsTrue()
     {
         // Arrange
         var scope = new Mock<IPackageScope>();
@@ -197,7 +197,7 @@ public class DependencyTests
     }
 
     [Fact]
-    public void DoesDependencySatisfy_SatisifiedInSet_ReturnsTrue()
+    public void DoesDependencySatisfy_SatisfiedInSet_ReturnsTrue()
     {
         // Arrange
         var scope = new Mock<IPackageScope>();
@@ -260,5 +260,35 @@ public class DependencyTests
 
         // Assert
         Assert.True(result);
+    }
+
+    [Fact]
+    public void DoesDependencySatisfy_MissingDependency_ReturnsFalse()
+    {
+        // Arrange
+        var scope = new Mock<IPackageScope>();
+        // Missing the required 'required' package.
+        var container = new MockPackageContainer(scope.Object, 1122L);
+
+        scope.SetupGet(x => x.Container).Returns(container);
+        scope.SetupGet(x => x.Referrals).Returns(new PackageReferralDatabase(new MockReferralStore(), 
+            new NullReferralPreferenceProvider()));
+
+        var set = new HashSet<PackageManifest>()
+        {
+            new() {
+                Id = "example",
+                PackageTime = DateTime.MinValue,
+                Version = Ver100,
+                Platform = PlatformIdentifier.Current,
+                Dependencies = OfSingleRanged("required")
+            }
+        };
+
+        // Act
+        var result = DependencyChecker.DoesDependencySatisfy(set, scope.Object, _agent);
+
+        // Assert
+        Assert.False(result);
     }
 }
