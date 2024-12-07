@@ -41,6 +41,7 @@ internal class InstallCommand
 
         var list = new List<PackageInstallTransaction>(file.Length);
         var packages = new List<PackageManifest>(file.Length);
+        var checker = new DependencyChecker(_container.Parent);
 
         foreach (var f in file)
         {
@@ -61,7 +62,7 @@ internal class InstallCommand
         }
 
         // Check for dependencies
-        if (!DependencyChecker.DoesDependencySatisfy(packages, _container.Parent, agent))
+        if (!checker.DoesDependencySatisfy(packages, agent))
         {
             if (ignoreDeps)
             {

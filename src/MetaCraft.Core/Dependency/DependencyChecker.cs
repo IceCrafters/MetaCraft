@@ -5,12 +5,35 @@ using MetaCraft.Core.Archive;
 using MetaCraft.Core.Locales;
 using MetaCraft.Core.Scopes;
 using MetaCraft.Core.Transactions;
+using Semver;
 
 namespace MetaCraft.Core.Dependency;
 
-public static class DependencyChecker
+public class DependencyChecker
 {
-    private static bool SearchFor(RangedPackageReference reference,
+    private readonly List<(string, SemVersion)> _packageCache = [];
+    private readonly IPackageScope _packageScope;
+
+    public DependencyChecker(IPackageScope packageScope)
+    {
+        _packageScope = packageScope;
+        BuildPackageCache();
+    }
+
+    private void BuildPackageCache()
+    {
+        _packageCache.Clear();
+        var container = _packageScope.Container;
+        foreach (var id in container.EnumeratePackages())
+        {
+            foreach (var version in container.EnumerateVersions(id))
+            {
+                _packageCache.Add((id, version));   
+            }
+        }
+    }
+    
+    private bool SearchFor(RangedPackageReference reference,
         PackageManifest from,
         PackageManifest[] toInstall, 
         IPackageScope scope)
@@ -28,49 +51,53 @@ public static class DependencyChecker
             if (reference.Contains(entry)
                 || entry.Provides?.Any(reference.Contains) == true)
             {
-                return false;
+                return true;
             }
 
             if (entry.Provides?.Any(reference.Contains) == true)
             {
-                return false;
+                return true;
             }
         }
 
         // Search for local
-        foreach (var package in scope.Container.EnumeratePackages())
+        foreach (var (package, version) in _packageCache)
         {
-            foreach (var version in scope.Container.EnumerateVersions(package))
+            if (reference.Contains(package, version))
             {
-                if (reference.Contains(package, version))
-                {
-                    return false;
-                }
+                return true;
+            }
                     
-                var manifest = scope.Container.InspectLocal(package, version);
-                if (manifest?.Provides?.Any(reference.Contains) == true)
-                {
-                    return false;
-                }
+            var manifest = scope.Container.InspectLocal(package, version);
+            if (manifest?.Provides?.Any(reference.Contains) == true)
+            {
+                return true;
             }
         }
 
-        return true;
+        return false;
+    }
+
+    public static bool DoesDependencySatisfy(IEnumerable<PackageManifest> toInstall, IPackageScope scope,
+        ITransactionAgent agent)
+    {
+        var checker = new DependencyChecker(scope);
+        return checker.DoesDependencySatisfy(toInstall, agent);
     }
     
-    public static bool DoesDependencySatisfy(IEnumerable<PackageManifest> toInstall, IPackageScope scope, ITransactionAgent agent)
+    public bool DoesDependencySatisfy(IEnumerable<PackageManifest> toInstall, ITransactionAgent agent)
     {
-        if (scope.Referrals.GetSerial() != scope.Container.GetSerial())
+        if (_packageScope.Referrals.GetSerial() != _packageScope.Container.GetSerial())
         {
-            new UpdateReferrersTransaction(scope.Container, new UpdateReferrersTransaction.Parameters()).Commit(agent);
+            new UpdateReferrersTransaction(_packageScope.Container, new UpdateReferrersTransaction.Parameters()).Commit(agent);
         }
 
         var packageManifests = toInstall as PackageManifest[] ?? toInstall.ToArray();
-        return CheckDependency(packageManifests, scope, agent)
-               && CheckConflict(packageManifests, scope, agent);
+        return CheckDependency(packageManifests, _packageScope, agent)
+               && CheckConflict(packageManifests, _packageScope, agent);
     }
 
-    private static bool CheckConflict(PackageManifest[] toInstall, IPackageScope scope, ITransactionAgent agent)
+    private bool CheckConflict(PackageManifest[] toInstall, IPackageScope scope, ITransactionAgent agent)
     {
         foreach (var package in toInstall)
         {
@@ -86,7 +113,7 @@ public static class DependencyChecker
 
         bool DoesConflict(RangedPackageReference reference, PackageManifest from)
         {
-            var retVal = SearchFor(reference, from, toInstall, scope);
+            var retVal = !SearchFor(reference, from, toInstall, scope);
             
             if (!retVal)
             {
@@ -103,6 +130,18 @@ public static class DependencyChecker
 
     private static bool CheckDependency(PackageManifest[] toInstall, IPackageScope scope, ITransactionAgent agent)
     {
+        foreach (var package in toInstall)
+        {
+            if (package.Dependencies != null &&
+                !package.Dependencies.Select(x => new RangedPackageReference(x.Key, x.Value))
+                .All(x => DoesIncludeDep(x, package)))
+            {
+                return false;
+            }
+        }
+
+        return true;
+
         bool DoesIncludeDep(RangedPackageReference reference, PackageManifest from)
         {
             var retVal = toInstall.Any(reference.Contains) || scope.Referrals.Locate(reference) != null;
@@ -117,17 +156,5 @@ public static class DependencyChecker
 
             return retVal;
         }
-
-        foreach (var package in toInstall)
-        {
-            if (package.Dependencies != null &&
-                !package.Dependencies.Select(x => new RangedPackageReference(x.Key, x.Value))
-                .All(x => DoesIncludeDep(x, package)))
-            {
-                return false;
-            }
-        }
-
-        return true;
     }
 }
