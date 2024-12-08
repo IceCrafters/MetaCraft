@@ -52,4 +52,9 @@ public class TestTransactionAgent : ITransactionAgent
     {
         PrintWarning(string.Format(message, args));
     }
+
+    public void PrintError([Localizable(true)] string message)
+    {
+        PrintLevel("error", message);
+    }
 }

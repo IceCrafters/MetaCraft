@@ -1,8 +1,7 @@
 // SPDX-FileCopyrightText: 2024 WithLithum <WithLithum@outlook.com>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
+using System.ComponentModel;
 using MetaCraft.Core.Transactions;
 using Spectre.Console;
 
@@ -51,5 +50,11 @@ public class ConsoleAgent : ITransactionAgent
         PrintDebug(message);
         AnsiConsole.WriteException(exception);
         #endif
+    }
+
+    public void PrintError([Localizable(true)] string message)
+    {
+        AnsiConsole.MarkupInterpolated($"[red]{Application.BaseName}: [/][bold gray]error:[/] ");
+        AnsiConsole.MarkupLineInterpolated($"[white]{message}[/]");
     }
 }

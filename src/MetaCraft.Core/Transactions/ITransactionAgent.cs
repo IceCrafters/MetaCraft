@@ -14,6 +14,8 @@ public interface ITransactionAgent
 
     void PrintWarning(Exception exception, [Localizable(true)] string message);
     void PrintWarning(string message, params object[] args);
+
+    void PrintError([Localizable(true)] string message);
     
     void PrintDebug(Exception exception, string message);
 }
