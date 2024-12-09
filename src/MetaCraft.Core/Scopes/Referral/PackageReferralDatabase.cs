@@ -9,7 +9,7 @@ namespace MetaCraft.Core.Scopes.Referral;
 
 public class PackageReferralDatabase : ISerialed
 {
-    private readonly SerialFile _serialFile;
+    private readonly ISerialed _serialFile;
 
     public PackageReferralDatabase(IReferralDatabaseStore store,
         IReferralPreferenceProvider preferenceProvider)

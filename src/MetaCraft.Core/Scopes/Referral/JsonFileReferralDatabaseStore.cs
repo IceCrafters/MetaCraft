@@ -27,7 +27,7 @@ public class JsonFileReferralDatabaseStore : IReferralDatabaseStore
         Directory.CreateDirectory(Root);
     }
 
-    public SerialFile GetSerialFile()
+    public ISerialed GetSerialFile()
     {
         return new SerialFile(Path.Combine(Root, SerialFile.CommonFileName));
     }

@@ -13,7 +13,7 @@ public sealed class NoOpReferralStore : IReferralDatabaseStore
         // no-op
     }
 
-    public SerialFile GetSerialFile()
+    public ISerialed GetSerialFile()
     {
         return new SerialFile(Path.GetTempFileName());
     }

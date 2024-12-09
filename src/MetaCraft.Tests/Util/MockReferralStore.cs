@@ -15,7 +15,7 @@ public class MockReferralStore : IReferralDatabaseStore
         _dataIndex.Clear();
     }
 
-    public SerialFile GetSerialFile()
+    public ISerialed GetSerialFile()
     {
         return new SerialFile(Path.GetRandomFileName());
     }

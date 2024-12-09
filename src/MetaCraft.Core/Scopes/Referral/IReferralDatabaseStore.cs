@@ -7,7 +7,7 @@ public interface IReferralDatabaseStore
 {
     void Clear();
 
-    SerialFile GetSerialFile();
+    ISerialed GetSerialFile();
 
     ReferralIndexDictionary? ReadFile(string packageName);
 
