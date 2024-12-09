@@ -11,7 +11,7 @@ namespace MetaCraft.Core.Transactions;
 
 public class PackageRemovalTransaction : ArgumentedTransaction<PackageRemovalTransaction.Parameters>
 {
-    public readonly record struct Parameters(string Id, SemVersion Version, bool Force);
+    public readonly record struct Parameters(string Id, SemVersion Version, bool IgnoreScriptFailure);
 
     public PackageRemovalTransaction(IPackageContainer target, Parameters argument) : base(target, argument)
     {
@@ -40,7 +40,7 @@ public class PackageRemovalTransaction : ArgumentedTransaction<PackageRemovalTra
             if (exitCode != 0)
             {
                 // If --force is specified, do not fail when script fails to execute
-                if (Argument.Force)
+                if (Argument.IgnoreScriptFailure)
                 {
                     agent.PrintInfo(Lc.L("ignoring failure exit code {0} for pre-removal script, proceeding removal", exitCode));   
                 }

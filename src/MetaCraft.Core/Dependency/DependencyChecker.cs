@@ -9,7 +9,7 @@ using Semver;
 
 namespace MetaCraft.Core.Dependency;
 
-public class DependencyChecker
+public class DependencyChecker : IDependencyChecker
 {
     private readonly List<(string, SemVersion)> _packageCache = [];
     private readonly IPackageScope _packageScope;
@@ -17,6 +17,7 @@ public class DependencyChecker
     public DependencyChecker(IPackageScope packageScope)
     {
         _packageScope = packageScope;
+        // TODO: provide option to defer this cache build
         BuildPackageCache();
     }
 
@@ -38,7 +39,7 @@ public class DependencyChecker
         PackageManifest[] toInstall, 
         IPackageScope scope)
     {
-        // TODO replace with better searching logic
+        // TODO: replace with better searching logic
         
         // Search for toInstall
         foreach (var entry in toInstall)
@@ -95,6 +96,45 @@ public class DependencyChecker
         var packageManifests = toInstall as PackageManifest[] ?? toInstall.ToArray();
         return CheckDependency(packageManifests, _packageScope, agent)
                && CheckConflict(packageManifests, _packageScope, agent);
+    }
+
+    public bool HasDependents(PackageManifest package)
+    {
+        foreach (var (id, version) in _packageCache)
+        {
+            // Don't cache this. If we have say a thousand of packages, caching all of this
+            // takes many memory.
+            var manifest = _packageScope.Container.InspectLocal(id, version);
+
+            if (manifest?.Dependencies == null)
+            {
+                continue;
+            }
+
+            // We only go so far as one dependency exist then return true.
+            // This however means that if we have no dependencies, we go through everything.
+            // TODO: make a proper cache for this
+            foreach (var dependency in manifest.Dependencies)
+            {
+                // Check if contains the package itself
+                if (dependency.Key == package.Id
+                    && dependency.Value.Contains(package.Version))
+                {
+                    return true;
+                }
+                
+                // Check if contains any provided referrals
+                if (package.Provides?.Any(x =>
+                        x.Key == dependency.Key
+                        && dependency.Value.Contains(x.Value))
+                    == true)
+                {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
     }
 
     private bool CheckConflict(PackageManifest[] toInstall, IPackageScope scope, ITransactionAgent agent)
