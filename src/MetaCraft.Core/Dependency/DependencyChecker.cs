@@ -13,12 +13,11 @@ public class DependencyChecker : IDependencyChecker
 {
     private readonly List<(string, SemVersion)> _packageCache = [];
     private readonly IPackageScope _packageScope;
+    private bool _cacheBuilt;
 
     public DependencyChecker(IPackageScope packageScope)
     {
         _packageScope = packageScope;
-        // TODO: provide option to defer this cache build
-        BuildPackageCache();
     }
 
     private void BuildPackageCache()
@@ -32,6 +31,18 @@ public class DependencyChecker : IDependencyChecker
                 _packageCache.Add((id, version));   
             }
         }
+
+        _cacheBuilt = true;
+    }
+
+    private List<(string, SemVersion)> GetCache()
+    {
+        if (!_cacheBuilt)
+        {
+            BuildPackageCache();
+        }
+        
+        return _packageCache;
     }
     
     private bool SearchFor(RangedPackageReference reference,
@@ -39,8 +50,6 @@ public class DependencyChecker : IDependencyChecker
         PackageManifest[] toInstall, 
         IPackageScope scope)
     {
-        // TODO: replace with better searching logic
-        
         // Search for toInstall
         foreach (var entry in toInstall)
         {
@@ -62,7 +71,7 @@ public class DependencyChecker : IDependencyChecker
         }
 
         // Search for local
-        foreach (var (package, version) in _packageCache)
+        foreach (var (package, version) in GetCache())
         {
             if (reference.Contains(package, version))
             {
@@ -100,7 +109,7 @@ public class DependencyChecker : IDependencyChecker
 
     public bool HasDependents(PackageManifest package)
     {
-        foreach (var (id, version) in _packageCache)
+        foreach (var (id, version) in GetCache())
         {
             // Don't cache this. If we have say a thousand of packages, caching all of this
             // takes many memory.
