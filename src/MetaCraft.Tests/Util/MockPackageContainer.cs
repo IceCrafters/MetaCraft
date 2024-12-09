@@ -134,21 +134,23 @@ public class MockPackageContainer : IPackageContainer
 
     #region Helper Methods
 
-    public MockPackageContainer WithPackage(string id, 
+    public static PackageManifest CreateManifest(string id, 
         SemVersion version,
         DateTime packageTime,
         PlatformIdentifier? platform = null,
         bool unitary = false,
-        PackageReference[]? provides = null)
+        PackageReference[]? provides = null,
+        RangedPackageReference[]? dependencies = null)
     {
-        var manifest = new PackageManifest()
+        var manifest = new PackageManifest
         {
             Id = id,
             Version = version,
             Unitary = unitary,
             PackageTime = packageTime,
             Platform = platform ?? PlatformIdentifier.Current,
-            Provides = provides != null ? new PackageReferenceDictionary(provides.Length) : null
+            Provides = provides != null ? new PackageReferenceDictionary(provides.Length) : null,
+            Dependencies = dependencies != null ? new RangedPackageReferenceDictionary(dependencies.Length) : null,
         };
 
         if (provides != null)
@@ -157,7 +159,27 @@ public class MockPackageContainer : IPackageContainer
             manifest.Provides!.AddRange(provides);
         }
 
-        InsertPackage(manifest);
+        if (dependencies != null)
+        {
+            manifest.Dependencies!.EnsureCapacity(dependencies.Length);
+            foreach (var dependency in dependencies)
+            {
+                manifest.Dependencies!.Add(dependency.Id, dependency.Version);
+            }
+        }
+
+        return manifest;
+    }
+    
+    public MockPackageContainer WithPackage(string id, 
+        SemVersion version,
+        DateTime packageTime,
+        PlatformIdentifier? platform = null,
+        bool unitary = false,
+        PackageReference[]? provides = null,
+        RangedPackageReference[]? dependencies = null)
+    {
+        InsertPackage(CreateManifest(id, version, packageTime, platform, unitary, provides, dependencies));
         return this;
     }
 

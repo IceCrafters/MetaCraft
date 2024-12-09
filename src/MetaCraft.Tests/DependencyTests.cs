@@ -39,6 +39,53 @@ public class DependencyTests
     }
 
     [Fact]
+    public void HasDependents_NoDependentPackages_ReturnsFalse()
+    {
+        // Arrange
+        var scope = new Mock<IPackageScope>();
+        // Empty container
+        var container = new MockPackageContainer(scope.Object, 1122L);
+        
+        scope.SetupGet(x => x.Container).Returns(container);
+
+        var depChecker = new DependencyChecker(scope.Object);
+        
+        // Act
+        var result = depChecker.HasDependents(
+            MockPackageContainer.CreateManifest("example-lib",
+                new SemVersion(1, 0, 0),
+                DateTime.MinValue));
+        
+        // Assert
+        Assert.False(result);
+    }
+    
+    [Fact]
+    public void HasDependents_ThereExistsDependentPackages_ReturnsTrue()
+    {
+        // Arrange
+        var scope = new Mock<IPackageScope>();
+        var container = new MockPackageContainer(scope.Object, 1122L)
+            .WithPackage("dependent",
+                new SemVersion(1, 0, 0),
+                DateTime.MinValue,
+                dependencies: [new RangedPackageReference("example-lib", SemVersionRange.All)]);
+        
+        scope.SetupGet(x => x.Container).Returns(container);
+
+        var depChecker = new DependencyChecker(scope.Object);
+        
+        // Act
+        var result = depChecker.HasDependents(
+            MockPackageContainer.CreateManifest("example-lib",
+                new SemVersion(1, 0, 0),
+                DateTime.MinValue));
+        
+        // Assert
+        Assert.True(result);
+    }
+    
+    [Fact]
     public void DoesDependencySatisfy_HaveConflictInSet_ReturnsFalse()
     {
         // Arrange
