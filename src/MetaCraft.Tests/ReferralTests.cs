@@ -6,6 +6,7 @@ using MetaCraft.Core.Scopes;
 using MetaCraft.Core.Scopes.Referral;
 using MetaCraft.Core.Serialization;
 using MetaCraft.Core.Transactions;
+using MetaCraft.Testing;
 using MetaCraft.Tests.Util;
 using Moq;
 using Semver;
@@ -27,7 +28,7 @@ public class ReferralTests
     {
         // Arrange
         var parent = new Mock<IPackageScope>();
-        var target = new MockPackageContainer(parent.Object, 1122L)
+        var target = new MockPackageContainer(1122L)
             .WithPackage("example",
                 new SemVersion(2, 3, 0),
                 DateTime.MinValue,
@@ -55,7 +56,7 @@ public class ReferralTests
 
         // Assert
         dbStore.Verify(x => x.WriteFile("provided", It.Is<ReferralIndexDictionary>(
-            x => x.ContainsKey(new SemVersionKey(new SemVersion(1, 2, 0)))
+            y => y.ContainsKey(new SemVersionKey(new SemVersion(1, 2, 0)))
         )));
     }
 
@@ -64,7 +65,7 @@ public class ReferralTests
     {
         // Arrange
         var parent = new Mock<IPackageScope>();
-        var target = new MockPackageContainer(parent.Object, 1122L)
+        var target = new MockPackageContainer(1122L)
             .WithPackage("example",
                 new SemVersion(2, 3, 0),
                 DateTime.MinValue,
@@ -91,7 +92,7 @@ public class ReferralTests
 
         // Assert
         dbStore.Verify(x => x.WriteFile("provided", It.Is<ReferralIndexDictionary>(
-            x => x[new SemVersionKey(new SemVersion(1, 2, 0))].Referrers.ContainsKey("example-2.3.0")
+            y => y[new SemVersionKey(new SemVersion(1, 2, 0))].Referrers.ContainsKey("example-2.3.0")
         )));
     }
 
@@ -100,7 +101,7 @@ public class ReferralTests
     {
         // Arrange
         var parent = new Mock<IPackageScope>();
-        var target = new MockPackageContainer(parent.Object, 1122L)
+        var target = new MockPackageContainer(1122L)
             .WithPackage("another", 
                 new SemVersion(2, 0, 0),
                 DateTime.MinValue,
@@ -132,7 +133,7 @@ public class ReferralTests
 
         // Assert
         dbStore.Verify(x => x.WriteFile("provided", It.Is<ReferralIndexDictionary>(
-            x => x[new SemVersionKey(new SemVersion(1, 2, 0))].Current == "example-1.0.0"
+            y => y[new SemVersionKey(new SemVersion(1, 2, 0))].Current == "example-1.0.0"
         )));
     }
 

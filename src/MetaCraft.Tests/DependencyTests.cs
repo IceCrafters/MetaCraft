@@ -40,7 +40,7 @@ public class DependencyTests
         // Arrange
         var scope = new Mock<IPackageScope>();
         // Empty container
-        var container = new MockPackageContainer(scope.Object, 1122L);
+        var container = new MockPackageContainer(1122L);
         
         scope.SetupGet(x => x.Container).Returns(container);
 
@@ -61,7 +61,7 @@ public class DependencyTests
     {
         // Arrange
         var scope = new Mock<IPackageScope>();
-        var container = new MockPackageContainer(scope.Object, 1122L)
+        var container = new MockPackageContainer(1122L)
             .WithPackage("dependent",
                 new SemVersion(1, 0, 0),
                 DateTime.MinValue,
@@ -86,7 +86,7 @@ public class DependencyTests
     {
         // Arrange
         var scope = new Mock<IPackageScope>();
-        var container = new MockPackageContainer(scope.Object, 1122L);
+        var container = new MockPackageContainer(1122L);
 
         scope.SetupGet(x => x.Container).Returns(container);
         scope.SetupGet(x => x.Referrals).Returns(new PackageReferralDatabase(new NoOpReferralStore(), 
@@ -115,7 +115,7 @@ public class DependencyTests
     {
         // Arrange
         var scope = new Mock<IPackageScope>();
-        var container = new MockPackageContainer(scope.Object, 1122L)
+        var container = new MockPackageContainer(1122L)
             .WithPackage("test", Ver100, DateTime.MinValue, 
                 provides: [ new PackageReference("conflicting-clause", Ver100) ]);
 
@@ -144,7 +144,7 @@ public class DependencyTests
     {
         // Arrange
         var scope = new Mock<IPackageScope>();
-        var container = new MockPackageContainer(scope.Object, 1122L)
+        var container = new MockPackageContainer(1122L)
             .WithPackage("conflicting", Ver100, DateTime.MinValue);
 
         scope.SetupGet(x => x.Container).Returns(container);
@@ -171,7 +171,7 @@ public class DependencyTests
     {
         // Arrange
         var scope = new Mock<IPackageScope>();
-        var container = new MockPackageContainer(scope.Object, 1122L)
+        var container = new MockPackageContainer(1122L)
             .WithPackage("test", Ver100, DateTime.MinValue,
                 provides: [ new PackageReference("referenced", Ver100) ]);
 
@@ -199,7 +199,7 @@ public class DependencyTests
     {
         // Arrange
         var scope = new Mock<IPackageScope>();
-        var container = new MockPackageContainer(scope.Object, 1122L)
+        var container = new MockPackageContainer(1122L)
             .WithPackage("required", Ver100, DateTime.MinValue);
 
         scope.SetupGet(x => x.Container).Returns(container);
@@ -226,7 +226,7 @@ public class DependencyTests
     {
         // Arrange
         var scope = new Mock<IPackageScope>();
-        var container = new MockPackageContainer(scope.Object, 1122L)
+        var container = new MockPackageContainer(1122L)
             .WithPackage("conflicting", Ver100, DateTime.MinValue);
 
         scope.SetupGet(x => x.Container).Returns(container);
@@ -256,7 +256,7 @@ public class DependencyTests
     {
         // Arrange
         var scope = new Mock<IPackageScope>();
-        var container = new MockPackageContainer(scope.Object, 1122L);
+        var container = new MockPackageContainer(1122L);
 
         scope.SetupGet(x => x.Container).Returns(container);
         scope.SetupGet(x => x.Referrals).Returns(new PackageReferralDatabase(new NoOpReferralStore(), 
@@ -284,7 +284,7 @@ public class DependencyTests
         // Arrange
         var scope = new Mock<IPackageScope>();
         // Missing the required 'required' package.
-        var container = new MockPackageContainer(scope.Object, 1122L);
+        var container = new MockPackageContainer(1122L);
 
         scope.SetupGet(x => x.Container).Returns(container);
         scope.SetupGet(x => x.Referrals).Returns(new PackageReferralDatabase(new MockReferralStore(), 

@@ -5,24 +5,24 @@ using MetaCraft.Core;
 using MetaCraft.Core.Archive;
 using MetaCraft.Core.Platform;
 using MetaCraft.Core.Scopes;
-using MetaCraft.Testing;
 using Semver;
 
-namespace MetaCraft.Tests.Util;
+namespace MetaCraft.Testing;
 
-public class MockPackageContainer : IPackageContainer
+/// <summary>
+/// Provides an in-memory package manifest container backed by a dictionary, that is suitable for
+/// mocking tests.
+/// </summary>
+public sealed class MockPackageContainer : IPackageContainer
 {
     private readonly Dictionary<string, Dictionary<SemVersion, PackageManifest>> _data = [];
 
-    public MockPackageContainer(IPackageScope parent, long serial)
+    public MockPackageContainer(long serial)
     {
-        Parent = parent;
         Serial = serial;
     }
 
-    public IPackageScope Parent { get; }
-
-    public long Serial { get; private set; }
+    private long Serial { get; set; }
 
     #region Interface Implementation
 
