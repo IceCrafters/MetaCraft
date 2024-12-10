@@ -4,8 +4,12 @@
 using MetaCraft.Core.Scopes;
 using MetaCraft.Core.Scopes.Referral;
 
-namespace MetaCraft.Tests.Util;
+namespace MetaCraft.Testing;
 
+/// <summary>
+/// Provides an in-memory implementation of <see cref="IReferralDatabaseStore"/> that is suitable for
+/// mocking test purposes.
+/// </summary>
 public class MockReferralStore : IReferralDatabaseStore
 {
     private readonly Dictionary<string, ReferralIndexDictionary> _dataIndex = [];

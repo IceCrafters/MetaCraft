@@ -4,10 +4,21 @@
 using MetaCraft.Core.Scopes;
 using MetaCraft.Core.Scopes.Referral;
 
-namespace MetaCraft.Tests.Util;
+namespace MetaCraft.Testing;
 
+/// <summary>
+/// Provides a pure implementation of <see cref="IReferralDatabaseStore"/> that does nothing.
+/// </summary>
+/// <remarks>
+/// <para>
+/// This implementation will simply dictate all referral files that API consumers query as
+/// non-existent and all write operations will be ignored.
+/// </para>
+/// </remarks>
 public sealed class NoOpReferralStore : IReferralDatabaseStore
 {
+    private readonly InMemorySerialFile _serial = new(-1, readOnly: true);
+    
     public void Clear()
     {
         // no-op
@@ -15,7 +26,7 @@ public sealed class NoOpReferralStore : IReferralDatabaseStore
 
     public ISerialed GetSerialFile()
     {
-        return new SerialFile(Path.GetTempFileName());
+        return _serial;
     }
 
     public ReferralIndexDictionary? ReadFile(string packageName)
