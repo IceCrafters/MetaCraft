@@ -7,6 +7,7 @@ using System.Runtime.InteropServices.JavaScript;
 using System.Text;
 using System.Text.Json.Serialization;
 using MetaCraft.Common.Json;
+using MetaCraft.Common.Resources;
 
 namespace MetaCraft.Common.Platform;
 
@@ -149,10 +150,10 @@ public readonly record struct PlatformIdentifier
     {
         var message = result switch
         {
-            ParseFunctionResult.InvalidFormat => "Invalid platform identifier format.",
-            ParseFunctionResult.InvalidSystem => "Invalid system identifier.",
-            ParseFunctionResult.InvalidArchitecture => "Invalid architecture identifier.",
-            _ => string.Format("Unexpected error occurred when parsing the platform identifier: '{0}'", result)
+            ParseFunctionResult.InvalidFormat => CommonMessages.InvalidPlatformIdentifier,
+            ParseFunctionResult.InvalidSystem => CommonMessages.InvalidSystemIdentifier,
+            ParseFunctionResult.InvalidArchitecture => CommonMessages.InvalidArchitectureIdentifier,
+            _ => string.Format(CommonMessages.PlatformParseError, result)
         };
 
         return new FormatException(message);

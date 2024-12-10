@@ -3,6 +3,7 @@
 
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using MetaCraft.Common.Resources;
 
 namespace MetaCraft.Common.Json;
 
@@ -10,11 +11,10 @@ public class SemVersionKeyConverter : JsonConverter<SemVersionKey>
 {
     private readonly SemVersionConverter _converter = new();
     
-    public override SemVersionKey? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override SemVersionKey Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         return new SemVersionKey(_converter.Read(ref reader, typeToConvert, options)
-            ?? throw new JsonException("SemVersion cannot be null as a key."));
-        // TODO: restore localisation
+            ?? throw new JsonException(CommonMessages.SemVersionNullAsKey));
     }
 
     public override void Write(Utf8JsonWriter writer, SemVersionKey value, JsonSerializerOptions options)

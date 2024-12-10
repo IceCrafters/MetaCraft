@@ -3,6 +3,7 @@
 
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using MetaCraft.Common.Resources;
 using Semver;
 
 namespace MetaCraft.Common.Json;
@@ -19,8 +20,7 @@ public sealed class SemVersionConverter : JsonConverter<SemVersion>
 
         if (!SemVersion.TryParse(strValue, out var result))
         {
-            throw new JsonException("The provided string is not a valid Semantic Version number.");
-            // TODO: add a common Lc module and restore this localization string
+            throw new JsonException(CommonMessages.InvalidSemVersion);
         }
         return result;
     }

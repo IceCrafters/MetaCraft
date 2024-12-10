@@ -29,6 +29,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaCraft.Archive", "MetaCr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaCraft.Common", "MetaCraft.Common\MetaCraft.Common.csproj", "{E762352C-1C92-408E-B672-26C751689915}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{226C73A4-3218-4CB0-9012-3AF4AF93C0DD}"
+	ProjectSection(SolutionItems) = preProject
+		shared\Lc.cs = shared\Lc.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
