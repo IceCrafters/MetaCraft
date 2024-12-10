@@ -13,5 +13,5 @@ public interface IPackageScope
     
     string Root { get; }
 
-    PackageScopeLock Lock();
+    IDisposable Lock();
 }
