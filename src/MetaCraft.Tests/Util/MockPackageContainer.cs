@@ -5,13 +5,13 @@ using MetaCraft.Core;
 using MetaCraft.Core.Archive;
 using MetaCraft.Core.Platform;
 using MetaCraft.Core.Scopes;
+using MetaCraft.Testing;
 using Semver;
 
 namespace MetaCraft.Tests.Util;
 
 public class MockPackageContainer : IPackageContainer
 {
-
     private readonly Dictionary<string, Dictionary<SemVersion, PackageManifest>> _data = [];
 
     public MockPackageContainer(IPackageScope parent, long serial)
@@ -75,7 +75,7 @@ public class MockPackageContainer : IPackageContainer
 
     public string? GetInstalledPackageLocationOrDefault(PackageManifest manifest)
     {
-       return DoesPackageExist(manifest.Id, manifest.Version)
+        return DoesPackageExist(manifest.Id, manifest.Version)
             ? "exists, but location does not matter"
             : null;
     }
@@ -134,7 +134,7 @@ public class MockPackageContainer : IPackageContainer
 
     #region Helper Methods
 
-    public static PackageManifest CreateManifest(string id, 
+    public MockPackageContainer WithPackage(string id,
         SemVersion version,
         DateTime packageTime,
         PlatformIdentifier? platform = null,
@@ -142,47 +142,16 @@ public class MockPackageContainer : IPackageContainer
         PackageReference[]? provides = null,
         RangedPackageReference[]? dependencies = null)
     {
-        var manifest = new PackageManifest
-        {
-            Id = id,
-            Version = version,
-            Unitary = unitary,
-            PackageTime = packageTime,
-            Platform = platform ?? PlatformIdentifier.Current,
-            Provides = provides != null ? new PackageReferenceDictionary(provides.Length) : null,
-            Dependencies = dependencies != null ? new RangedPackageReferenceDictionary(dependencies.Length) : null,
-        };
-
-        if (provides != null)
-        {
-            manifest.Provides!.EnsureCapacity(provides.Length);
-            manifest.Provides!.AddRange(provides);
-        }
-
-        if (dependencies != null)
-        {
-            manifest.Dependencies!.EnsureCapacity(dependencies.Length);
-            foreach (var dependency in dependencies)
-            {
-                manifest.Dependencies!.Add(dependency.Id, dependency.Version);
-            }
-        }
-
-        return manifest;
-    }
-    
-    public MockPackageContainer WithPackage(string id, 
-        SemVersion version,
-        DateTime packageTime,
-        PlatformIdentifier? platform = null,
-        bool unitary = false,
-        PackageReference[]? provides = null,
-        RangedPackageReference[]? dependencies = null)
-    {
-        InsertPackage(CreateManifest(id, version, packageTime, platform, unitary, provides, dependencies));
+        InsertPackage(
+            ManifestHelper.CreateManifest(id, 
+                version, 
+                packageTime, 
+                platform, 
+                unitary, 
+                provides, 
+                dependencies));
         return this;
     }
 
     #endregion
-
 }

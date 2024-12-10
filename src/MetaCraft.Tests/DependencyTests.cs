@@ -4,9 +4,9 @@
 using MetaCraft.Core;
 using MetaCraft.Core.Archive;
 using MetaCraft.Core.Dependency;
-using MetaCraft.Core.Platform;
 using MetaCraft.Core.Scopes;
 using MetaCraft.Core.Scopes.Referral;
+using MetaCraft.Testing;
 using MetaCraft.Tests.Util;
 using Moq;
 using Semver;
@@ -24,18 +24,14 @@ public class DependencyTests
         _agent = new TestTransactionAgent(outputHelper);
     }
 
-    private static PackageReferenceDictionary OfSingleExact(string id, SemVersion? version = null)
+    private static PackageReference IsExact(string id, SemVersion version)
     {
-        var dict = new PackageReferenceDictionary();
-        dict.Add(id, version ?? Ver100);
-        return dict;
+        return new PackageReference(id, version);
     }
 
-    private static RangedPackageReferenceDictionary OfSingleRanged(string id, SemVersionRange? range = null)
+    private static RangedPackageReference IsRanged(string id, SemVersionRange? range = null)
     {
-        var dict = new RangedPackageReferenceDictionary();
-        dict.Add(id, range ?? SemVersionRange.All);
-        return dict;
+        return new RangedPackageReference(id, range ?? SemVersionRange.All);
     }
 
     [Fact]
@@ -52,7 +48,7 @@ public class DependencyTests
         
         // Act
         var result = depChecker.HasDependents(
-            MockPackageContainer.CreateManifest("example-lib",
+            ManifestHelper.CreateManifest("example-lib",
                 new SemVersion(1, 0, 0),
                 DateTime.MinValue));
         
@@ -77,7 +73,7 @@ public class DependencyTests
         
         // Act
         var result = depChecker.HasDependents(
-            MockPackageContainer.CreateManifest("example-lib",
+            ManifestHelper.CreateManifest("example-lib",
                 new SemVersion(1, 0, 0),
                 DateTime.MinValue));
         
@@ -96,21 +92,15 @@ public class DependencyTests
         scope.SetupGet(x => x.Referrals).Returns(new PackageReferralDatabase(new NoOpReferralStore(), 
             new NullReferralPreferenceProvider()));
 
-        var set = new HashSet<PackageManifest>()
+        var set = new HashSet<PackageManifest>
         {
-            new() {
-                Id = "example",
-                PackageTime = DateTime.MinValue,
-                Version = Ver100,
-                Platform = PlatformIdentifier.Current,
-                ConflictsWith = OfSingleRanged("conflicting")
-            },
-            new() {
-                Id = "conflicting",
-                PackageTime = DateTime.MinValue,
-                Version = Ver100,
-                Platform = PlatformIdentifier.Current
-            }
+            ManifestHelper.CreateManifest("example",
+                Ver100,
+                DateTime.MinValue,
+                conflictsWith: [IsRanged("conflicting")]),
+            ManifestHelper.CreateManifest("conflicting",
+                Ver100,
+                DateTime.MinValue)
         };
 
         // Act
@@ -133,15 +123,12 @@ public class DependencyTests
         scope.SetupGet(x => x.Referrals).Returns(new PackageReferralDatabase(new NoOpReferralStore(), 
             new NullReferralPreferenceProvider()));
 
-        var set = new HashSet<PackageManifest>()
+        var set = new HashSet<PackageManifest>
         {
-            new() {
-                Id = "example",
-                PackageTime = DateTime.MinValue,
-                Version = Ver100,
-                Platform = PlatformIdentifier.Current,
-                ConflictsWith = OfSingleRanged("conflicting-clause")
-            }
+            ManifestHelper.CreateManifest("example",
+                Ver100,
+                DateTime.MinValue,
+                conflictsWith: [IsRanged("conflicting-clause")]),
         };
 
         // Act
@@ -164,15 +151,12 @@ public class DependencyTests
         scope.SetupGet(x => x.Referrals).Returns(new PackageReferralDatabase(new MockReferralStore(), 
             new NullReferralPreferenceProvider()));
 
-        var set = new HashSet<PackageManifest>()
+        var set = new HashSet<PackageManifest>
         {
-            new() {
-                Id = "example",
-                PackageTime = DateTime.MinValue,
-                Version = Ver100,
-                Platform = PlatformIdentifier.Current,
-                ConflictsWith = OfSingleRanged("conflicting")
-            }
+            ManifestHelper.CreateManifest("example",
+                Ver100,
+                DateTime.MinValue,
+                conflictsWith: [IsRanged("conflicting")])
         };
 
         // Act
@@ -195,15 +179,12 @@ public class DependencyTests
         scope.SetupGet(x => x.Referrals).Returns(new PackageReferralDatabase(new MockReferralStore(), 
             new NullReferralPreferenceProvider()));
 
-        var set = new HashSet<PackageManifest>()
+        var set = new HashSet<PackageManifest>
         {
-            new() {
-                Id = "example",
-                PackageTime = DateTime.MinValue,
-                Version = Ver100,
-                Platform = PlatformIdentifier.Current,
-                Dependencies = OfSingleRanged("referenced")
-            }
+            ManifestHelper.CreateManifest("example",
+                Ver100,
+                DateTime.MinValue,
+                dependencies: [IsRanged("referenced")]),
         };
 
         // Act
@@ -225,15 +206,12 @@ public class DependencyTests
         scope.SetupGet(x => x.Referrals).Returns(new PackageReferralDatabase(new MockReferralStore(), 
             new NullReferralPreferenceProvider()));
 
-        var set = new HashSet<PackageManifest>()
+        var set = new HashSet<PackageManifest>
         {
-            new() {
-                Id = "example",
-                PackageTime = DateTime.MinValue,
-                Version = Ver100,
-                Platform = PlatformIdentifier.Current,
-                Dependencies = OfSingleRanged("required")
-            }
+            ManifestHelper.CreateManifest("example",
+                Ver100,
+                DateTime.MinValue,
+                dependencies: [IsRanged("required")]),
         };
 
         // Act
@@ -255,21 +233,15 @@ public class DependencyTests
         scope.SetupGet(x => x.Referrals).Returns(new PackageReferralDatabase(new NoOpReferralStore(), 
             new NullReferralPreferenceProvider()));
 
-        var set = new HashSet<PackageManifest>()
+        var set = new HashSet<PackageManifest>
         {
-            new() {
-                Id = "example",
-                PackageTime = DateTime.MinValue,
-                Version = Ver100,
-                Platform = PlatformIdentifier.Current,
-                Dependencies = OfSingleRanged("required")
-            },
-            new() {
-                Id = "required",
-                PackageTime = DateTime.MinValue,
-                Version = Ver100,
-                Platform = PlatformIdentifier.Current
-            }
+            ManifestHelper.CreateManifest("example",
+                Ver100,
+                DateTime.MinValue,
+                dependencies: [IsRanged("required")]),
+            ManifestHelper.CreateManifest("required",
+                Ver100,
+                DateTime.MinValue)
         };
 
         // Act
@@ -290,16 +262,13 @@ public class DependencyTests
         scope.SetupGet(x => x.Referrals).Returns(new PackageReferralDatabase(new NoOpReferralStore(), 
             new NullReferralPreferenceProvider()));
 
-        var set = new HashSet<PackageManifest>()
+        var set = new HashSet<PackageManifest>
         {
-            new() {
-                Id = "example",
-                PackageTime = DateTime.MinValue,
-                Version = Ver100,
-                Platform = PlatformIdentifier.Current,
-                ConflictsWith = OfSingleRanged("conflicted"),
-                Provides = OfSingleExact("conflicted")
-            }
+            ManifestHelper.CreateManifest("example",
+                Ver100,
+                DateTime.MinValue,
+                conflictsWith: [IsRanged("conflicted")],
+                provides: [IsExact("conflicted", Ver100)])
         };
 
         // Act
@@ -321,15 +290,12 @@ public class DependencyTests
         scope.SetupGet(x => x.Referrals).Returns(new PackageReferralDatabase(new MockReferralStore(), 
             new NullReferralPreferenceProvider()));
 
-        var set = new HashSet<PackageManifest>()
+        var set = new HashSet<PackageManifest>
         {
-            new() {
-                Id = "example",
-                PackageTime = DateTime.MinValue,
-                Version = Ver100,
-                Platform = PlatformIdentifier.Current,
-                Dependencies = OfSingleRanged("required")
-            }
+            ManifestHelper.CreateManifest("example",
+                Ver100,
+                DateTime.MinValue,
+                dependencies: [IsRanged("required")])
         };
 
         // Act
