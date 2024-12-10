@@ -4,9 +4,7 @@
 using System.Text.Json;
 using MetaCraft.Archive.References;
 using MetaCraft.Common.Platform;
-using MetaCraft.Core.Archive;
-using MetaCraft.Core.Locales;
-using MetaCraft.Core.Platform;
+using MetaCraft.Localisation;
 using Semver;
 
 namespace MetaCraft.Core.Scopes;

@@ -3,8 +3,8 @@
 
 using System.Text.Json;
 using MetaCraft.Common;
-using MetaCraft.Core.Locales;
 using MetaCraft.Core.Platform;
+using MetaCraft.Localisation;
 using Semver;
 using ReferralPreferenceTree = System.Collections.Generic.Dictionary<
     string, 

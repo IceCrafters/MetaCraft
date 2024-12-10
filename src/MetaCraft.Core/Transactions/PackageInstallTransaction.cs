@@ -3,10 +3,9 @@
 
 using MetaCraft.Common.Platform;
 using MetaCraft.Core.Archive;
-using MetaCraft.Core.Dependency;
-using MetaCraft.Core.Locales;
 using MetaCraft.Core.Platform;
 using MetaCraft.Core.Scopes;
+using MetaCraft.Localisation;
 
 namespace MetaCraft.Core.Transactions;
 

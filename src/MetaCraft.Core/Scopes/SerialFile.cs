@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 using System.Buffers.Binary;
-using MetaCraft.Core.Locales;
+using MetaCraft.Localisation;
 
 namespace MetaCraft.Core.Scopes;
 

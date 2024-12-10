@@ -1,9 +1,9 @@
 // SPDX-FileCopyrightText: 2024 WithLithum <WithLithum@outlook.com>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-using MetaCraft.Core.Locales;
 using MetaCraft.Core.Platform;
 using MetaCraft.Core.Scopes;
+using MetaCraft.Localisation;
 using Semver;
 
 namespace MetaCraft.Core.Transactions;

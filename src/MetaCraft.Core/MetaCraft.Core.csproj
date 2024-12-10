@@ -32,4 +32,10 @@
       <Folder Include="Serialization\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Include="..\shared\Lc.cs">
+        <Link>Locales\Lc.cs</Link>
+      </Compile>
+    </ItemGroup>
+
 </Project>
