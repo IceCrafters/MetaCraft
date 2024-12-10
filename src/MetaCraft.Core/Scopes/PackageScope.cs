@@ -27,7 +27,7 @@ public class PackageScope : IPackageScope
     
     public string Root { get; }
 
-    public PackageScopeLock Lock()
+    public IDisposable Lock()
     {
         return PackageScopeLock.Create(Path.Combine(Root, "lock"));
     }

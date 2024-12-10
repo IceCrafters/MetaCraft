@@ -33,18 +33,29 @@ public class DependencyTests
     {
         return new RangedPackageReference(id, range ?? SemVersionRange.All);
     }
+    
+    private static MockPackageScope CreateNoOpReferralScope(MockPackageContainer container)
+    {
+        return new MockPackageScope(container, new PackageReferralDatabase(new NoOpReferralStore(),
+            new NullReferralPreferenceProvider()));
+    }
+    
+    private static MockPackageScope CreateRealReferralScope(MockPackageContainer container)
+    {
+        return new MockPackageScope(container, new PackageReferralDatabase(new MockReferralStore(),
+            new NullReferralPreferenceProvider()));
+    }
 
     [Fact]
     public void HasDependents_NoDependentPackages_ReturnsFalse()
     {
         // Arrange
-        var scope = new Mock<IPackageScope>();
-        // Empty container
+        // empty container
         var container = new MockPackageContainer(1122L);
-        
-        scope.SetupGet(x => x.Container).Returns(container);
+        var scope = new MockPackageScope(container, new PackageReferralDatabase(new NoOpReferralStore(), 
+            new NullReferralPreferenceProvider()));
 
-        var depChecker = new DependencyChecker(scope.Object);
+        var depChecker = new DependencyChecker(scope);
         
         // Act
         var result = depChecker.HasDependents(
@@ -60,16 +71,15 @@ public class DependencyTests
     public void HasDependents_ThereExistsDependentPackages_ReturnsTrue()
     {
         // Arrange
-        var scope = new Mock<IPackageScope>();
         var container = new MockPackageContainer(1122L)
             .WithPackage("dependent",
                 new SemVersion(1, 0, 0),
                 DateTime.MinValue,
                 dependencies: [new RangedPackageReference("example-lib", SemVersionRange.All)]);
-        
-        scope.SetupGet(x => x.Container).Returns(container);
+        var scope = new MockPackageScope(container, new PackageReferralDatabase(new NoOpReferralStore(),
+            new NullReferralPreferenceProvider()));
 
-        var depChecker = new DependencyChecker(scope.Object);
+        var depChecker = new DependencyChecker(scope);
         
         // Act
         var result = depChecker.HasDependents(
@@ -85,12 +95,8 @@ public class DependencyTests
     public void DoesDependencySatisfy_HaveConflictInSet_ReturnsFalse()
     {
         // Arrange
-        var scope = new Mock<IPackageScope>();
         var container = new MockPackageContainer(1122L);
-
-        scope.SetupGet(x => x.Container).Returns(container);
-        scope.SetupGet(x => x.Referrals).Returns(new PackageReferralDatabase(new NoOpReferralStore(), 
-            new NullReferralPreferenceProvider()));
+        var scope = CreateNoOpReferralScope(container);
 
         var set = new HashSet<PackageManifest>
         {
@@ -104,7 +110,7 @@ public class DependencyTests
         };
 
         // Act
-        var result = DependencyChecker.DoesDependencySatisfy(set, scope.Object, _agent);
+        var result = DependencyChecker.DoesDependencySatisfy(set, scope, _agent);
 
         // Assert
         Assert.False(result);
@@ -114,14 +120,11 @@ public class DependencyTests
     public void DoesDependencySatisfy_HaveConflictClauseInLocal_ReturnsFalse()
     {
         // Arrange
-        var scope = new Mock<IPackageScope>();
         var container = new MockPackageContainer(1122L)
             .WithPackage("test", Ver100, DateTime.MinValue, 
                 provides: [ new PackageReference("conflicting-clause", Ver100) ]);
 
-        scope.SetupGet(x => x.Container).Returns(container);
-        scope.SetupGet(x => x.Referrals).Returns(new PackageReferralDatabase(new NoOpReferralStore(), 
-            new NullReferralPreferenceProvider()));
+        var scope = CreateRealReferralScope(container);
 
         var set = new HashSet<PackageManifest>
         {
@@ -132,7 +135,7 @@ public class DependencyTests
         };
 
         // Act
-        var result = DependencyChecker.DoesDependencySatisfy(set, scope.Object, _agent);
+        var result = DependencyChecker.DoesDependencySatisfy(set, scope, _agent);
 
         // Assert
         Assert.False(result);
@@ -143,13 +146,10 @@ public class DependencyTests
     public void DoesDependencySatisfy_HaveConflictInLocal_ReturnsFalse()
     {
         // Arrange
-        var scope = new Mock<IPackageScope>();
         var container = new MockPackageContainer(1122L)
             .WithPackage("conflicting", Ver100, DateTime.MinValue);
 
-        scope.SetupGet(x => x.Container).Returns(container);
-        scope.SetupGet(x => x.Referrals).Returns(new PackageReferralDatabase(new MockReferralStore(), 
-            new NullReferralPreferenceProvider()));
+        var scope = CreateNoOpReferralScope(container);
 
         var set = new HashSet<PackageManifest>
         {
@@ -160,7 +160,7 @@ public class DependencyTests
         };
 
         // Act
-        var result = DependencyChecker.DoesDependencySatisfy(set, scope.Object, _agent);
+        var result = DependencyChecker.DoesDependencySatisfy(set, scope, _agent);
 
         // Assert
         Assert.False(result);
@@ -170,14 +170,10 @@ public class DependencyTests
     public void DoesDependencySatisfy_SatisfiedClauseInLocal_ReturnsTrue()
     {
         // Arrange
-        var scope = new Mock<IPackageScope>();
         var container = new MockPackageContainer(1122L)
             .WithPackage("test", Ver100, DateTime.MinValue,
                 provides: [ new PackageReference("referenced", Ver100) ]);
-
-        scope.SetupGet(x => x.Container).Returns(container);
-        scope.SetupGet(x => x.Referrals).Returns(new PackageReferralDatabase(new MockReferralStore(), 
-            new NullReferralPreferenceProvider()));
+        var scope = CreateRealReferralScope(container);
 
         var set = new HashSet<PackageManifest>
         {
@@ -188,7 +184,7 @@ public class DependencyTests
         };
 
         // Act
-        var result = DependencyChecker.DoesDependencySatisfy(set, scope.Object, _agent);
+        var result = DependencyChecker.DoesDependencySatisfy(set, scope, _agent);
 
         // Assert
         Assert.True(result);
@@ -198,13 +194,9 @@ public class DependencyTests
     public void DoesDependencySatisfy_SatisfiedInLocal_ReturnsTrue()
     {
         // Arrange
-        var scope = new Mock<IPackageScope>();
         var container = new MockPackageContainer(1122L)
             .WithPackage("required", Ver100, DateTime.MinValue);
-
-        scope.SetupGet(x => x.Container).Returns(container);
-        scope.SetupGet(x => x.Referrals).Returns(new PackageReferralDatabase(new MockReferralStore(), 
-            new NullReferralPreferenceProvider()));
+        var scope = CreateRealReferralScope(container);
 
         var set = new HashSet<PackageManifest>
         {
@@ -215,7 +207,7 @@ public class DependencyTests
         };
 
         // Act
-        var result = DependencyChecker.DoesDependencySatisfy(set, scope.Object, _agent);
+        var result = DependencyChecker.DoesDependencySatisfy(set, scope, _agent);
 
         // Assert
         Assert.True(result);
@@ -225,13 +217,9 @@ public class DependencyTests
     public void DoesDependencySatisfy_SatisfiedInSet_ReturnsTrue()
     {
         // Arrange
-        var scope = new Mock<IPackageScope>();
         var container = new MockPackageContainer(1122L)
             .WithPackage("conflicting", Ver100, DateTime.MinValue);
-
-        scope.SetupGet(x => x.Container).Returns(container);
-        scope.SetupGet(x => x.Referrals).Returns(new PackageReferralDatabase(new NoOpReferralStore(), 
-            new NullReferralPreferenceProvider()));
+        var scope = CreateNoOpReferralScope(container);
 
         var set = new HashSet<PackageManifest>
         {
@@ -245,7 +233,7 @@ public class DependencyTests
         };
 
         // Act
-        var result = DependencyChecker.DoesDependencySatisfy(set, scope.Object, _agent);
+        var result = DependencyChecker.DoesDependencySatisfy(set, scope, _agent);
 
         // Assert
         Assert.True(result);
@@ -255,12 +243,8 @@ public class DependencyTests
     public void DoesDependencySatisfy_SelfProvideConflictingClause_ReturnsTrue()
     {
         // Arrange
-        var scope = new Mock<IPackageScope>();
         var container = new MockPackageContainer(1122L);
-
-        scope.SetupGet(x => x.Container).Returns(container);
-        scope.SetupGet(x => x.Referrals).Returns(new PackageReferralDatabase(new NoOpReferralStore(), 
-            new NullReferralPreferenceProvider()));
+        var scope = CreateNoOpReferralScope(container);
 
         var set = new HashSet<PackageManifest>
         {
@@ -272,7 +256,7 @@ public class DependencyTests
         };
 
         // Act
-        var result = DependencyChecker.DoesDependencySatisfy(set, scope.Object, _agent);
+        var result = DependencyChecker.DoesDependencySatisfy(set, scope, _agent);
 
         // Assert
         Assert.True(result);
@@ -282,13 +266,9 @@ public class DependencyTests
     public void DoesDependencySatisfy_MissingDependency_ReturnsFalse()
     {
         // Arrange
-        var scope = new Mock<IPackageScope>();
-        // Missing the required 'required' package.
         var container = new MockPackageContainer(1122L);
-
-        scope.SetupGet(x => x.Container).Returns(container);
-        scope.SetupGet(x => x.Referrals).Returns(new PackageReferralDatabase(new MockReferralStore(), 
-            new NullReferralPreferenceProvider()));
+        // Missing the required package.
+        var scope = CreateNoOpReferralScope(container);
 
         var set = new HashSet<PackageManifest>
         {
@@ -299,7 +279,7 @@ public class DependencyTests
         };
 
         // Act
-        var result = DependencyChecker.DoesDependencySatisfy(set, scope.Object, _agent);
+        var result = DependencyChecker.DoesDependencySatisfy(set, scope, _agent);
 
         // Assert
         Assert.False(result);
