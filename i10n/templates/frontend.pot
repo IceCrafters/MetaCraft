@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MetaCraft\n"
-"POT-Creation-Date: 2024-12-03 17:22:36+0800\n"
-"PO-Revision-Date: 2024-12-03 17:22:37+0800\n"
+"POT-Creation-Date: 2024-12-10 18:59:51+0800\n"
+"PO-Revision-Date: 2024-12-10 18:59:52+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -10,191 +10,222 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: GetText.NET Extractor\n"
 
-#: ../../../src/MetaCraft/Commands/RemoveCommand.cs:25
-msgid "The package to remove"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/RemoveCommand.cs:33
-msgid "Uninstalls a package from the current scope"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/InspectCommand.cs:50
-msgid "Dependencies"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:42
-msgid "Treat non-existent clauses as empty clauses"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/InspectCommand.cs:21
-msgid "Reads a package and shows its information"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/InspectCommand.cs:56
-msgid "Description"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/InspectCommand.cs:58
-msgid "Authors"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:154
-#, csharp-format
-msgid "not such referrer '{0}' for clause '{1}' ({2})"
-msgstr ""
-
-#: ../../../src/MetaCraft/InteractiveException.cs:23
-#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:149
-#, csharp-format
-msgid "no valid version found for clause '{0}'"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/InspectCommand.cs:45
-msgid "Package Time"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/InstallCommand.cs:15
-msgid "The package archives to install"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/InspectCommand.cs:47
-msgid "Platform"
-msgstr ""
-
-#: ../../../src/MetaCraft/Application.cs:40
-#, csharp-format
-msgid "{0}: exception occurred: {1}"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:37
-msgid "The name for the clause"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/InspectCommand.cs:46
-msgid "Version"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:39
-msgid "The clause version to list referrers for"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/InspectCommand.cs:57
-msgid "Licence"
-msgstr ""
-
-#: ../../../src/MetaCraft/InteractiveException.cs:18
-#, csharp-format
-msgid "no such clause '{0}'"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/InspectCommand.cs:34
-#, csharp-format
-msgid "not a package: {0}"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:118
-msgid "Version of the clause to select a package for"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:24
-msgid "Query and update referral database"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:44
-msgid "List available referrers for a given clause"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:122
-msgid "Selects a package as preferred provider for a clause"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/InstallCommand.cs:16
-msgid "If specified, remove already existing packages of same ID and version"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/InstallCommand.cs:44
-#, csharp-format
-msgid "platform '{0}' ({1}) requires platform {2} but current is {3}"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/RemoveCommand.cs:63
-#, csharp-format
-msgid "no such package: '{0}' ({1})"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:115
-msgid "Name of the package"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:173
+#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:174
 msgid "Regenerate referral database entries"
 msgstr ""
 
-#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:199
-msgid "Invalid version number"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:142
-#, csharp-format
-msgid "Clause '{0}' not found"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/InspectCommand.cs:118
-#, csharp-format
-msgid "file not found: {1}"
-msgstr ""
-
-#: ../../../src/MetaCraft/InteractiveException.cs:17
+#: ../../../src/MetaCraft/InteractiveException.cs:25
 #, csharp-format
 msgid "no such clause '{0}' ({1})"
 msgstr ""
 
-#: ../../../src/MetaCraft/Program.cs:35
+#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:116
+msgid "Name of the package"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:46
+msgid "Package ID"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/RemoveCommand.cs:70
+#, csharp-format
+msgid "no such package: '{0}' ({1})"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:54
+msgid "Provides"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:38
+msgid "The name for the clause"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:49
+msgid "Platform"
+msgstr ""
+
+#: ../../../src/MetaCraft/Application.cs:36
+#, csharp-format
+msgid "{0}: exception occurred: {1}"
+msgstr ""
+
+#: ../../../src/MetaCraft/Program.cs:38
 msgid "MetaCraft local package manager"
 msgstr ""
 
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:53
+msgid "Conflicts with"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InstallCommand.cs:18
+msgid "If specified, remove already existing packages of same ID and version"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:123
+msgid "Selects a package as preferred provider for a clause"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InstallCommand.cs:52
+#, csharp-format
+msgid "platform '{0}' ({1}) requires platform {2} but current is {3}"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:143
+#, csharp-format
+msgid "Clause '{0}' not found"
+msgstr ""
+
+#: ../../../src/MetaCraft/InteractiveException.cs:19
+#, csharp-format
+msgid "transaction failed: {0}"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:155
+#, csharp-format
+msgid "not such referrer '{0}' for clause '{1}' ({2})"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InstallCommand.cs:74
+msgid "Package requirements unsatisified; see above for details."
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:120
+#, csharp-format
+msgid "file not found: {1}"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/RemoveCommand.cs:39
+msgid "Uninstalls a package from the current scope"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:119
+msgid "Version of the clause to select a package for"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:23
+msgid "Reads a package and shows its information"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InstallCommand.cs:17
+msgid "The package archives to install"
+msgstr ""
+
+#: ../../../src/MetaCraft/InteractiveException.cs:26
+#, csharp-format
+msgid "no such clause '{0}'"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/RemoveCommand.cs:34
+msgid "If specified, ignore dependent packages"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:61
+msgid "Maintainers"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:40
+msgid "The clause version to list referrers for"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:47
+msgid "Package Time"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:115
+msgid "Name of the referrer"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InstallCommand.cs:70
+msgid "See the above messages for details."
+msgstr ""
+
 #: ../../../src/MetaCraft/Commands/RemoveCommand.cs:30
+msgid "The version to remove"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:50
+msgid "File Size"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:172
+msgid "Regenerates even if the referral database is up-to-date"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:36
+#, csharp-format
+msgid "not a package: {0}"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InstallCommand.cs:69
+msgid ""
+"Package requirements were not satisified; package may fail to configure."
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:43
+msgid "Treat non-existent clauses as empty clauses"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:200
+msgid "Invalid version number"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/RemoveCommand.cs:36
 msgid "If specified, ignore pre-removal script failures"
 msgstr ""
 
 #: ../../../src/MetaCraft/Commands/InspectCommand.cs:52
-msgid "Provides"
+msgid "Dependencies"
 msgstr ""
 
-#: ../../../src/MetaCraft/Commands/RemoveCommand.cs:27
-msgid "The version to remove"
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:48
+msgid "Version"
 msgstr ""
 
-#: ../../../src/MetaCraft/Commands/InspectCommand.cs:44
-msgid "Package ID"
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:60
+msgid "Authors"
 msgstr ""
 
-#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:171
-msgid "Regenerates even if the referral database is up-to-date"
+#: ../../../src/MetaCraft/Commands/RemoveCommand.cs:80
+#, csharp-format
+msgid "package '{0}' ({1}) is currently being depended on"
 msgstr ""
 
-#: ../../../src/MetaCraft/Commands/RemoveCommand.cs:54
+#: ../../../src/MetaCraft/Commands/RemoveCommand.cs:28
+msgid "The package to remove"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:58
+msgid "Description"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InstallCommand.cs:19
+msgid "Ignore missing dependencies and conflicting packages"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InstallCommand.cs:29
+msgid "Installs one or more package archives"
+msgstr ""
+
+#: ../../../src/MetaCraft/InteractiveException.cs:31
+#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:150
+#, csharp-format
+msgid "no valid version found for clause '{0}'"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/InspectCommand.cs:59
+msgid "Licence"
+msgstr ""
+
+#: ../../../src/MetaCraft/Commands/RemoveCommand.cs:61
 #, csharp-format
 msgid "version not found: {0}"
 msgstr ""
 
-#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:114
-msgid "Name of the referrer"
+#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:45
+msgid "List available referrers for a given clause"
 msgstr ""
 
-#: ../../../src/MetaCraft/Commands/InspectCommand.cs:51
-msgid "Conflicts with"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/InspectCommand.cs:48
-msgid "File Size"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/InspectCommand.cs:59
-msgid "Maintainers"
-msgstr ""
-
-#: ../../../src/MetaCraft/Commands/InstallCommand.cs:26
-msgid "Installs one or more package archives"
+#: ../../../src/MetaCraft/Commands/ReferralCommand.cs:25
+msgid "Query and update referral database"
 msgstr ""
 

@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 using MetaCraft.Core.Transactions;
+using MetaCraft.Localisation;
 using Semver;
 
 namespace MetaCraft;

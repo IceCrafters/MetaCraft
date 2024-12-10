@@ -29,6 +29,9 @@
 
   <ItemGroup>
     <Compile Remove="Commands\ArgumentTypes.cs" />
+    <Compile Include="..\shared\Lc.cs">
+      <Link>Lc.cs</Link>
+    </Compile>
   </ItemGroup>
 
 </Project>

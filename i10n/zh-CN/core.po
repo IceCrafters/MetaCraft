@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MetaCraft.Core\n"
-"POT-Creation-Date: 2024-12-03 17:22:37+0800\n"
+"POT-Creation-Date: 2024-12-10 18:59:52+0800\n"
 "PO-Revision-Date: 2024-12-03 17:35+0800\n"
 "Last-Translator: WithLithum <WithLithum@outlook.com>\n"
 "Language-Team: Chinese <>\n"
@@ -13,81 +13,7 @@ msgstr ""
 "X-Generator: Lokalize 24.08.3\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../../../src/MetaCraft.Core/Scopes/SerialFile.cs:51
-msgid "Failed to update serial"
-msgstr "序列文件更新失败"
-
-#: ../../../src/MetaCraft.Core/Transactions/TransactionException.cs:24
-msgid "Transaction failed."
-msgstr "操作执行失败"
-
-#: ../../../src/MetaCraft.Core/Transactions/PackageRemovalTransaction.cs:25
-#, csharp-format
-msgid "skipped nonexistent package '{0}' ({1})"
-msgstr "跳过不存在的包 '{0}' ({1})"
-
-#: ../../../src/MetaCraft.Core/Scopes/ScopeLockException.cs:16
-#, csharp-format
-msgid "Failed to lock the lock file: {0}"
-msgstr "锁定锁文件失败：{0}"
-
-#: ../../../src/MetaCraft.Core/Platform/PlatformUtil.cs:96
-msgid "Failed to start shell interpreter process.."
-msgstr "未能启动命令解释器进程。"
-
-#: ../../../src/MetaCraft.Core/Platform/PlatformUtil.cs:73
-msgid "Unable to spawn shell process."
-msgstr "无法启动命令解释器进程。"
-
-#: ../../../src/MetaCraft.Core/Transactions/UpdateReferrersTransaction.cs:74
-#, csharp-format
-msgid "Referrer index for '{0}' ({1}) contains no valid packages"
-msgstr "指引条目 '{0}' ({1}) 下无有效指引目标"
-
-#: ../../../src/MetaCraft.Core/Transactions/UpdateReferrersTransaction.cs:39
-msgid "Saving referrals database..."
-msgstr "正在保存指引条目数据库..."
-
-#: ../../../src/MetaCraft.Core/Transactions/PackageRemovalTransaction.cs:45
-#, csharp-format
-msgid ""
-"ignoring failure exit code {0} for pre-removal script, proceeding removal"
-msgstr "忽略预移除脚本的失败退出代码 {0}，继续移除包"
-
-#: ../../../src/MetaCraft.Core/Scopes/PackageContainer.cs:158
-#, csharp-format
-msgid "Package '{0}' ({1}) is already inside the container."
-msgstr "包 '{0}' ({1}) 已于空间中存在。"
-
-#: ../../../src/MetaCraft.Core/Transactions/PackageRemovalTransaction.cs:49
-#, csharp-format
-msgid "Pre-removal script returned failure exit code {0}"
-msgstr "预移除脚本返回的退出代码 {0} 指示执行不成功"
-
-#: ../../../src/MetaCraft.Core/Archive/InvalidPackageException.cs:24
-msgid "The specified package does not have a manifest."
-msgstr "指定的包内没有清单文件。"
-
-#: ../../../src/MetaCraft.Core/Platform/PlatformIdentifier.cs:155
-#, csharp-format
-msgid "Unexpected error occurred when parsing the platform identifier: '{0}'"
-msgstr "解析平台标识符时发生未知错误：'{0}'"
-
-#: ../../../src/MetaCraft.Core/Transactions/PackageInstallTransaction.cs:34
-#, csharp-format
-msgid "Expanding package '{0}' ({1})..."
-msgstr "正在解压包 '{0}' ({1})..."
-
-#: ../../../src/MetaCraft.Core/Transactions/UpdateReferrersTransaction.cs:49
-msgid "Exception details:"
-msgstr "错误详细信息："
-
-#: ../../../src/MetaCraft.Core/Transactions/PackageInstallTransaction.cs:61
-#, csharp-format
-msgid "Running configure script for '{0}' ({1})..."
-msgstr "正在执行包 '{0}' ({1}) 的配置脚本..."
-
-#: ../../../src/MetaCraft.Core/Transactions/UpdateReferrersTransaction.cs:56
+#: ../../../src/MetaCraft.Core/Transactions/UpdateReferrersTransaction.cs:57
 msgid "Applying preferences..."
 msgstr "正在应用条目选择..."
 
@@ -95,73 +21,152 @@ msgstr "正在应用条目选择..."
 msgid "Failed to save data"
 msgstr "数据保存失败"
 
-#: ../../../src/MetaCraft.Core/Platform/PlatformIdentifier.cs:152
-msgid "Invalid platform identifier format."
-msgstr "平台标识符格式不正确。"
-
-#: ../../../src/MetaCraft.Core/Platform/PlatformIdentifier.cs:153
-msgid "Invalid system identifier."
-msgstr "系统标识符无效。"
-
-#: ../../../src/MetaCraft.Core/Scopes/PackageContainer.cs:58
-msgid "Version information does not present for the given unitary package."
-msgstr "单一型包缺失版本信息。"
-
-#: ../../../src/MetaCraft.Core/Scopes/PackageContainer.cs:205
+#: ../../../src/MetaCraft.Core/Scopes/PackageContainer.cs:207
 #, csharp-format
 msgid "{0}: failed to delete towed package:"
 msgstr "{0}: 删除暂移的包失败："
-
-#: ../../../src/MetaCraft.Core/Transactions/UpdateReferrersTransaction.cs:30
-msgid "Updating referrals database..."
-msgstr "正在更新指引条目数据库..."
-
-#: ../../../src/MetaCraft.Core/Transactions/UpdateReferrersTransaction.cs:94
-msgid "The package directory contains an invalid package"
-msgstr "包空间目录内有无效包"
 
 #: ../../../src/MetaCraft.Core/Scopes/ScopeLockException.cs:21
 #, csharp-format
 msgid "Unable to gain access for lock file: {0}"
 msgstr "无法访问锁文件：'{0}'"
 
+#: ../../../src/MetaCraft.Core/Transactions/UpdateReferrersTransaction.cs:50
+msgid "Exception details:"
+msgstr "错误详细信息："
+
+#: ../../../src/MetaCraft.Core/Transactions/PackageRemovalTransaction.cs:37
+#, csharp-format
+msgid "Executing pre-removal script from '{0}' ({1})..."
+msgstr "正在执行包 '{0}' ({1}) 的预移除脚本..."
+
+#: ../../../src/MetaCraft.Core/Scopes/ScopeLockException.cs:16
+#, csharp-format
+msgid "Failed to lock the lock file: {0}"
+msgstr "锁定锁文件失败：{0}"
+
+#: ../../../src/MetaCraft.Core/Scopes/PackageContainer.cs:60
+msgid "Version information does not present for the given unitary package."
+msgstr "单一型包缺失版本信息。"
+
+#: ../../../src/MetaCraft.Core/Transactions/PackageRemovalTransaction.cs:53
+#, csharp-format
+msgid "Removing package '{0}' ({1})..."
+msgstr "正在移除包 '{0}' ({1})..."
+
+#: ../../../src/MetaCraft.Core/Transactions/UpdateReferrersTransaction.cs:75
+#, csharp-format
+msgid "Referrer index for '{0}' ({1}) contains no valid packages"
+msgstr "指引条目 '{0}' ({1}) 下无有效指引目标"
+
+#: ../../../src/MetaCraft.Core/Transactions/PackageInstallTransaction.cs:63
+#, csharp-format
+msgid "Running configure script for '{0}' ({1})..."
+msgstr "正在执行包 '{0}' ({1}) 的配置脚本..."
+
+#: ../../../src/MetaCraft.Core/Transactions/UpdateReferrersTransaction.cs:40
+msgid "Saving referrals database..."
+msgstr "正在保存指引条目数据库..."
+
+#: ../../../src/MetaCraft.Core/Transactions/UpdateReferrersTransaction.cs:31
+msgid "Updating referrals database..."
+msgstr "正在更新指引条目数据库..."
+
+#: ../../../src/MetaCraft.Core/Dependency/DependencyChecker.cs:200
+#, csharp-format
+msgid "from '{0}' ({1}): missing dependency: '{2}' ({3})"
+msgstr ""
+
+#: ../../../src/MetaCraft.Core/Platform/PlatformUtil.cs:96
+msgid "Failed to start shell interpreter process.."
+msgstr "未能启动命令解释器进程。"
+
+#: ../../../src/MetaCraft.Core/Transactions/PackageRemovalTransaction.cs:48
+#, csharp-format
+msgid "Pre-removal script returned failure exit code {0}"
+msgstr "预移除脚本返回的退出代码 {0} 指示执行不成功"
+
+#: ../../../src/MetaCraft.Core/Transactions/PackageRemovalTransaction.cs:44
+#, csharp-format
+msgid ""
+"ignoring failure exit code {0} for pre-removal script, proceeding removal"
+msgstr "忽略预移除脚本的失败退出代码 {0}，继续移除包"
+
+#: ../../../src/MetaCraft.Core/Transactions/UpdateReferrersTransaction.cs:95
+msgid "The package directory contains an invalid package"
+msgstr "包空间目录内有无效包"
+
 #: ../../../src/MetaCraft.Core/Archive/InvalidPackageException.cs:34
 msgid ""
 "The entry with the manifest filename in the specified package is not a file."
 msgstr "包内存在具有清单文件的名称的项目，但该项目不是文件。"
 
-#: ../../../src/MetaCraft.Core/Archive/InvalidPackageException.cs:29
-msgid "The manifest file for the specified package is invalid."
-msgstr "包内的清单文件无效。"
-
-#: ../../../src/MetaCraft.Core/Transactions/PackageRemovalTransaction.cs:54
-#, csharp-format
-msgid "Removing package '{0}' ({1})..."
-msgstr "正在移除包 '{0}' ({1})..."
-
-#: ../../../src/MetaCraft.Core/Transactions/PackageRemovalTransaction.cs:38
-#, csharp-format
-msgid "Executing pre-removal script from '{0}' ({1})..."
-msgstr "正在执行包 '{0}' ({1}) 的预移除脚本..."
-
-#: ../../../src/MetaCraft.Core/Serialization/SemVersionConverter.cs:23
-msgid "The provided string is not a valid Semantic Version number."
-msgstr "指定的字符串不是有效的语义化版本号。"
-
-#: ../../../src/MetaCraft.Core/Platform/PlatformIdentifier.cs:154
-msgid "Invalid architecture identifier."
-msgstr "系统架构标识符无效。"
-
-#: ../../../src/MetaCraft.Core/Transactions/PackageInstallTransaction.cs:67
+#: ../../../src/MetaCraft.Core/Transactions/PackageInstallTransaction.cs:69
 #, csharp-format
 msgid "Configure script exited with exit code {0}."
 msgstr "包配置脚本返回了退出代码 {0}。"
 
-#: ../../../src/MetaCraft.Core/Serialization/SemVersionKeyConverter.cs:32
-msgid "Version values cannot be null when used as a property name."
-msgstr "作为属性名称的版本号值不能为空。"
+#: ../../../src/MetaCraft.Core/Platform/PlatformUtil.cs:73
+msgid "Unable to spawn shell process."
+msgstr "无法启动命令解释器进程。"
 
-#: ../../../src/MetaCraft.Core/Transactions/UpdateReferrersTransaction.cs:48
+#: ../../../src/MetaCraft.Core/Archive/InvalidPackageException.cs:24
+msgid "The specified package does not have a manifest."
+msgstr "指定的包内没有清单文件。"
+
+#: ../../../src/MetaCraft.Core/Transactions/UpdateReferrersTransaction.cs:49
 #, csharp-format
 msgid "Failed to save referrals of '{0}'"
 msgstr "'{0}' 的指引条目保存失败"
+
+#: ../../../src/MetaCraft.Core/Scopes/SerialFile.cs:51
+msgid "Failed to update serial"
+msgstr "序列文件更新失败"
+
+#: ../../../src/MetaCraft.Core/Archive/InvalidPackageException.cs:29
+msgid "The manifest file for the specified package is invalid."
+msgstr "包内的清单文件无效。"
+
+#: ../../../src/MetaCraft.Core/Transactions/PackageInstallTransaction.cs:36
+#, csharp-format
+msgid "Expanding package '{0}' ({1})..."
+msgstr "正在解压包 '{0}' ({1})..."
+
+#: ../../../src/MetaCraft.Core/Transactions/PackageRemovalTransaction.cs:24
+#, csharp-format
+msgid "skipped nonexistent package '{0}' ({1})"
+msgstr "跳过不存在的包 '{0}' ({1})"
+
+#: ../../../src/MetaCraft.Core/Scopes/PackageContainer.cs:160
+#, csharp-format
+msgid "Package '{0}' ({1}) is already inside the container."
+msgstr "包 '{0}' ({1}) 已于空间中存在。"
+
+#: ../../../src/MetaCraft.Core/Transactions/TransactionException.cs:24
+msgid "Transaction failed."
+msgstr "操作执行失败"
+
+#: ../../../src/MetaCraft.Core/Dependency/DependencyChecker.cs:170
+#, csharp-format
+msgid "from '{0}' ({1}): conflicting clause: '{2}' ({3})"
+msgstr ""
+
+#, csharp-format
+#~ msgid ""
+#~ "Unexpected error occurred when parsing the platform identifier: '{0}'"
+#~ msgstr "解析平台标识符时发生未知错误：'{0}'"
+
+#~ msgid "Invalid platform identifier format."
+#~ msgstr "平台标识符格式不正确。"
+
+#~ msgid "Invalid system identifier."
+#~ msgstr "系统标识符无效。"
+
+#~ msgid "The provided string is not a valid Semantic Version number."
+#~ msgstr "指定的字符串不是有效的语义化版本号。"
+
+#~ msgid "Invalid architecture identifier."
+#~ msgstr "系统架构标识符无效。"
+
+#~ msgid "Version values cannot be null when used as a property name."
+#~ msgstr "作为属性名称的版本号值不能为空。"

@@ -12,9 +12,7 @@ namespace MetaCraft.Core.Locales;
 /// </summary>
 internal static class Lc
 {
-    internal const string LocaleDirectory = "locale";
-
-    internal static readonly ICatalog Catalog = new Catalog("frontend", "locale", CultureInfo.CurrentUICulture);
+    internal static readonly ICatalog Catalog = new Catalog("core", "locale", CultureInfo.CurrentUICulture);
 
     /// <summary>
     /// Acquires a string from the translation catalog.

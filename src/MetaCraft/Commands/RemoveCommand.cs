@@ -6,6 +6,7 @@ using System.CommandLine.Parsing;
 using MetaCraft.Core.Dependency;
 using MetaCraft.Core.Scopes;
 using MetaCraft.Core.Transactions;
+using MetaCraft.Localisation;
 using Semver;
 
 namespace MetaCraft.Commands;

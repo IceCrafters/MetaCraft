@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Reflection;
 using GetText;
 using MetaCraft.Core.Scopes;
+using MetaCraft.Localisation;
 
 namespace MetaCraft;
 
@@ -16,12 +17,7 @@ internal static class Application
     private static readonly string DefaultScopeLocation = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
         "MetaCraft");
-
-    private static readonly string LocaleDirectory = Path.Combine(Path.GetDirectoryName(Environment.ProcessPath)!,
-        "locale");
-
-    internal static readonly ICatalog Catalog = new Catalog("frontend", LocaleDirectory, CultureInfo.CurrentUICulture);
-
+    
     internal static readonly string BaseName = Path.GetFileName(Environment.ProcessPath)
                                                ?? Assembly.GetExecutingAssembly().GetName().Name
                                                ?? AppName;
