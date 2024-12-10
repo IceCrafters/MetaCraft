@@ -34,6 +34,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{226C73
 		shared\Lc.cs = shared\Lc.cs
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{AF6BFD81-D0F1-4B48-AFF3-584AFE0412A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,5 +73,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CD4DBB22-3262-4077-81F4-E70A365CF448} = {AF6BFD81-D0F1-4B48-AFF3-584AFE0412A3}
+		{E762352C-1C92-408E-B672-26C751689915} = {AF6BFD81-D0F1-4B48-AFF3-584AFE0412A3}
+		{0EA7AE0E-CEFD-4262-8166-061C3AD1F112} = {AF6BFD81-D0F1-4B48-AFF3-584AFE0412A3}
 	EndGlobalSection
 EndGlobal
