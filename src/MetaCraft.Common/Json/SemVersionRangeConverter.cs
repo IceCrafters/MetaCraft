@@ -5,7 +5,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Semver;
 
-namespace MetaCraft.Core.Serialization;
+namespace MetaCraft.Common.Json;
 
 public class SemVersionRangeConverter : JsonConverter<SemVersionRange>
 {

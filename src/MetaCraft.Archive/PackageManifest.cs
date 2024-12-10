@@ -2,10 +2,12 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 using System.Text.Json.Serialization;
+using MetaCraft.Archive;
+using MetaCraft.Archive.References;
+using MetaCraft.Common.Json;
+using MetaCraft.Common.Platform;
 using MetaCraft.Core.Archive;
 using MetaCraft.Core.Manifest;
-using MetaCraft.Core.Platform;
-using MetaCraft.Core.Serialization;
 using Semver;
 
 namespace MetaCraft.Core;

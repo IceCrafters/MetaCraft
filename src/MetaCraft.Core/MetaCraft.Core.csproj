@@ -22,4 +22,14 @@
       </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\MetaCraft.Archive\MetaCraft.Archive.csproj" />
+      <ProjectReference Include="..\MetaCraft.Common\MetaCraft.Common.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Manifest\" />
+      <Folder Include="Serialization\" />
+    </ItemGroup>
+
 </Project>

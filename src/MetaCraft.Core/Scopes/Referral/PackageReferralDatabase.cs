@@ -1,8 +1,9 @@
 // SPDX-FileCopyrightText: 2024 WithLithum <WithLithum@outlook.com>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+using MetaCraft.Archive.References;
+using MetaCraft.Common;
 using MetaCraft.Core.Archive;
-using MetaCraft.Core.Serialization;
 using Semver;
 
 namespace MetaCraft.Core.Scopes.Referral;

@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 using System.Text.Json.Serialization;
-using MetaCraft.Core.Serialization;
+using MetaCraft.Archive.Json;
 using Semver;
 
-namespace MetaCraft.Core.Archive;
+namespace MetaCraft.Archive.References;
 
 [JsonConverter(typeof(PackageReferenceDictionaryConverter))]
 public sealed class PackageReferenceDictionary : Dictionary<string, SemVersion>

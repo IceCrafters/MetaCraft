@@ -2,14 +2,14 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 using System.Text.Json;
+using MetaCraft.Common;
 using MetaCraft.Core.Locales;
 using MetaCraft.Core.Platform;
-using MetaCraft.Core.Serialization;
 using Semver;
 using ReferralPreferenceTree = System.Collections.Generic.Dictionary<
     string, 
     System.Collections.Generic.Dictionary<
-        MetaCraft.Core.Serialization.SemVersionKey, 
+        MetaCraft.Common.SemVersionKey, 
         string>
 >;
 

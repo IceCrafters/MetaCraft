@@ -5,6 +5,7 @@ using System.CommandLine;
 using System.CommandLine.Parsing;
 using System.Globalization;
 using System.Net.Mail;
+using MetaCraft.Archive.References;
 using MetaCraft.Core.Archive;
 using Spectre.Console;
 using Spectre.Console.Rendering;

@@ -3,10 +3,11 @@
 
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using MetaCraft.Common.Json;
 using MetaCraft.Core.Archive;
 using Semver;
 
-namespace MetaCraft.Core.Serialization;
+namespace MetaCraft.Archive.Json;
 
 public class RangedReferenceDictionaryConverter : JsonConverter<RangedPackageReferenceDictionary>
 {

@@ -25,6 +25,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Build", "..\build\Build.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaCraft.Testing", "MetaCraft.Testing\MetaCraft.Testing.csproj", "{0EA7AE0E-CEFD-4262-8166-061C3AD1F112}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaCraft.Archive", "MetaCraft.Archive\MetaCraft.Archive.csproj", "{CD4DBB22-3262-4077-81F4-E70A365CF448}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaCraft.Common", "MetaCraft.Common\MetaCraft.Common.csproj", "{E762352C-1C92-408E-B672-26C751689915}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{0EA7AE0E-CEFD-4262-8166-061C3AD1F112}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EA7AE0E-CEFD-4262-8166-061C3AD1F112}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EA7AE0E-CEFD-4262-8166-061C3AD1F112}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD4DBB22-3262-4077-81F4-E70A365CF448}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD4DBB22-3262-4077-81F4-E70A365CF448}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD4DBB22-3262-4077-81F4-E70A365CF448}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD4DBB22-3262-4077-81F4-E70A365CF448}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E762352C-1C92-408E-B672-26C751689915}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E762352C-1C92-408E-B672-26C751689915}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E762352C-1C92-408E-B672-26C751689915}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E762352C-1C92-408E-B672-26C751689915}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
