@@ -12,14 +12,14 @@ namespace MetaCraft.Core.Transactions;
 
 public class UpdateReferrersTransaction : ArgumentedTransaction<UpdateReferrersTransaction.Parameters>
 {
-    public UpdateReferrersTransaction(IPackageContainer target, Parameters argument) : base(target, argument)
+    public UpdateReferrersTransaction(IPackageScope target, Parameters argument) : base(target, argument)
     {
     }
 
     public override void Commit(ITransactionAgent agent)
     {
-        if (!Argument.IgnoreSerial && Target.GetSerial() != -1 &&
-            Target.Parent.Referrals.GetSerial() == Target.GetSerial())
+        if (!Argument.IgnoreSerial && Target.Container.GetSerial() != -1 &&
+            Target.Referrals.GetSerial() == Target.Container.GetSerial())
         {
             // Already up to date
             return;
@@ -41,7 +41,7 @@ public class UpdateReferrersTransaction : ArgumentedTransaction<UpdateReferrersT
         {
             try
             {
-                Target.Parent.Referrals.Store.WriteFile(id, data);
+                Target.Referrals.Store.WriteFile(id, data);
             }
             catch (Exception ex)
             {
@@ -59,7 +59,7 @@ public class UpdateReferrersTransaction : ArgumentedTransaction<UpdateReferrersT
         {
             foreach (var (version, index) in data)
             {
-                var selected = Target.Parent.Referrals.PreferenceProvider.GetPreferredId(id, version.Value);
+                var selected = Target.Referrals.PreferenceProvider.GetPreferredId(id, version.Value);
                 
                 // If null or not valid, order alphabetically
                 if (selected == null || !index.Referrers.ContainsKey(selected))
@@ -84,11 +84,11 @@ public class UpdateReferrersTransaction : ArgumentedTransaction<UpdateReferrersT
 
     private void FillReferrersInternal(ITransactionAgent agent, Dictionary<string, ReferralIndexDictionary> tree)
     {
-        foreach (var package in Target.EnumeratePackages())
+        foreach (var package in Target.Container.EnumeratePackages())
         {
-            foreach (var version in Target.EnumerateVersions(package))
+            foreach (var version in Target.Container.EnumerateVersions(package))
             {
-                var manifest = Target.InspectLocal(package, version);
+                var manifest = Target.Container.InspectLocal(package, version);
                 if (manifest == null)
                 {
                     agent.PrintWarning(Lc.L("The package directory contains an invalid package"));

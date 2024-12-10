@@ -16,7 +16,7 @@ public sealed class PackageInstallTransaction : ArgumentedTransaction<PackageIns
 {
     public readonly record struct Parameters(PackageArchive Package, bool Overwrite);
 
-    public PackageInstallTransaction(IPackageContainer target, Parameters argument) : base(target, argument)
+    public PackageInstallTransaction(IPackageScope target, Parameters argument) : base(target, argument)
     {
     }
 
@@ -27,10 +27,10 @@ public sealed class PackageInstallTransaction : ArgumentedTransaction<PackageIns
 
     private void ExecuteInternal(PackageArchive package, ITransactionAgent agent)
     {
-        using var lck = Target.Parent.Lock();
+        using var lck = Target.Lock();
      
         // Expand the archive.
-        var location = Target.InsertPackage(package.Manifest, Argument.Overwrite, true);
+        var location = Container.InsertPackage(package.Manifest, Argument.Overwrite, true);
      
         agent.PrintInfo(Lc.L("Expanding package '{0}' ({1})...", package.Manifest.Id, package.Manifest.Version));
         package.ExpandArchive(location, Argument.Overwrite);

@@ -1,7 +1,6 @@
 // SPDX-FileCopyrightText: 2024 WithLithum <WithLithum@outlook.com>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-using System.Data.Common;
 using MetaCraft.Core.Locales;
 using MetaCraft.Core.Platform;
 using MetaCraft.Core.Scopes;
@@ -13,13 +12,13 @@ public class PackageRemovalTransaction : ArgumentedTransaction<PackageRemovalTra
 {
     public readonly record struct Parameters(string Id, SemVersion Version, bool IgnoreScriptFailure);
 
-    public PackageRemovalTransaction(IPackageContainer target, Parameters argument) : base(target, argument)
+    public PackageRemovalTransaction(IPackageScope target, Parameters argument) : base(target, argument)
     {
     }
 
     private void ExecuteInternal(ITransactionAgent agent)
     {
-        var manifest = Target.InspectLocal(Argument.Id, Argument.Version);
+        var manifest = Container.InspectLocal(Argument.Id, Argument.Version);
         if (manifest == null)
         {
             agent.PrintWarning(Lc.L("skipped nonexistent package '{0}' ({1})", Argument.Id, Argument.Version));
@@ -28,12 +27,12 @@ public class PackageRemovalTransaction : ArgumentedTransaction<PackageRemovalTra
         
         // Execute pre-removal script
         var d = Path.DirectorySeparatorChar;
-        var scriptFile = Target.GetPlatformFile(manifest, $"config{d}scripts{d}remove");
+        var scriptFile = Container.GetPlatformFile(manifest, $"config{d}scripts{d}remove");
 
         // Only execute if ExecuteBatch is supported, and scriptFile is not null
         if (scriptFile != null && PlatformUtil.IsBatchSupported())
         {
-            var location = Target.GetInstalledPackageLocationOrDefault(manifest)!;
+            var location = Container.GetInstalledPackageLocationOrDefault(manifest)!;
             
             agent.PrintInfo(Lc.L("Executing pre-removal script from '{0}' ({1})...", Argument.Id, Argument.Version));
             var exitCode = PlatformUtil.ExecuteBatch(scriptFile, location, manifest.Version.ToString());
@@ -52,7 +51,7 @@ public class PackageRemovalTransaction : ArgumentedTransaction<PackageRemovalTra
         }
         
         agent.PrintInfo(Lc.L("Removing package '{0}' ({1})...", manifest.Id, manifest.Version));
-        Target.DeletePackage(manifest);
+        Container.DeletePackage(manifest);
     }
 
     public override void Commit(ITransactionAgent agent)

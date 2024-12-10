@@ -99,7 +99,7 @@ public class DependencyChecker : IDependencyChecker
     {
         if (_packageScope.Referrals.GetSerial() != _packageScope.Container.GetSerial())
         {
-            new UpdateReferrersTransaction(_packageScope.Container, new UpdateReferrersTransaction.Parameters()).Commit(agent);
+            new UpdateReferrersTransaction(_packageScope, new UpdateReferrersTransaction.Parameters()).Commit(agent);
         }
 
         var packageManifests = toInstall as PackageManifest[] ?? toInstall.ToArray();

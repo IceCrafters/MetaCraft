@@ -54,7 +54,7 @@ internal class InstallCommand
 
             packages.Add(archive.Manifest);
             // Add new transaction to the list
-            list.Add(new PackageInstallTransaction(_container, new PackageInstallTransaction.Parameters()
+            list.Add(new PackageInstallTransaction(_container.Parent, new PackageInstallTransaction.Parameters()
             {
                 Package = archive,
                 Overwrite = force
@@ -77,9 +77,9 @@ internal class InstallCommand
 
         // Perform all transactions
         var arguments = new FinalActionAggregateTransaction.Parameter(list, 
-            new UpdateReferrersTransaction(_container, new UpdateReferrersTransaction.Parameters(false)));
+            new UpdateReferrersTransaction(_container.Parent, new UpdateReferrersTransaction.Parameters(false)));
 
-        var aggregate = new FinalActionAggregateTransaction(_container, arguments);
+        var aggregate = new FinalActionAggregateTransaction(_container.Parent, arguments);
 
         try
         {

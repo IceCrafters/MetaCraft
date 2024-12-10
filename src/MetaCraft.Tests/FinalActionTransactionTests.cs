@@ -20,7 +20,7 @@ public class FinalActionTransactionTests
         var actionB = new Mock<ITransaction>();
         actionB.Setup(x => x.Commit(It.IsAny<ITransactionAgent>()));
 
-        var transaction = new FinalActionTransaction(Mock.Of<IPackageContainer>(),
+        var transaction = new FinalActionTransaction(Mock.Of<IPackageScope>(),
             actionA.Object,
             actionB.Object);
 
@@ -43,7 +43,7 @@ public class FinalActionTransactionTests
         actionB.Setup(x => x.Commit(It.IsAny<ITransactionAgent>()))
             .Throws(() => new TransactionException());
 
-        var transaction = new FinalActionTransaction(Mock.Of<IPackageContainer>(),
+        var transaction = new FinalActionTransaction(Mock.Of<IPackageScope>(),
             actionA.Object,
             actionB.Object);
 

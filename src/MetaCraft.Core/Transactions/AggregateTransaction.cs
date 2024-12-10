@@ -7,7 +7,7 @@ namespace MetaCraft.Core.Transactions;
 
 public class AggregateTransaction : ArgumentedTransaction<IEnumerable<ITransaction>>
 {
-    public AggregateTransaction(IPackageContainer target, IEnumerable<ITransaction> argument) : base(target, argument)
+    public AggregateTransaction(IPackageScope target, IEnumerable<ITransaction> argument) : base(target, argument)
     {
     }
 

@@ -82,16 +82,16 @@ public class RemoveCommand
             }
         }
 
-        var child = new PackageRemovalTransaction(_scope.Container,
+        var child = new PackageRemovalTransaction(_scope,
             new PackageRemovalTransaction.Parameters
             {
                 Id = package,
                 Version = semVer,
                 IgnoreScriptFailure = ignoreScriptFail
             });
-        var updateTask = new UpdateReferrersTransaction(_scope.Container, new UpdateReferrersTransaction.Parameters(false));
+        var updateTask = new UpdateReferrersTransaction(_scope, new UpdateReferrersTransaction.Parameters(false));
 
-        var transaction = new FinalActionTransaction(_scope.Container, child, updateTask);
+        var transaction = new FinalActionTransaction(_scope, child, updateTask);
         transaction.Commit(new ConsoleAgent());
     }
 }

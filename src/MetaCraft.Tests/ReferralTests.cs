@@ -45,7 +45,7 @@ public class ReferralTests
         var db = new PackageReferralDatabase(dbStore.Object, preference);
         parent.SetupGet(x => x.Referrals).Returns(db);
 
-        var transaction = new UpdateReferrersTransaction(target, new UpdateReferrersTransaction.Parameters
+        var transaction = new UpdateReferrersTransaction(parent.Object, new UpdateReferrersTransaction.Parameters
         {
             IgnoreSerial = true // force regeneration
         });
@@ -81,7 +81,7 @@ public class ReferralTests
         var db = new PackageReferralDatabase(dbStore.Object, preference);
         parent.SetupGet(x => x.Referrals).Returns(db);
 
-        var transaction = new UpdateReferrersTransaction(target, new UpdateReferrersTransaction.Parameters
+        var transaction = new UpdateReferrersTransaction(parent.Object, new UpdateReferrersTransaction.Parameters
         {
             IgnoreSerial = true // force regeneration
         });
@@ -122,7 +122,7 @@ public class ReferralTests
         var db = new PackageReferralDatabase(dbStore.Object, preference.Object);
         parent.SetupGet(x => x.Referrals).Returns(db);
 
-        var transaction = new UpdateReferrersTransaction(target, new UpdateReferrersTransaction.Parameters
+        var transaction = new UpdateReferrersTransaction(parent.Object, new UpdateReferrersTransaction.Parameters
         {
             IgnoreSerial = true
         });

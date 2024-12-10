@@ -7,7 +7,7 @@ namespace MetaCraft.Core.Transactions;
 
 public sealed class FinalActionTransaction : BaseFinalActionTransaction
 {
-    public FinalActionTransaction(IPackageContainer target, ITransaction toExecute, ITransaction? final) : base(target, final)
+    public FinalActionTransaction(IPackageScope target, ITransaction toExecute, ITransaction? final) : base(target, final)
     {
         ToExecute = toExecute;
     }

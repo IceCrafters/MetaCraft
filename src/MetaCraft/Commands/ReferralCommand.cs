@@ -183,7 +183,7 @@ public class ReferralCommand
     private void ExecuteUpdate(bool force)
     {
         var args = new UpdateReferrersTransaction.Parameters(force);
-        var transaction = new UpdateReferrersTransaction(_scope.Container, args);
+        var transaction = new UpdateReferrersTransaction(_scope, args);
 
         transaction.Commit(new ConsoleAgent());
     }
