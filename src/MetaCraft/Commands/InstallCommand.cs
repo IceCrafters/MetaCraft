@@ -7,7 +7,6 @@ using MetaCraft.Core.Archive;
 using MetaCraft.Core.Dependency;
 using MetaCraft.Core.Platform;
 using MetaCraft.Core.Scopes;
-using MetaCraft.Core.Scopes.Referral;
 using MetaCraft.Core.Transactions;
 
 namespace MetaCraft.Commands;
@@ -17,11 +16,11 @@ internal class InstallCommand
     private static readonly Argument<FileInfo[]> ArgFile = new(@"files", Lc.L("The package archives to install"));
     private static readonly Option<bool> OptionOverwrite = new([@"-f", @"--force"], Lc.L("If specified, remove already existing packages of same ID and version"));
     private static readonly Option<bool> OptionIgnoreDeps = new(["--ignore-deps"], Lc.L("Ignore missing dependencies and conflicting packages"));
-    private readonly IPackageContainer _container;
+    private readonly IPackageScope _scope;
 
-    public InstallCommand(IPackageContainer container)
+    public InstallCommand(IPackageScope scope)
     {
-        _container = container;
+        _scope = scope;
     }
 
     internal Command Create()
@@ -41,7 +40,7 @@ internal class InstallCommand
 
         var list = new List<PackageInstallTransaction>(file.Length);
         var packages = new List<PackageManifest>(file.Length);
-        var checker = new DependencyChecker(_container.Parent);
+        var checker = new DependencyChecker(_scope);
 
         foreach (var f in file)
         {
@@ -54,7 +53,7 @@ internal class InstallCommand
 
             packages.Add(archive.Manifest);
             // Add new transaction to the list
-            list.Add(new PackageInstallTransaction(_container.Parent, new PackageInstallTransaction.Parameters()
+            list.Add(new PackageInstallTransaction(_scope, new PackageInstallTransaction.Parameters()
             {
                 Package = archive,
                 Overwrite = force
@@ -77,9 +76,9 @@ internal class InstallCommand
 
         // Perform all transactions
         var arguments = new FinalActionAggregateTransaction.Parameter(list, 
-            new UpdateReferrersTransaction(_container.Parent, new UpdateReferrersTransaction.Parameters(false)));
+            new UpdateReferrersTransaction(_scope, new UpdateReferrersTransaction.Parameters(false)));
 
-        var aggregate = new FinalActionAggregateTransaction(_container.Parent, arguments);
+        var aggregate = new FinalActionAggregateTransaction(_scope, arguments);
 
         try
         {
