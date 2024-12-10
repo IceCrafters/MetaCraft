@@ -8,8 +8,6 @@ namespace MetaCraft.Core.Scopes;
 
 public interface IPackageContainer : ISerialed
 {   
-    IPackageScope Parent { get; }
-
     public IEnumerable<string> EnumeratePackages();
     IEnumerable<SemVersion> EnumerateVersions(string packageId);
     SemVersion? GetLatestVersion(string packageId);
