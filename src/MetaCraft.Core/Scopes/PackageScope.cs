@@ -1,6 +1,7 @@
 // SPDX-FileCopyrightText: 2024 WithLithum <WithLithum@outlook.com>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+using MetaCraft.Core.Projection;
 using MetaCraft.Core.Scopes.Referral;
 
 namespace MetaCraft.Core.Scopes;
@@ -19,11 +20,14 @@ public class PackageScope : IPackageScope
         Container = new PackageContainer(Path.Combine(root, "packages"), this);
         Referrals = new PackageReferralDatabase(new JsonFileReferralDatabaseStore(Path.Combine(root, "referrals")),
             new JsonFileReferralPreferenceProvider(Path.Combine(Root, "ref_preferences.json")));
+        Projection = new ProjectionSpace(Path.Combine(root, "projections"));
     }
     
     public IPackageContainer Container { get; }
 
     public PackageReferralDatabase Referrals { get; }
+    
+    public IProjectionSpace Projection { get; }
     
     public string Root { get; }
 

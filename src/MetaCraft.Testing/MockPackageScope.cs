@@ -1,6 +1,7 @@
 // SPDX-FileCopyrightText: 2024 WithLithum <WithLithum@outlook.com>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+using MetaCraft.Core.Projection;
 using MetaCraft.Core.Scopes;
 using MetaCraft.Core.Scopes.Referral;
 
@@ -14,10 +15,13 @@ public sealed class MockPackageScope : IPackageScope
 {
     private MockDisposable? _currentLock;
 
-    public MockPackageScope(IPackageContainer container, PackageReferralDatabase referrals)
+    public MockPackageScope(IPackageContainer container, 
+        PackageReferralDatabase referrals,
+        IProjectionSpace projection)
     {
         Container = container;
         Referrals = referrals;
+        Projection = projection;
         
         Root = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
         Directory.CreateDirectory(Root);
@@ -25,6 +29,7 @@ public sealed class MockPackageScope : IPackageScope
     
     public IPackageContainer Container { get; }
     public PackageReferralDatabase Referrals { get; }
+    public IProjectionSpace Projection { get; }
     public string Root { get; }
     
     public IDisposable Lock()

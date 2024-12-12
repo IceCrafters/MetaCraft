@@ -7,5 +7,9 @@ namespace MetaCraft.Core.Projection;
 
 public interface IProjectionSpace
 {
+    bool Exists(AssemblyExportDeclaration declaration);
+    
     void Insert(AssemblyExportDeclaration declaration, string fromFile, bool overwrite);
+    
+    void Delete(AssemblyExportDeclaration declaration);
 }

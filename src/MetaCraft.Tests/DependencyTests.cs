@@ -3,14 +3,10 @@
 
 using MetaCraft.Archive;
 using MetaCraft.Archive.References;
-using MetaCraft.Core;
-using MetaCraft.Core.Archive;
 using MetaCraft.Core.Dependency;
-using MetaCraft.Core.Scopes;
 using MetaCraft.Core.Scopes.Referral;
 using MetaCraft.Testing;
 using MetaCraft.Tests.Util;
-using Moq;
 using Semver;
 using Xunit.Abstractions;
 
@@ -39,13 +35,15 @@ public class DependencyTests
     private static MockPackageScope CreateNoOpReferralScope(MockPackageContainer container)
     {
         return new MockPackageScope(container, new PackageReferralDatabase(new NoOpReferralStore(),
-            new NullReferralPreferenceProvider()));
+            new NullReferralPreferenceProvider()),
+            new NoOpProjectionSpace());
     }
     
     private static MockPackageScope CreateRealReferralScope(MockPackageContainer container)
     {
         return new MockPackageScope(container, new PackageReferralDatabase(new MockReferralStore(),
-            new NullReferralPreferenceProvider()));
+            new NullReferralPreferenceProvider()),
+            new NoOpProjectionSpace());
     }
 
     [Fact]
@@ -55,7 +53,8 @@ public class DependencyTests
         // empty container
         var container = new MockPackageContainer(1122L);
         var scope = new MockPackageScope(container, new PackageReferralDatabase(new NoOpReferralStore(), 
-            new NullReferralPreferenceProvider()));
+            new NullReferralPreferenceProvider()),
+            new NoOpProjectionSpace());
 
         var depChecker = new DependencyChecker(scope);
         
@@ -79,7 +78,8 @@ public class DependencyTests
                 DateTime.MinValue,
                 dependencies: [new RangedPackageReference("example-lib", SemVersionRange.All)]);
         var scope = new MockPackageScope(container, new PackageReferralDatabase(new NoOpReferralStore(),
-            new NullReferralPreferenceProvider()));
+            new NullReferralPreferenceProvider()),
+            new NoOpProjectionSpace());
 
         var depChecker = new DependencyChecker(scope);
         

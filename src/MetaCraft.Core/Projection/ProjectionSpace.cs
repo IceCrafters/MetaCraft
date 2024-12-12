@@ -16,6 +16,12 @@ public class ProjectionSpace : IProjectionSpace
         _rootPath = rootPath;
     }
 
+    public bool Exists(AssemblyExportDeclaration declaration)
+    {
+        var fullPath = Path.Combine(_rootPath, GetRelativePathOf(declaration));
+        return File.Exists(fullPath);
+    }
+
     public void Insert(AssemblyExportDeclaration declaration,
         string fromFile, 
         bool overwrite)
@@ -32,6 +38,12 @@ public class ProjectionSpace : IProjectionSpace
         
         Directory.CreateDirectory(parent!);
         Project(fromFile, fullPath, overwrite);
+    }
+
+    public void Delete(AssemblyExportDeclaration declaration)
+    {
+        var fullPath = Path.Combine(_rootPath, GetRelativePathOf(declaration));
+        File.Delete(fullPath);
     }
 
     private static void Project(string from, string to, bool overwrite)
