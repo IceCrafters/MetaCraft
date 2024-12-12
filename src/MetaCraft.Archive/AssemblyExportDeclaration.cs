@@ -9,12 +9,6 @@ namespace MetaCraft.Archive;
 
 public readonly struct AssemblyExportDeclaration
 {
-    public AssemblyExportDeclaration(string assemblyName, string path)
-    {
-        Name = assemblyName;
-        Path = path;
-    }
-    
     /// <summary>
     /// Gets the assembly name of the assembly that is exported.
     /// </summary>

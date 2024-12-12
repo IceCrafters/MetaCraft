@@ -1,8 +1,11 @@
 // SPDX-FileCopyrightText: 2024 WithLithum <WithLithum@outlook.com>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
+using MetaCraft.Core.Platform.Interop;
 using MetaCraft.Localisation;
 using InvalidOperationException = System.InvalidOperationException;
 
@@ -10,6 +13,68 @@ namespace MetaCraft.Core.Platform;
 
 public static class PlatformUtil
 {
+    #region CreateHardLink
+
+    public static void CreateHardLink(string source, string target)
+    {
+        if (OperatingSystem.IsLinux() || OperatingSystem.IsFreeBSD())
+        {
+            CreateHardLinkInternalUnix(source, target);
+        }
+
+        if (OperatingSystem.IsWindows())
+        {
+            CreateHardLinkInternalWindows(source, target);
+        }
+    }
+
+    [SupportedOSPlatform("windows")]
+    private static unsafe void CreateHardLinkInternalWindows(string source, string target)
+    {
+        var result = Kernel32.CreateHardLinkW(target, source, new Kernel32.SecurityAttributes
+        {
+            Length = (uint)sizeof(nint) + sizeof(int),
+            SecurityDescriptor = IntPtr.Zero,
+            InheritHandle = 0
+        });
+
+        if (result == 0)
+        {
+            throw new Win32Exception(Marshal.GetLastPInvokeError());
+        }
+    }
+
+    [SupportedOSPlatform("linux")]
+    [SupportedOSPlatform("freebsd")]
+    private static void CreateHardLinkInternalUnix(string linkTo, string linkFrom)
+    {
+        var result = LibC.link(linkTo, linkFrom);
+        if (result == 0)
+        {
+            return;
+        }
+        
+        // on error:
+        var errno = Marshal.GetLastPInvokeError();
+        throw errno switch
+        {
+            LibC.EPERM => PlatformErrors.LinkToDirectory(nameof(linkFrom)),
+            LibC.ENOENT => new FileNotFoundException(null, linkTo),
+            LibC.ENOSPC => PlatformErrors.OutOfSpace(linkFrom),
+            LibC.EACCES => new UnauthorizedAccessException(),
+            LibC.EEXIST => PlatformErrors.CreateAlreadyExists(linkFrom),
+            LibC.EMLINK => PlatformErrors.TooManyHardLinks(linkTo),
+            LibC.EROFS => PlatformErrors.ReadOnlyFileSystem(),
+            LibC.EXDEV => PlatformErrors.LinkAcrossVolumes(nameof(linkFrom)),
+            LibC.EIO => new IOException(),
+            LibC.ENAMETOOLONG => new PathTooLongException(),
+            _ => new Win32Exception(errno)
+        };
+    }
+
+    #endregion
+    
+    #region ExecuteBatch
     [SupportedOSPlatformGuard("linux")]
     [SupportedOSPlatformGuard("macos")]
     [SupportedOSPlatformGuard("freebsd")]
@@ -110,4 +175,5 @@ public static class PlatformUtil
         var paths = Environment.GetEnvironmentVariable("PATH")?.Split(Path.PathSeparator);
         return paths?.FirstOrDefault(path => Path.GetFileName(path) == fileName);
     }
+    #endregion
 }
