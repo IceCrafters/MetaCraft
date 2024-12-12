@@ -13,6 +13,13 @@ public class InteractiveException : Exception
     {
     }
 
+    public static InteractiveException CreateNoSuchPackage(string packageId, SemVersion? version)
+    {
+        return version != null
+            ? new InteractiveException(Lc.L("no such package '{0}' ({1})", packageId, version))
+            : new InteractiveException(Lc.L("no such package '{0}'", packageId));
+    }
+
     public static InteractiveException CreateTransactionFailed(TransactionException ex)
     {
         var msg = ex.InnerException?.Message ?? ex.Message;

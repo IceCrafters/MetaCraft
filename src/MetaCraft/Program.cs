@@ -40,6 +40,7 @@ builder.Command.AddCommand(InspectCommand.Create());
 builder.Command.AddCommand(new InstallCommand(scope).Create());
 builder.Command.AddCommand(new RemoveCommand(scope, depChecker).Create());
 builder.Command.AddCommand(new ReferralCommand(scope).Create());
+builder.Command.AddCommand(new ReconfigureCommand(scope).Create());
 
 var cli = builder.Build();
 return cli.Invoke(args);
