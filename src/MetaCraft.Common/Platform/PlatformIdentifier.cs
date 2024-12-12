@@ -36,11 +36,6 @@ public readonly record struct PlatformIdentifier
         return builder.ToString();
     }
     
-    public bool IsCoveredBy(PlatformIdentifier other)
-    {
-        return other.Covers(this);
-    }
-    
     /// <summary>
     /// Determines whether this platform identifier includes the specified platform identifier.
     /// </summary>
