@@ -22,7 +22,7 @@ inspection and installation.
             {
                 "name": "Package.Info",
                 "version": "1.0.0",
-                "path": "lib/Package.Info.dll"
+                "path": "lib/netstandard2.0"
             }
         ]
     },
