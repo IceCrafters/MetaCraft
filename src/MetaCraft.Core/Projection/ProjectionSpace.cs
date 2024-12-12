@@ -58,6 +58,11 @@ public class ProjectionSpace : IProjectionSpace
         var sourceFile = Path.Combine(Path.GetDirectoryName(fullPath)!,
             "from_package");
 
+        if (!File.Exists(sourceFile))
+        {
+            return null;
+        }
+
         string? packageName = null;
         SemVersion? version = null;
         var ln = 0;

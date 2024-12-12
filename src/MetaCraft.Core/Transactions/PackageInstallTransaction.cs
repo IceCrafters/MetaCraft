@@ -66,19 +66,19 @@ public sealed class PackageInstallTransaction : ArgumentedTransaction<PackageIns
                 }
 
                 // Check for existence - this allows for a clearer error message.
-                var projectPath = Path.Combine(location, export.Path);
+                var projectPath = Path.Combine(location, "contents", export.To);
                 if (!File.Exists(projectPath))
                 {
                     throw new TransactionException(Lc.L("Package '{0}' ({1}) tries to project file '{2}' which does not exist",
                         package.Manifest.Id,
                         package.Manifest.Version,
-                        export.Path));
+                        export.To));
                 }
                 
                 // Insert the projection.
                 Target.Projection.Insert(package.Manifest, 
                     export,
-                    Path.Combine(location, export.Path),
+                    projectPath,
                     overwrite);
             }   
         }
