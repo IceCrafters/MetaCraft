@@ -28,9 +28,9 @@ ignored.
 
 Each assembly must be inserted accordingly with the projection space format and
 corresponding `from_package` file MUST be created. If a projection without a
-`from_package` file is encountered, then that projection is treated as if it
-does not belong to any package and MAY be overwritten however the program may
-like.
+`from_package` file or with an invalid `from_package` file is encountered, then
+that projection is treated as if it does not belong to any package and MAY be 
+overwritten however the program may like.
 
 ### Conflict
 

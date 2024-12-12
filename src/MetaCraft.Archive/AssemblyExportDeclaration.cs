@@ -15,8 +15,7 @@ public readonly struct AssemblyExportDeclaration
     public required string Name { get; init; }
     
     /// <summary>
-    /// Gets the path, relative to the root of the package installation directory,
-    /// to the assembly that is exported.
+    /// Gets the path to export the assembly to.
     /// </summary>
     public required string Path { get; init; }
     
@@ -25,4 +24,9 @@ public readonly struct AssemblyExportDeclaration
     /// </summary>
     [JsonConverter(typeof(SemVersionConverter))]
     public required SemVersion Version { get; init; }
+    
+    /// <summary>
+    /// Gets the path, relative to the package root, of the assembly that is exported.
+    /// </summary>
+    public required string To { get; init; }
 }

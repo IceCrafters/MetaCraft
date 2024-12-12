@@ -2,8 +2,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 using MetaCraft.Archive;
+using MetaCraft.Archive.References;
 using MetaCraft.Core.Platform;
 using MetaCraft.Localisation;
+using Semver;
 
 namespace MetaCraft.Core.Projection;
 
@@ -22,7 +24,8 @@ public class ProjectionSpace : IProjectionSpace
         return File.Exists(fullPath);
     }
 
-    public void Insert(AssemblyExportDeclaration declaration,
+    public void Insert(PackageManifest fromPackage,
+        AssemblyExportDeclaration declaration,
         string fromFile, 
         bool overwrite)
     {
@@ -38,12 +41,63 @@ public class ProjectionSpace : IProjectionSpace
         
         Directory.CreateDirectory(parent!);
         Project(fromFile, fullPath, overwrite);
+
+        var sourcePath = Path.Combine(parent!, "from_package");
+        File.WriteAllLines(sourcePath, [ fromPackage.Id, fromPackage.Version.ToString() ]);
     }
 
     public void Delete(AssemblyExportDeclaration declaration)
     {
         var fullPath = Path.Combine(_rootPath, GetRelativePathOf(declaration));
         File.Delete(fullPath);
+    }
+
+    public PackageReference? GetProjectionSource(AssemblyExportDeclaration declaration)
+    {
+        var fullPath = Path.Combine(_rootPath, GetRelativePathOf(declaration));
+        var sourceFile = Path.Combine(Path.GetDirectoryName(fullPath)!,
+            "from_package");
+
+        string? packageName = null;
+        SemVersion? version = null;
+        var ln = 0;
+        
+        // Parse the file.
+        try
+        {
+            foreach (var line in File.ReadLines(sourceFile))
+            {
+                if (line.StartsWith('#') || string.IsNullOrWhiteSpace(line))
+                {
+                    continue;
+                }
+
+                ln++;
+                if (ln == 1)
+                {
+                    packageName = line;
+                }
+
+                if (ln == 2)
+                {
+                    version = SemVersion.Parse(line);
+                    break;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            GlobalOutput.Warning(ex, Lc.L("Failed to read from_package file"));
+            return null;
+        }
+
+        // Either one is null, seem as invalid
+        if (packageName == null || version == null)
+        {
+            return null;
+        }
+
+        return new PackageReference(packageName, version);
     }
 
     private static void Project(string from, string to, bool overwrite)

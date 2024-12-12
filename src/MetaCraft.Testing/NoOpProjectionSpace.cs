@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 using MetaCraft.Archive;
+using MetaCraft.Archive.References;
 using MetaCraft.Core.Projection;
 
 namespace MetaCraft.Testing;
@@ -13,13 +14,18 @@ public sealed class NoOpProjectionSpace : IProjectionSpace
         return false;
     }
 
-    public void Insert(AssemblyExportDeclaration declaration, string fromFile, bool overwrite)
+    public void Insert(PackageManifest fromPackage, AssemblyExportDeclaration declaration, string fromFile, bool overwrite)
+    {
+        // do nothing
+    }
+    
+    public void Delete(AssemblyExportDeclaration declaration)
     {
         // do nothing
     }
 
-    public void Delete(AssemblyExportDeclaration declaration)
+    public PackageReference? GetProjectionSource(AssemblyExportDeclaration declaration)
     {
-        // do nothing
+        return null;
     }
 }

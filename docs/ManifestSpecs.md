@@ -22,7 +22,8 @@ inspection and installation.
             {
                 "name": "Package.Info",
                 "version": "1.0.0",
-                "path": "lib/netstandard2.0"
+                "path": "lib/netstandard2.0",
+                "to": "Package.Info.dll"
             }
         ]
     },
@@ -83,7 +84,8 @@ Unless otherwise specified, fields are REQUIRED and cannot be `null`.
   - `exportAssemblies`: _List_ of _Object_ (optional)
     - `name`: The assembly name that was exported.
     - `version`: The version of the assembly that was exported.
-    - `path`: The path, relative to the package root, of the assembly to export.
+    - `path`: The path to export to. Must be valid for probing.
+    - `to`: The path, relative to the package root, of the assembly to export.
 - `dependencies`: _Table_ (_Package ID_ to _Version Ranges_, optional) - packages that this package depends on
 - `conflictsWith`: _Table_ (_Package ID_ to _Version Ranges_, optional) - packages that this package cannot coexist with
 - `provides`: _Table_ (_String_ to _Version_, optional) - provisions that this package provides

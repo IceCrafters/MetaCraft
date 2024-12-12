@@ -17,7 +17,8 @@ public class ProjectionSpaceTests
         {
             Name = "Test.Assembly",
             Path = "lib/netstandard2.0",
-            Version = new SemVersion(1, 0, 0)
+            Version = new SemVersion(1, 0, 0),
+            To = "Test.Assembly.dll"
         };
         
         // Act
