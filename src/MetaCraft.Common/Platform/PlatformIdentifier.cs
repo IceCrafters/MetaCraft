@@ -3,7 +3,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.JavaScript;
 using System.Text;
 using System.Text.Json.Serialization;
 using MetaCraft.Common.Json;
@@ -49,10 +48,10 @@ public readonly record struct PlatformIdentifier
     /// <para>
     /// This platform "includes" the other platform identifier if any of the following conditions are true:
     /// <list type="bullet">
-    ///     <item>This and the other platform identifier equals (that is, <see cref="Equals(PlatformIdentifier?)"/> returns true).</item>
-    ///     <item>Both <see cref="System"/> and <see cref="Architecture"/> properties of this instance are correspondingly <see cref="JSType.Any"/> and <see cref="JSType.Any"/>.</item>
-    ///     <item><see cref="System"/> is <see cref="JSType.Any"/>, and <see cref="Architecture"/> property on both instances are the same.</item>
-    ///     <item><see cref="Architecture"/> is <see cref="JSType.Any"/>, and the <see cref="System"/> property on both instances are the same.</item>
+    ///     <item>This and the other platform identifier equals (that is, <see cref="Equals(PlatformIdentifier)"/> returns true).</item>
+    ///     <item>Both <see cref="System"/> and <see cref="Architecture"/> properties of this instance are correspondingly <see cref="PlatformSystem.Any"/> and <see cref="PlatformSystem.Any"/>.</item>
+    ///     <item><see cref="System"/> is <see cref="PlatformSystem.Any"/>, and <see cref="Architecture"/> property on both instances are the same.</item>
+    ///     <item><see cref="Architecture"/> is <see cref="PlatformSystem.Any"/>, and the <see cref="System"/> property on both instances are the same.</item>
     /// </list>
     /// </para>
     /// </remarks>

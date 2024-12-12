@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 using MetaCraft.Common.Json;
 using Semver;
 
-namespace MetaCraft.Core.Manifest;
+namespace MetaCraft.Archive;
 
 public readonly struct AssemblyExportDeclaration
 {

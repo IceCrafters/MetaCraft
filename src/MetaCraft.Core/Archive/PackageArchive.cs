@@ -3,6 +3,7 @@
 
 using System.IO.Compression;
 using System.Text.Json;
+using MetaCraft.Archive;
 
 namespace MetaCraft.Core.Archive;
 
