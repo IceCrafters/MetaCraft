@@ -3,10 +3,10 @@
 
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using MetaCraft.Core.Locales;
+using MetaCraft.Common.Resources;
 using Semver;
 
-namespace MetaCraft.Core.Serialization;
+namespace MetaCraft.Common.Json;
 
 public sealed class SemVersionConverter : JsonConverter<SemVersion>
 {
@@ -20,7 +20,7 @@ public sealed class SemVersionConverter : JsonConverter<SemVersion>
 
         if (!SemVersion.TryParse(strValue, out var result))
         {
-            throw new JsonException(Lc.L("The provided string is not a valid Semantic Version number."));
+            throw new JsonException(CommonMessages.InvalidSemVersion);
         }
         return result;
     }

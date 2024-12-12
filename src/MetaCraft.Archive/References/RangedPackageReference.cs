@@ -2,9 +2,11 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 using System.Diagnostics.CodeAnalysis;
+using MetaCraft.Core;
+using MetaCraft.Core.Archive;
 using Semver;
 
-namespace MetaCraft.Core.Archive;
+namespace MetaCraft.Archive.References;
 
 public sealed class RangedPackageReference
 {

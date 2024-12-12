@@ -5,11 +5,11 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Semver;
 
-namespace MetaCraft.Core.Serialization;
+namespace MetaCraft.Common.Json;
 
 public class SemVersionRangeConverter : JsonConverter<SemVersionRange>
 {
-    public override SemVersionRange? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override SemVersionRange Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         var str = reader.GetString();
         if (str == null)

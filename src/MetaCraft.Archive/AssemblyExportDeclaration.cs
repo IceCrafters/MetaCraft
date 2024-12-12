@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 using System.Text.Json.Serialization;
-using MetaCraft.Core.Serialization;
+using MetaCraft.Common.Json;
 using Semver;
 
-namespace MetaCraft.Core.Manifest;
+namespace MetaCraft.Archive;
 
 public readonly struct AssemblyExportDeclaration
 {

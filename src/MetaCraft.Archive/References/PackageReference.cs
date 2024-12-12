@@ -3,10 +3,11 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
-using MetaCraft.Core.Serialization;
+using MetaCraft.Common.Json;
+using MetaCraft.Core;
 using Semver;
 
-namespace MetaCraft.Core.Archive;
+namespace MetaCraft.Archive.References;
 
 public readonly record struct PackageReference
 {

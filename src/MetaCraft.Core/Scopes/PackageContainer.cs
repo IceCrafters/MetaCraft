@@ -2,9 +2,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 using System.Text.Json;
-using MetaCraft.Core.Archive;
-using MetaCraft.Core.Locales;
-using MetaCraft.Core.Platform;
+using MetaCraft.Archive;
+using MetaCraft.Archive.References;
+using MetaCraft.Common.Platform;
+using MetaCraft.Localisation;
 using Semver;
 
 namespace MetaCraft.Core.Scopes;

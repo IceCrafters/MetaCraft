@@ -4,7 +4,7 @@
 using System.Net.Mail;
 using System.Text;
 using System.Text.Json;
-using MetaCraft.Core.Serialization;
+using MetaCraft.Common.Json;
 
 namespace MetaCraft.Tests;
 

@@ -1,10 +1,11 @@
 // SPDX-FileCopyrightText: 2024 WithLithum <WithLithum@outlook.com>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+using MetaCraft.Archive.References;
+using MetaCraft.Common;
 using MetaCraft.Core.Archive;
 using MetaCraft.Core.Scopes;
 using MetaCraft.Core.Scopes.Referral;
-using MetaCraft.Core.Serialization;
 using MetaCraft.Core.Transactions;
 using MetaCraft.Testing;
 using MetaCraft.Tests.Util;

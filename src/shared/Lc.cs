@@ -1,15 +1,30 @@
 // SPDX-FileCopyrightText: 2024 WithLithum <WithLithum@outlook.com>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+using System.Globalization;
+using GetText;
 using JetBrains.Annotations;
 
-namespace MetaCraft;
+namespace MetaCraft.Localisation;
 
 /// <summary>
 /// Shorthand for acquiring application translations.
 /// </summary>
-internal static class Lc
+internal static partial class Lc
 {
+    private static readonly string BaseDirectory = Path.Combine(Path.GetDirectoryName(Environment.ProcessPath)!);
+    
+    private static readonly ICatalog Catalog = new Catalog(LocaleModule, Path.Combine(BaseDirectory, LocaleDirectory), CultureInfo.CurrentUICulture);
+
+    #if DEBUG
+
+    static Lc()
+    {
+        Console.WriteLine(@"Current culture: {0}", CultureInfo.CurrentUICulture);
+    }
+    
+    #endif
+    
     /// <summary>
     /// Acquires a string from the translation catalog.
     /// </summary>
@@ -17,7 +32,7 @@ internal static class Lc
     /// <returns>The translated text.</returns>
     internal static string L(string str)
     {
-        return Application.Catalog.GetString(str);
+        return Catalog.GetString(str);
     }
 
     /// <summary>
@@ -29,6 +44,6 @@ internal static class Lc
     [StringFormatMethod(nameof(format))]
     internal static string L(string format, params object[] args)
     {
-        return Application.Catalog.GetString(format, args);
+        return Catalog.GetString(format, args);
     }
 }

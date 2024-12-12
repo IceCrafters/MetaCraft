@@ -5,7 +5,7 @@ using System.Net.Mail;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace MetaCraft.Core.Serialization;
+namespace MetaCraft.Common.Json;
 
 public sealed class MailAddressConverter : JsonConverter<MailAddress>
 {

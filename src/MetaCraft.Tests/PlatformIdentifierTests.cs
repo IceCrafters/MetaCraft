@@ -1,6 +1,7 @@
 // SPDX-FileCopyrightText: 2024 WithLithum <WithLithum@outlook.com>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+using MetaCraft.Common.Platform;
 using MetaCraft.Core.Platform;
 
 namespace MetaCraft.Tests;

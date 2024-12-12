@@ -3,9 +3,9 @@
 
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using MetaCraft.Core.Platform;
+using MetaCraft.Common.Platform;
 
-namespace MetaCraft.Core.Serialization;
+namespace MetaCraft.Common.Json;
 
 public sealed class PlatformIdentifierConverter : JsonConverter<PlatformIdentifier>
 {

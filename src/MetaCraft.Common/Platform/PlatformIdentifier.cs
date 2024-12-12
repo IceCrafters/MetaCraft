@@ -5,10 +5,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json.Serialization;
-using MetaCraft.Core.Locales;
-using MetaCraft.Core.Serialization;
+using MetaCraft.Common.Json;
+using MetaCraft.Common.Resources;
 
-namespace MetaCraft.Core.Platform;
+namespace MetaCraft.Common.Platform;
 
 [JsonConverter(typeof(PlatformIdentifierConverter))]
 public readonly record struct PlatformIdentifier
@@ -36,11 +36,6 @@ public readonly record struct PlatformIdentifier
         return builder.ToString();
     }
     
-    public bool IsCoveredBy(PlatformIdentifier other)
-    {
-        return other.Covers(this);
-    }
-    
     /// <summary>
     /// Determines whether this platform identifier includes the specified platform identifier.
     /// </summary>
@@ -48,10 +43,10 @@ public readonly record struct PlatformIdentifier
     /// <para>
     /// This platform "includes" the other platform identifier if any of the following conditions are true:
     /// <list type="bullet">
-    ///     <item>This and the other platform identifier equals (that is, <see cref="Equals(MetaCraft.Core.Platform.PlatformIdentifier?)"/> returns true).</item>
-    ///     <item>Both <see cref="System"/> and <see cref="Architecture"/> properties of this instance are correspondingly <see cref="PlatformSystem.Any"/> and <see cref="PlatformArchitecture.Any"/>.</item>
+    ///     <item>This and the other platform identifier equals (that is, <see cref="Equals(PlatformIdentifier)"/> returns true).</item>
+    ///     <item>Both <see cref="System"/> and <see cref="Architecture"/> properties of this instance are correspondingly <see cref="PlatformSystem.Any"/> and <see cref="PlatformSystem.Any"/>.</item>
     ///     <item><see cref="System"/> is <see cref="PlatformSystem.Any"/>, and <see cref="Architecture"/> property on both instances are the same.</item>
-    ///     <item><see cref="Architecture"/> is <see cref="PlatformArchitecture.Any"/>, and the <see cref="System"/> property on both instances are the same.</item>
+    ///     <item><see cref="Architecture"/> is <see cref="PlatformSystem.Any"/>, and the <see cref="System"/> property on both instances are the same.</item>
     /// </list>
     /// </para>
     /// </remarks>
@@ -149,10 +144,10 @@ public readonly record struct PlatformIdentifier
     {
         var message = result switch
         {
-            ParseFunctionResult.InvalidFormat => Lc.L("Invalid platform identifier format."),
-            ParseFunctionResult.InvalidSystem => Lc.L("Invalid system identifier."),
-            ParseFunctionResult.InvalidArchitecture => Lc.L("Invalid architecture identifier."),
-            _ => Lc.L("Unexpected error occurred when parsing the platform identifier: '{0}'", result)
+            ParseFunctionResult.InvalidFormat => CommonMessages.InvalidPlatformIdentifier,
+            ParseFunctionResult.InvalidSystem => CommonMessages.InvalidSystemIdentifier,
+            ParseFunctionResult.InvalidArchitecture => CommonMessages.InvalidArchitectureIdentifier,
+            _ => string.Format(CommonMessages.PlatformParseError, result)
         };
 
         return new FormatException(message);

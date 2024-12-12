@@ -8,6 +8,7 @@ using MetaCraft;
 using MetaCraft.Commands;
 using MetaCraft.Core.Dependency;
 using MetaCraft.Core.Platform;
+using MetaCraft.Localisation;
 
 var builder = new CommandLineBuilder()
     .EnablePosixBundling()

@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2024 WithLithum <WithLithum@outlook.com>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-namespace MetaCraft.Core.Platform;
+namespace MetaCraft.Common.Platform;
 
 public enum PlatformArchitecture
 {

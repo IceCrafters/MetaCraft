@@ -3,7 +3,7 @@
 
 using System.Diagnostics;
 using System.Runtime.Versioning;
-using MetaCraft.Core.Locales;
+using MetaCraft.Localisation;
 using InvalidOperationException = System.InvalidOperationException;
 
 namespace MetaCraft.Core.Platform;

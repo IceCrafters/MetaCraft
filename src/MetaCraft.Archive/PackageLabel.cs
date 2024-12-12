@@ -3,9 +3,9 @@
 
 using System.Net.Mail;
 using System.Text.Json.Serialization;
-using MetaCraft.Core.Serialization;
+using MetaCraft.Common.Json;
 
-namespace MetaCraft.Core.Manifest;
+namespace MetaCraft.Archive;
 
 public sealed class PackageLabel
 {

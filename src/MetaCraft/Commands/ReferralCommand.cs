@@ -5,6 +5,7 @@ using System.CommandLine;
 using System.CommandLine.Parsing;
 using MetaCraft.Core.Scopes;
 using MetaCraft.Core.Transactions;
+using MetaCraft.Localisation;
 using Semver;
 using Spectre.Console;
 
