@@ -1,6 +1,3 @@
-<!-- SPDX-FileCopyrightText: 2024 WithLithum <WithLithum@outlook.com> -->
-<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
-
 # MetaCraft
 
 MetaCraft is a simple, limited-scope and to an extent, self-contained package
@@ -45,3 +42,6 @@ necessary.
 ## Licence
 
 [GPL-3.0-or-later](COPYING)
+
+<!-- SPDX-FileCopyrightText: 2024 WithLithum <WithLithum@outlook.com> -->
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->

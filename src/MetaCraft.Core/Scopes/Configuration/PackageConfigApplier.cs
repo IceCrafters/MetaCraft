@@ -98,9 +98,14 @@ public static class PackageConfigApplier
             var source = target.Projection.GetProjectionSource(export);
             if (source.HasValue)
             {
-                if (source.Value.Name != manifest.Id
+                var sourceManifest = target.Container.InspectLocal(source.Value);
+                
+                // The package has to exist and valid.
+                if (sourceManifest != null
+                    && (sourceManifest.Id != manifest.Id
                     || source.Value.Version.CompareSortOrderTo(manifest.Version) >= 1
-                    || !manifest.Unitary)
+                    || !manifest.Unitary
+                    || !sourceManifest.Unitary))
                 {
                     throw new TransactionException(Lc.L("Projection '{0}' ({1}) already provided by '{2}' ({3})",
                         export.Name,
