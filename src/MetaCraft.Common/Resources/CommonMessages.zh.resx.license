@@ -1,7 +1,2 @@
 # SPDX-FileCopyrightText: 2024 WithLithum <WithLithum@outlook.com>
 # SPDX-License-Identifier: GPL-3.0-or-later
-
-[*.cs]
-
-# IDE0290: Use primary constructor
-csharp_style_prefer_primary_constructors = false
