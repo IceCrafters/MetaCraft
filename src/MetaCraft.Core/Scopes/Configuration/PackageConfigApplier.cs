@@ -3,6 +3,7 @@
 
 using MetaCraft.Archive;
 using MetaCraft.Common.Platform;
+using MetaCraft.Core.Archive;
 using MetaCraft.Core.Platform;
 using MetaCraft.Core.Transactions;
 using MetaCraft.Localisation;
@@ -118,7 +119,7 @@ public static class PackageConfigApplier
             }
 
             // Check for existence - this allows for a clearer error message.
-            var projectPath = Path.Combine(packageRoot, "contents", export.To);
+            var projectPath = Path.Combine(packageRoot, PackageArchive.ContentsDir, export.Path);
             if (!File.Exists(projectPath))
             {
                 throw new TransactionException(Lc.L("Package '{0}' ({1}) tries to project file '{2}' which does not exist",

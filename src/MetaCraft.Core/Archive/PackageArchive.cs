@@ -9,10 +9,12 @@ namespace MetaCraft.Core.Archive;
 
 public class PackageArchive
 {
-    private const string ManifestFileName = "manifest.json";
+    public const string ContentsDir = "contents";
+    public const string ManifestFileName = "manifest.json";
+    
     private readonly string _fullPath;
 
-    public PackageArchive(PackageManifest manifest, string fullPath)
+    private PackageArchive(PackageManifest manifest, string fullPath)
     {
         Manifest = manifest;
         _fullPath = fullPath;

@@ -128,7 +128,7 @@ public class ProjectionSpace : IProjectionSpace
         var dsc = Path.DirectorySeparatorChar;
         var lowerName = declaration.Name.ToLowerInvariant();
         
-        var realPath = declaration.Path.Replace('/', dsc).ToLowerInvariant();
+        var realPath = declaration.To.Replace('/', dsc).ToLowerInvariant();
         return $"{lowerName}{dsc}{declaration.Version}{dsc}{realPath}{dsc}{declaration.Name}.dll";
     }
 }

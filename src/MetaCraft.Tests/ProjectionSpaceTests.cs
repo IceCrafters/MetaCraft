@@ -16,9 +16,9 @@ public class ProjectionSpaceTests
         var declaration = new AssemblyExportDeclaration
         {
             Name = "Test.Assembly",
-            Path = "lib/netstandard2.0",
+            Path = "Test.Assembly.dll",
             Version = new SemVersion(1, 0, 0),
-            To = "Test.Assembly.dll"
+            To = "lib/netstandard2.0"
         };
         
         // Act
