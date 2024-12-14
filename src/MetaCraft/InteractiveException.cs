@@ -13,6 +13,16 @@ public class InteractiveException : Exception
     {
     }
 
+    public static InteractiveException FromException(string message, Exception exception)
+    {
+        return new InteractiveException($"{message}: {exception.Message}");
+    }
+    
+    public static InteractiveException FileExists(string fileName)
+    {
+        return new InteractiveException(Lc.L("file already exists: {0}", fileName));
+    }
+    
     public static InteractiveException CreateNoSuchPackage(string packageId, SemVersion? version)
     {
         return version != null

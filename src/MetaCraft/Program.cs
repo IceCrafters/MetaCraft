@@ -3,7 +3,6 @@
 
 using System.CommandLine.Builder;
 using System.CommandLine.Parsing;
-using System.Globalization;
 using MetaCraft;
 using MetaCraft.Commands;
 using MetaCraft.Core.Dependency;
@@ -41,6 +40,7 @@ builder.Command.AddCommand(new InstallCommand(scope).Create());
 builder.Command.AddCommand(new RemoveCommand(scope, depChecker).Create());
 builder.Command.AddCommand(new ReferralCommand(scope).Create());
 builder.Command.AddCommand(new ReconfigureCommand(scope).Create());
+builder.Command.AddCommand(PackageCommand.Create());
 
 var cli = builder.Build();
 return cli.Invoke(args);

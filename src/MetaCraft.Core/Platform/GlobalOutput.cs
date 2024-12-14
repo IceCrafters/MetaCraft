@@ -29,4 +29,9 @@ public static class GlobalOutput
     {
         Agents.ForEach(agent => agent.PrintWarning(message));
     }
+
+    public static void Error([Localizable(true)] string message)
+    {
+        Agents.ForEach(agent => agent.PrintError(message));
+    }
 }
